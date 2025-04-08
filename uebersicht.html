@@ -1,27 +1,25 @@
-<!doctype html>
-<!--
-* Übersicht Page - Based on Tabler Template
-* @version 1.1.1
-* @link https://tabler.io
-* Copyright 2018-2025 The Tabler Authors
-* Licensed under MIT
--->
+<!doctype html> <!-- MUST be the very first line -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Übersicht - Spielergebnisse</title>
+
+    <!-- Tabler CSS -->
     <link href="./dist/css/tabler.min.css" rel="stylesheet" />
     <link href="./dist/css/tabler-flags.min.css" rel="stylesheet" />
     <link href="./dist/css/tabler-socials.min.css" rel="stylesheet" />
     <link href="./dist/css/tabler-payments.min.css" rel="stylesheet" />
     <link href="./dist/css/tabler-vendors.min.css" rel="stylesheet" />
     <link href="./preview/css/demo.min.css" rel="stylesheet" />
+
+    <!-- === Libraries FIRST === -->
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include Chart.js Datalabels plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+
     <style>
       /* Optional: Add some margin between charts */
       .chart-card {
@@ -36,7 +34,7 @@
   <body>
     <div class="page">
       <header class="navbar-expand-md">
-         <!-- Navbar content remains the same -->
+         <!-- Navbar content -->
          <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar">
             <div class="container-xl">
@@ -46,46 +44,26 @@
                     <li class="nav-item active"> <!-- Übersicht is active -->
                       <a class="nav-link" href="./uebersicht.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
                         </span>
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
                     <li class="nav-item"> <!-- Finley -->
                       <a class="nav-link" href="./index.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
+                        <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg></span>
                         <span class="nav-link-title"> Finley </span>
                       </a>
                     </li>
                     <li class="nav-item"> <!-- Bent -->
                       <a class="nav-link" href="./bent.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
+                         <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg></span>
                         <span class="nav-link-title"> Bent </span>
                       </a>
                     </li>
                     <li class="nav-item"> <!-- Alex -->
                       <a class="nav-link" href="./alex.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
+                         <span class="nav-link-icon d-md-none d-lg-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg></span>
                         <span class="nav-link-title"> Alex </span>
                       </a>
                     </li>
@@ -106,54 +84,21 @@
           <div class="container-xl">
             <div class="row row-cards">
 
-              <!-- Chart 1: Sprints -->
+              <!-- Chart Canvas Elements -->
               <div class="col-lg-6 chart-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="card-title">Sprintzeiten</h3>
-                    <canvas id="sprintChart"></canvas>
-                  </div>
-                </div>
+                <div class="card"><div class="card-body"><h3 class="card-title">Sprintzeiten</h3><canvas id="sprintChart"></canvas></div></div>
               </div>
-
-              <!-- Chart 2: Agility -->
               <div class="col-lg-6 chart-card">
-                 <div class="card">
-                   <div class="card-body">
-                     <h3 class="card-title">Gewandtheit</h3>
-                     <canvas id="agilityChart"></canvas>
-                   </div>
-                 </div>
+                 <div class="card"><div class="card-body"><h3 class="card-title">Gewandtheit</h3><canvas id="agilityChart"></canvas></div></div>
                </div>
-
-              <!-- Chart 3: Ball Skills (Time) -->
               <div class="col-lg-6 chart-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="card-title">Balltechnik</h3>
-                    <canvas id="ballSkillsTimeChart"></canvas>
-                  </div>
-                </div>
+                <div class="card"><div class="card-body"><h3 class="card-title">Balltechnik</h3><canvas id="ballSkillsTimeChart"></canvas></div></div>
               </div>
-
-               <!-- Chart 4: Balljonglieren -->
-              <div class="col-lg-6 chart-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="card-title">Balljonglieren</h3>
-                    <canvas id="jugglingChart"></canvas>
-                  </div>
-                </div>
+               <div class="col-lg-6 chart-card">
+                <div class="card"><div class="card-body"><h3 class="card-title">Balljonglieren</h3><canvas id="jugglingChart"></canvas></div></div>
               </div>
-
-              <!-- Chart 5: YoYo Test -->
               <div class="col-lg-6 chart-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="card-title">YoYo IR1 Test</h3>
-                    <canvas id="yoyoChart"></canvas>
-                  </div>
-                </div>
+                <div class="card"><div class="card-body"><h3 class="card-title">YoYo IR1 Test</h3><canvas id="yoyoChart"></canvas></div></div>
               </div>
 
             </div> <!-- End row -->
@@ -162,238 +107,119 @@
       </div> <!-- End page-wrapper -->
     </div> <!-- End page -->
 
+    <!-- Tabler JS (deferred, runs after DOM ready but potentially before/after our listener) -->
     <script src="./dist/js/tabler.min.js" defer></script>
 
+    <!-- === Custom Chart Logic LAST, inside DOMContentLoaded === -->
     <script>
-      // Register the datalabels plugin globally
-      Chart.register(ChartDataLabels);
+      document.addEventListener('DOMContentLoaded', function() {
+        // Ensure Chart and ChartDataLabels are available *now*
+        if (typeof Chart === 'undefined') {
+            console.error("FATAL: Chart.js library not loaded before DOMContentLoaded!");
+            return; // Stop execution if Chart isn't loaded
+        }
+         if (typeof ChartDataLabels === 'undefined') {
+            console.error("FATAL: ChartDataLabels plugin not loaded before DOMContentLoaded!");
+            // Might still be able to draw charts, but labels will fail
+            // return; // Optional: stop if labels are critical
+        }
 
-      // Raw Data Input (same as before)
-       const rawData = [
-         { uebung: "10m Sprint", name: "Finley", ergebnis: 2.00 },
-         { uebung: "20m Sprint", name: "Finley", ergebnis: 3.59 },
-         { uebung: "Gewandtheit", name: "Finley", ergebnis: 7.81 },
-         { uebung: "Dribbling", name: "Finley", ergebnis: 10.27 },
-         { uebung: "Balljonglieren", name: "Finley", ergebnis: 0.00 },
-         { uebung: "Ballkontrolle", name: "Finley", ergebnis: 10.82 },
-         { uebung: "YoYo IR1", name: "Finley", ergebnis: 640 },
-         { uebung: "10m Sprint", name: "Alex", ergebnis: 2.16 },
-         { uebung: "20m Sprint", name: "Alex", ergebnis: 3.78 },
-         { uebung: "Gewandtheit", name: "Alex", ergebnis: 7.39 },
-         { uebung: "Dribbling", name: "Alex", ergebnis: 10.00 },
-         { uebung: "Ballkontrolle", name: "Alex", ergebnis: 8.92 },
-         { uebung: "YoYo IR1", name: "Alex", ergebnis: 1720 },
-         { uebung: "10m Sprint", name: "Bent", ergebnis: 2.32 },
-         { uebung: "20m Sprint", name: "Bent", ergebnis: 3.82 },
-         { uebung: "Gewandtheit", name: "Bent", ergebnis: 9.17 },
-         { uebung: "Balljonglieren", name: "Bent", ergebnis: 3 },
-       ];
+        // Register the plugin *after* confirming both exist
+        Chart.register(ChartDataLabels);
 
-      // --- Helper Function to Process Data (remains the same) ---
-      function getChartData(exercises, players) { /* ... unchanged ... */
-        const datasets = players.map((player, index) => {
-          const data = exercises.map(exercise => {
-            const record = rawData.find(item => item.name === player && item.uebung === exercise);
-            return record && (record.ergebnis !== undefined && record.ergebnis !== null && record.ergebnis !== '') ? parseFloat(record.ergebnis) : null; // Ensure numbers
-          });
+        // --- Data and Helper Functions (Keep these inside the listener scope) ---
+         const rawData = [
+           { uebung: "10m Sprint", name: "Finley", ergebnis: 2.00 }, { uebung: "20m Sprint", name: "Finley", ergebnis: 3.59 }, { uebung: "Gewandtheit", name: "Finley", ergebnis: 7.81 }, { uebung: "Dribbling", name: "Finley", ergebnis: 10.27 }, { uebung: "Balljonglieren", name: "Finley", ergebnis: 0.00 }, { uebung: "Ballkontrolle", name: "Finley", ergebnis: 10.82 }, { uebung: "YoYo IR1", name: "Finley", ergebnis: 640 },
+           { uebung: "10m Sprint", name: "Alex", ergebnis: 2.16 }, { uebung: "20m Sprint", name: "Alex", ergebnis: 3.78 }, { uebung: "Gewandtheit", name: "Alex", ergebnis: 7.39 }, { uebung: "Dribbling", name: "Alex", ergebnis: 10.00 }, { uebung: "Ballkontrolle", name: "Alex", ergebnis: 8.92 }, { uebung: "YoYo IR1", name: "Alex", ergebnis: 1720 },
+           { uebung: "10m Sprint", name: "Bent", ergebnis: 2.32 }, { uebung: "20m Sprint", name: "Bent", ergebnis: 3.82 }, { uebung: "Gewandtheit", name: "Bent", ergebnis: 9.17 }, { uebung: "Balljonglieren", name: "Bent", ergebnis: 3 },
+         ];
 
-          const colors = [ 'rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)' ];
-          const borderColors = [ 'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)' ];
-
-          return {
-            label: player,
-            data: data,
-            backgroundColor: colors[index % colors.length],
-            borderColor: borderColors[index % borderColors.length],
-            borderWidth: 1
-          };
-        });
-
-        return {
-          labels: exercises,
-          datasets: datasets
-        };
-      }
-
-       // --- Helper Function to calculate Y-axis range for time charts (remains the same) ---
-       function calculateTimeAxisRange(datasets) { /* ... unchanged ... */
-            let minVal = Infinity;
-            let maxVal = -Infinity;
-
-            datasets.forEach(dataset => {
-                dataset.data.forEach(value => {
-                    if (value !== null && !isNaN(value)) {
-                        if (value < minVal) minVal = value;
-                        if (value > maxVal) maxVal = value;
-                    }
-                });
+        function getChartData(exercises, players) {
+            const datasets = players.map((player, index) => {
+            const data = exercises.map(exercise => {
+                const record = rawData.find(item => item.name === player && item.uebung === exercise);
+                const value = record?.ergebnis;
+                if (value !== undefined && value !== null && value !== '') { const num = parseFloat(value); return isNaN(num) ? null : num; } return null;
             });
-
-            if (minVal === Infinity) { return { min: 0, max: 10 }; } // Default range
-
-            const range = maxVal - minVal;
-            const padding = Math.max(range * 0.1, 0.1);
-
-            const suggestedMin = Math.max(0, Math.floor((minVal - padding * 1.5) * 10) / 10);
-            const suggestedMax = Math.ceil((maxVal + padding) * 10) / 10;
-
-            if (suggestedMax <= suggestedMin + 0.1) { // Ensure a minimum visible range
-                return { min: Math.max(0, suggestedMin - 0.2), max: suggestedMax + 0.2 };
-            }
-
-            return { min: suggestedMin, max: suggestedMax };
+            const colors = [ 'rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)' ]; const borderColors = [ 'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)' ];
+            return { label: player, data: data, backgroundColor: colors[index % colors.length], borderColor: borderColors[index % borderColors.length], borderWidth: 1 };
+            });
+            return { labels: exercises, datasets: datasets };
         }
 
-       // --- Default Datalabels Configuration (remains the same) ---
-       const defaultDatalabelsConfig = { /* ... unchanged ... */
-            anchor: 'end',
-            align: 'top',
-            formatter: (value, context) => {
-                 if (value === null) return null;
-                 let chartId = context.chart.canvas.id;
-                 if (chartId === 'jugglingChart') return value; // Just the number for juggling
-                 if (chartId === 'yoyoChart') return value + 'm'; // Number + 'm' for YoYo
-                 return value.toFixed(2) + 's'; // Default: Number + 's' for time
-            },
-            font: { weight: 'bold', size: 10 },
-            color: '#444'
+        function calculateTimeAxisRange(datasets) { /* ... function code unchanged ... */
+            if (!Array.isArray(datasets) || datasets.length === 0) { return { min: 0, max: 10 }; }
+            let minVal = Infinity, maxVal = -Infinity, hasValidData = false;
+            datasets.forEach(dataset => { if (dataset && Array.isArray(dataset.data)) { dataset.data.forEach(value => { if (value !== null && typeof value === 'number' && !isNaN(value)) { if (value < minVal) minVal = value; if (value > maxVal) maxVal = value; hasValidData = true; } }); } });
+            if (!hasValidData) { return { min: 0, max: 10 }; } const range = maxVal - minVal; const padding = Math.max(range * 0.1, 0.1); const suggestedMin = Math.max(0, Math.floor((minVal - padding * 1.5) * 10) / 10); const suggestedMax = Math.ceil((maxVal + padding) * 10) / 10;
+            if (suggestedMax <= suggestedMin + 0.1) { return { min: Math.max(0, suggestedMin - 0.2), max: suggestedMax + 0.2 }; } return { min: suggestedMin, max: suggestedMax };
+        }
+
+        const defaultDatalabelsConfig = { /* ... config unchanged ... */
+            anchor: 'end', align: 'top', formatter: (value, context) => { if (value === null) return null; let chartId = context.chart?.canvas?.id; if (chartId === 'jugglingChart') return value; if (chartId === 'yoyoChart') return value + 'm'; if (typeof value === 'number') { return value.toFixed(2) + 's'; } return value; }, font: { weight: 'bold', size: 10 }, color: '#444'
         };
 
-      // --- Chart Configuration ---
-      const players = ["Finley", "Alex", "Bent"];
+       function filterEmptyDatasets(chartData) { /* ... function code unchanged ... */
+            if (!chartData || !Array.isArray(chartData.datasets)) { console.error("filterEmptyDatasets received invalid chartData:", chartData); return { labels: chartData?.labels || [], datasets: [] }; }
+            const filteredDatasets = chartData.datasets.filter(dataset => dataset && Array.isArray(dataset.data) && dataset.data.some(value => value !== null && typeof value === 'number' && !isNaN(value)) );
+            return { labels: chartData.labels, datasets: filteredDatasets };
+       }
 
-      // Chart 1: Sprints
-      const sprintExercises = ["10m Sprint", "20m Sprint"];
-      const sprintData = getChartData(sprintExercises, players);
-      const sprintRange = calculateTimeAxisRange(sprintData.datasets);
-      const sprintCtx = document.getElementById('sprintChart').getContext('2d');
-      new Chart(sprintCtx, {
-        type: 'bar',
-        data: sprintData,
-        options: {
-          responsive: true,
-          plugins: {
-             title: { display: false }, // Already removed from H3, keep false here
-             legend: { position: 'bottom' },
-             tooltip: { callbacks: { label: (context) => `${context.dataset.label || ''}: ${context.parsed.y !== null ? context.parsed.y.toFixed(2) + ' s' : 'N/A'}` } },
-             datalabels: defaultDatalabelsConfig
-          },
-          scales: {
-            y: {
-              min: sprintRange.min,
-              max: sprintRange.max,
-              title: { display: true, text: 'Zeit (s)' } // Y-axis label still useful
+        // --- Chart Creation Logic (using helper function) ---
+        const players = ["Finley", "Alex", "Bent"];
+
+        function createChart(canvasId, exercises, type = 'bar', optionsOverrides = {}, axisType = 'time') {
+            const canvas = document.getElementById(canvasId); // Get canvas element first
+             if (!canvas) { console.error(`Canvas element with ID "${canvasId}" not found.`); return null; }
+             const ctx = canvas.getContext('2d'); // Get context only if canvas exists
+             if (!ctx) { console.error(`Could not get 2D context for canvas "${canvasId}".`); return null; }
+
+            let chartData = getChartData(exercises, players);
+            chartData = filterEmptyDatasets(chartData);
+            if (chartData.datasets.length === 0) {
+                console.warn(`No data to display for chart "${canvasId}" after filtering.`);
+                // Optional: Display a message on the canvas?
+                 // ctx.font = "16px Arial"; ctx.textAlign = "center"; ctx.fillText("Keine Daten verfügbar", canvas.width / 2, canvas.height / 2);
+                return null; // Don't create chart if no data
             }
-          }
-        }
-      });
 
-      // Chart 2: Agility
-      const agilityExercises = ["Gewandtheit"];
-      const agilityData = getChartData(agilityExercises, players);
-      const agilityRange = calculateTimeAxisRange(agilityData.datasets);
-      const agilityCtx = document.getElementById('agilityChart').getContext('2d');
-      new Chart(agilityCtx, {
-        type: 'bar',
-        data: agilityData,
-        options: {
-          responsive: true,
-          plugins: {
-             title: { display: false },
-             legend: { position: 'bottom' },
-             tooltip: { callbacks: { label: (context) => `${context.dataset.label || ''}: ${context.parsed.y !== null ? context.parsed.y.toFixed(2) + ' s' : 'N/A'}` } },
-             datalabels: defaultDatalabelsConfig
-          },
-          scales: {
-             y: {
-              min: agilityRange.min,
-              max: agilityRange.max,
-              title: { display: true, text: 'Zeit (s)' } // Y-axis label
-             },
-             x: { ticks: { display: true } }
-          },
-           indexAxis: 'x',
-        }
-      });
-
-      // Chart 3: Ball Skills (Time)
-      const ballSkillsTimeExercises = ["Dribbling", "Ballkontrolle"];
-      const ballSkillsTimeData = getChartData(ballSkillsTimeExercises, players);
-      const ballSkillsTimeRange = calculateTimeAxisRange(ballSkillsTimeData.datasets);
-      const ballSkillsTimeCtx = document.getElementById('ballSkillsTimeChart').getContext('2d');
-      new Chart(ballSkillsTimeCtx, {
-        type: 'bar',
-        data: ballSkillsTimeData,
-        options: {
-          responsive: true,
-           plugins: {
-             title: { display: false },
-             legend: { position: 'bottom' },
-             tooltip: { callbacks: { label: (context) => `${context.dataset.label || ''}: ${context.parsed.y !== null ? context.parsed.y.toFixed(2) + ' s' : 'N/A'}` } },
-             datalabels: defaultDatalabelsConfig
-           },
-          scales: {
-            y: {
-              min: ballSkillsTimeRange.min,
-              max: ballSkillsTimeRange.max,
-              title: { display: true, text: 'Zeit (s)' } // Y-axis label
+            let scalesConfig = {};
+            if (axisType === 'time') { /* ... time scale config ... */
+                const range = calculateTimeAxisRange(chartData.datasets); scalesConfig = { y: { min: range.min, max: range.max, title: { display: true, text: 'Zeit (s)' } }, x: exercises.length === 1 ? { ticks: { display: true } } : {} };
+            } else if (axisType === 'count') { /* ... count scale config ... */
+                scalesConfig = { y: { beginAtZero: true, title: { display: true, text: 'Anzahl' } }, x: { ticks: { display: true } } };
+            } else if (axisType === 'distance') { /* ... distance scale config ... */
+                 scalesConfig = { y: { beginAtZero: true, title: { display: true, text: 'Distanz (m)' } }, x: { ticks: { display: true } } };
             }
-          }
-        }
-      });
 
-       // Chart 4: Balljonglieren
-      const jugglingExercises = ["Balljonglieren"];
-      const jugglingData = getChartData(jugglingExercises, players);
-      const jugglingCtx = document.getElementById('jugglingChart').getContext('2d');
-      new Chart(jugglingCtx, {
-        type: 'bar',
-        data: jugglingData,
-        options: {
-          responsive: true,
-           plugins: {
-             title: { display: false },
-             legend: { position: 'bottom' },
-             tooltip: { callbacks: { label: (context) => `${context.dataset.label || ''}: ${context.parsed.y !== null ? context.parsed.y + ' mal' : 'N/A'}` } },
-             datalabels: defaultDatalabelsConfig
-           },
-           indexAxis: 'x',
-           scales: {
-                x: { ticks: { display: true } },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Anzahl' } // Y-axis label
-                }
-           }
-        }
-      });
+            const defaultOptions = { /* ... default options structure unchanged ... */
+                responsive: true, plugins: { title: { display: false }, legend: { position: 'bottom' }, tooltip: { callbacks: { label: (context) => { let label = context.dataset.label || ''; if (label) label += ': '; if (context.parsed.y !== null && typeof context.parsed.y === 'number') { if (axisType === 'time') label += context.parsed.y.toFixed(2) + ' s'; else if (axisType === 'count') label += context.parsed.y + ' mal'; else if (axisType === 'distance') label += context.parsed.y + ' m'; else label += context.parsed.y; } else { label += 'N/A'; } return label; } } }, datalabels: defaultDatalabelsConfig }, scales: scalesConfig, indexAxis: exercises.length === 1 ? 'x' : 'x'
+            };
 
-       // Chart 5: YoYo Test
-      const yoyoExercises = ["YoYo IR1"];
-      const yoyoData = getChartData(yoyoExercises, players);
-      const yoyoCtx = document.getElementById('yoyoChart').getContext('2d');
-      new Chart(yoyoCtx, {
-        type: 'bar',
-        data: yoyoData,
-        options: {
-          responsive: true,
-           plugins: {
-              title: { display: false },
-              legend: { position: 'bottom' },
-              tooltip: { callbacks: { label: (context) => `${context.dataset.label || ''}: ${context.parsed.y !== null ? context.parsed.y + ' m' : 'N/A'}` } },
-              datalabels: defaultDatalabelsConfig
-           },
-           indexAxis: 'x',
-           scales: {
-                x: { ticks: { display: true } },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Distanz (m)' } // Y-axis label
-                }
-           }
-        }
-      });
+            const finalOptions = { ...defaultOptions, ...optionsOverrides };
+            if (optionsOverrides.plugins) finalOptions.plugins = {...defaultOptions.plugins, ...optionsOverrides.plugins};
+            if (optionsOverrides.scales) finalOptions.scales = {...defaultOptions.scales, ...optionsOverrides.scales};
 
+             // Error Handling during Chart Creation
+            try {
+                 return new Chart(ctx, { type: type, data: chartData, options: finalOptions });
+            } catch (error) {
+                console.error(`Error creating chart "${canvasId}":`, error);
+                return null;
+            }
+        }
+
+        // Create Charts using the helper function
+        console.log("Attempting to create charts...");
+        createChart('sprintChart', ["10m Sprint", "20m Sprint"], 'bar', {}, 'time');
+        createChart('agilityChart', ["Gewandtheit"], 'bar', {}, 'time');
+        createChart('ballSkillsTimeChart', ["Dribbling", "Ballkontrolle"], 'bar', {}, 'time');
+        createChart('jugglingChart', ["Balljonglieren"], 'bar', {}, 'count');
+        createChart('yoyoChart', ["YoYo IR1"], 'bar', {}, 'distance');
+        console.log("Chart creation calls finished.");
+
+
+      }); // End of DOMContentLoaded listener
     </script>
 
   </body>
