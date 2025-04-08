@@ -1,0 +1,353 @@
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.1.1
+* @link https://tabler.io
+* Copyright 2018-2025 The Tabler Authors
+* Copyright 2018-2025 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="en">  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Alex - Tabler Template</title>
+    <!-- BEGIN STYLES -->
+    <link href="./dist/css/tabler.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-flags.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-socials.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-payments.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-vendors.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-marketing.min.css?1740918423" rel="stylesheet" />
+    <link href="./preview/css/demo.min.css?1740918423" rel="stylesheet" />
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+    </style>
+  </head>
+  <body>
+    <script src="./preview/js/demo-theme.min.js?1740918423"></script>
+    <div class="page">      <header class="navbar navbar-expand-md d-print-none">
+      </header>
+      <header class="navbar-expand-md">
+        <div class="collapse navbar-collapse" id="navbar-menu">
+          <div class="navbar">
+            <div class="container-xl">
+              <!-- BEGIN NAVBAR LOGO -->
+              <div class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                <a href="."></a>
+              </div>
+              <!-- END NAVBAR LOGO -->
+              <div class="row flex-fill align-items-center">
+                <div class="col">
+                  <ul class="navbar-nav">                    <li class="nav-item">
+                      <a class="nav-link" href="./">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-1"
+                          >
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title">Finley</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="./bent.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title">Bent</span>
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="./alex.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title">Alex</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="page-wrapper">
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <div class="page-pretitle">Overview</div>
+                <h2 class="page-title">Alex</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="row row-cards mb-4" id="kpi-container">
+              <!-- KPIs will be injected here by JavaScript -->
+            </div>
+            <div class="row row-cards" id="charts-container">
+              <!-- Charts will be injected here by JavaScript -->
+            </div>
+          </div>
+        </div>
+        <!-- Footer section... -->
+      </div>
+    </div>
+    <!-- Scripts section -->
+    <script src="./libs/apexcharts/dist/apexcharts.min.js?1740918423" defer></script>
+    <script src="./libs/jsvectormap/dist/jsvectormap.min.js?1740918423" defer></script>
+    <script src="./libs/jsvectormap/dist/maps/world.js?1740918423" defer></script>
+    <script src="./libs/jsvectormap/dist/maps/world-merc.js?1740918423" defer></script>
+    <script src="./dist/js/tabler.min.js?1740918423" defer></script>
+    <script src="./preview/js/demo.min.js?1740918423" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Helper function to calculate percentile rank
+        function calculatePercentileRank(alexResult, dfbValues, dfbCategories, exerciseName) {
+          const higherIsBetter = exerciseName === 'Balljonglieren';
+          let percentile = '<' + dfbCategories[0];
+          let foundRank = false;
+
+          for (let i = dfbCategories.length - 1; i >= 0; i--) {
+            const dfbValue = dfbValues[i];
+            const dfbPercentile = dfbCategories[i];
+
+            if (higherIsBetter) {
+              if (alexResult >= dfbValue) {
+                percentile = dfbPercentile;
+                foundRank = true;
+                break;
+              }
+            } else {
+              if (alexResult <= dfbValue) {
+                percentile = dfbPercentile;
+                foundRank = true;
+                break;
+              }
+            }
+          }
+
+          if (foundRank) {
+            const bestDfbValue = dfbValues[dfbValues.length - 1];
+            const bestDfbPercentile = dfbCategories[dfbCategories.length - 1];
+            if (higherIsBetter) {
+              if (alexResult > bestDfbValue) {
+                percentile = '>' + bestDfbPercentile;
+              }
+            } else {
+              if (alexResult < bestDfbValue) {
+                percentile = '>' + bestDfbPercentile;
+              }
+            }
+          } else {
+            percentile = '<' + dfbCategories[0];
+          }
+
+          let rankString = '';
+          let label = '';
+          let numericPercentile = 0;
+
+          if (percentile.startsWith('>')) {
+            numericPercentile = parseFloat(percentile.substring(1).replace('%',''));
+            rankString = `Better than ${numericPercentile}% of players`;
+          } else if (percentile.startsWith('<')) {
+            numericPercentile = 0;
+            rankString = `Below the ${dfbCategories[0]} percentile`;
+          } else {
+            numericPercentile = parseFloat(percentile.replace('%',''));
+            rankString = `Better than ${numericPercentile}% of players`;
+          }
+
+          if (numericPercentile >= 97) {
+            label = 'Ausgezeichnet';
+          } else if (numericPercentile >= 90) {
+            label = 'Sehr gut';
+          } else if (numericPercentile >= 80) {
+            label = 'Gut';
+          } else if (numericPercentile >= 30) {
+            label = 'Durchschnittlich';
+          } else {
+            label = 'Unterdurchschnittlich';
+          }
+
+          return { rankString, label };
+        }
+
+        const chartData = [
+          {
+            exercise: "10m Sprint",
+            finleyResult: 2.16,
+            dfbCategories: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [2.33, 2.28, 2.24, 2.21, 2.18, 2.16, 2.13, 2.10, 2.05, 1.99]
+          },
+          {
+            exercise: "20m Sprint",
+            finleyResult: 3.78,
+            dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [4.14, 4.01, 3.93, 3.87, 3.82, 3.78, 3.74, 3.69, 3.64, 3.57, 3.47]
+          },
+          {
+            exercise: "Gewandtheit",
+            finleyResult: 7.39,
+            dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [9.66, 9.33, 9.07, 8.90, 8.77, 8.66, 8.54, 8.42, 8.28, 8.11, 7.91]
+          },
+          {
+            exercise: "Dribbling",
+            finleyResult: 10.00,
+            dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
+          }
+        ];
+
+        const kpiContainer = document.getElementById('kpi-container');
+        const chartsContainer = document.getElementById('charts-container');
+
+        chartData.forEach((data, index) => {
+          const chartId = `chart-exercise-${index}`;
+          const kpiId = `kpi-exercise-${index}`;
+
+          const rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+
+          const kpiColDiv = document.createElement('div');
+          kpiColDiv.className = 'col-md-4 mb-3';
+
+          let labelHtml = '';
+          if (rankInfo.label) {
+            let badgeColor = 'secondary';
+            if (rankInfo.label === 'Gut') badgeColor = 'info';
+            if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
+            if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+            if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
+            if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+            labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
+          }
+
+          kpiColDiv.innerHTML = `
+            <div class="card" id="${kpiId}">
+              <div class="card-body">
+                <h3 class="card-title mb-1">${data.exercise}${labelHtml}</h3>
+                <p class="text-secondary mb-1">Result: ${data.finleyResult?.toFixed(2) ?? 'N/A'}</p>
+                <p class="text-secondary mb-0">${rankInfo.rankString}</p>
+              </div>
+            </div>
+          `;
+          kpiContainer.appendChild(kpiColDiv);
+
+          const chartColDiv = document.createElement('div');
+          chartColDiv.className = 'col-lg-6 mb-4';
+          chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
+          chartsContainer.appendChild(chartColDiv);
+
+          const alexLineData = data.dfbCategories.map(() => data.finleyResult);
+
+          const options = {
+            chart: {
+              type: 'line',
+              height: 350,
+              toolbar: {
+                show: true
+              },
+              zoom: {
+                enabled: false
+              }
+            },
+            series: [
+              {
+                name: 'DFB Percentile',
+                data: data.dfbValues
+              },
+              {
+                name: 'Alex',
+                data: alexLineData
+              }
+            ],
+            xaxis: {
+              categories: data.dfbCategories,
+              title: {
+                text: 'DFB Percentile'
+              }
+            },
+            yaxis: {
+              title: {
+                text: 'Ergebnis (Lower is better, except Balljonglieren)'
+              },
+              reversed: ['10m Sprint', '20m Sprint', 'Gewandtheit', 'Dribbling', 'Ballkontrolle'].includes(data.exercise)
+            },
+            title: {
+              text: data.exercise,
+              align: 'center'
+            },
+            stroke: {
+              curve: 'smooth',
+              width: [4, 2]
+            },
+            markers: {
+              size: 5
+            },
+            tooltip: {
+              y: {
+                formatter: function (val) {
+                  return val.toFixed(2)
+                }
+              }
+            },
+            legend: {
+              position: 'top',
+              horizontalAlign: 'right',
+              floating: true,
+              offsetY: -25,
+              offsetX: -5
+            }
+          };
+
+          if (window.ApexCharts) {
+            new ApexCharts(document.querySelector(`#${chartId}`), options).render();
+          } else {
+            console.error("ApexCharts library not loaded.");
+          }
+        });
+
+        const revenueChart = document.getElementById("chart-revenue-bg");
+        if (revenueChart) revenueChart.closest('.col-sm-6')?.remove();
+        const clientsChart = document.getElementById("chart-new-clients");
+        if (clientsChart) clientsChart.closest('.col-sm-6')?.remove();
+        const usersChart = document.getElementById("chart-active-users");
+        if (usersChart) usersChart.closest('.col-sm-6')?.remove();
+        const mentionsChart = document.getElementById("chart-mentions");
+        if (mentionsChart) mentionsChart.closest('.col-lg-12')?.remove();
+        const mapWorld = document.getElementById("map-world");
+        if (mapWorld) mapWorld.closest('.col-lg-8')?.remove();
+        const sparklineActivity = document.getElementById("sparkline-activity");
+        if (sparklineActivity) sparklineActivity.closest('.col-lg-4')?.remove();
+        const devActivity = document.getElementById("chart-development-activity");
+        if (devActivity) devActivity.closest('.col-md-6')?.remove();
+        for (let i = 1; i <= 6; i++) {
+          const bounceRateChart = document.getElementById(`sparkline-bounce-rate-${i}`);
+          if (bounceRateChart) bounceRateChart.closest('tr')?.remove();
+        }
+      });
+    </script>
+  </body>
+</html>
