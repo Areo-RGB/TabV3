@@ -11,7 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Alex - Tabler Template</title>
+    <title>Quo-Vadis</title>
     <!-- BEGIN STYLES -->
     <link href="./dist/css/tabler.min.css?1740918423" rel="stylesheet" />
     <link href="./dist/css/tabler-flags.min.css?1740918423" rel="stylesheet" />
@@ -125,7 +125,15 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Helper function to calculate percentile rank
         function calculatePercentileRank(alexResult, dfbValues, dfbCategories, exerciseName) {
-          const higherIsBetter = exerciseName === 'Balljonglieren';
+          // Handle cases where DFB data is missing
+          if (!dfbValues || dfbValues.length === 0 || !dfbCategories || dfbCategories.length === 0) {
+            // Return default values indicating no rank is available
+            // Check if a result exists to display it, otherwise show N/A
+            const resultDisplay = alexResult !== undefined && alexResult !== null ? alexResult : 'N/A';
+            return { rankString: 'Ranking data not available', label: '', resultDisplay: resultDisplay };
+          }
+
+          const higherIsBetter = ['YoYo IR1', 'Balljonglieren'].includes(exerciseName); // YoYo IR1 is higher is better
           let percentile = '<' + dfbCategories[0];
           let foundRank = false;
 
@@ -218,6 +226,12 @@
             finleyResult: 10.00,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
+          },
+          {
+            exercise: "YoYo IR1",
+            finleyResult: 1720, // User provided value
+            dfbCategories: [], // No DFB data provided
+            dfbValues: []      // No DFB data provided
           }
         ];
 
@@ -228,39 +242,52 @@
           const chartId = `chart-exercise-${index}`;
           const kpiId = `kpi-exercise-${index}`;
 
-          const rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+          // Calculate Percentile Rank and Label (or use specific label for YoYo IR1)
+          let rankInfo;
+          let labelHtml = ''; // Initialize labelHtml
+
+          if (data.exercise === "YoYo IR1") {
+            // Manually set label and rank string for YoYo IR1 as requested
+            rankInfo = { rankString: 'Ranking data not available', label: 'Ausgezeichnet' }; // Use provided label
+            labelHtml = `<span class="badge bg-purple-lt ms-2">${rankInfo.label}</span>`; // Use purple color for Ausgezeichnet
+          } else {
+             // Calculate rank for other exercises
+            rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+             // Determine badge color and create label HTML if a label exists
+            if (rankInfo.label) {
+              let badgeColor = 'secondary';
+              if (rankInfo.label === 'Gut') badgeColor = 'info';
+              if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
+              if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+              if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
+              if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
+            }
+          }
 
           const kpiColDiv = document.createElement('div');
           kpiColDiv.className = 'col-md-4 mb-3';
 
-          let labelHtml = '';
-          if (rankInfo.label) {
-            let badgeColor = 'secondary';
-            if (rankInfo.label === 'Gut') badgeColor = 'info';
-            if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-            if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
-            if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
-            if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-            labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
-          }
-
+          // Generate the inner HTML for the KPI card (labelHtml is now determined above)
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
                 <h3 class="card-title mb-1">${data.exercise}${labelHtml}</h3>
-                <p class="text-secondary mb-1">Result: ${data.finleyResult?.toFixed(2) ?? 'N/A'}</p>
+                <p class="text-secondary mb-1">Result: ${data.exercise === 'YoYo IR1' ? data.finleyResult + 'm' : (data.finleyResult?.toFixed(2) ?? 'N/A')}</p>
                 <p class="text-secondary mb-0">${rankInfo.rankString}</p>
               </div>
             </div>
           `;
           kpiContainer.appendChild(kpiColDiv);
 
-          const chartColDiv = document.createElement('div');
-          chartColDiv.className = 'col-lg-6 mb-4';
-          chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
-          chartsContainer.appendChild(chartColDiv);
+          // Only create chart elements if the exercise is NOT "YoYo IR1"
+          if (data.exercise !== "YoYo IR1") {
+            const chartColDiv = document.createElement('div');
+            chartColDiv.className = 'col-lg-6 mb-4';
+            chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
+            chartsContainer.appendChild(chartColDiv);
 
-          const alexLineData = data.dfbCategories.map(() => data.finleyResult);
+            const alexLineData = data.dfbCategories.map(() => data.finleyResult);
 
           const options = {
             chart: {
@@ -322,10 +349,19 @@
             }
           };
 
-          if (window.ApexCharts) {
+          // Only render chart if DFB data is available and ApexCharts is loaded
+          if (window.ApexCharts && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
             new ApexCharts(document.querySelector(`#${chartId}`), options).render();
-          } else {
+          } else if (!window.ApexCharts) {
             console.error("ApexCharts library not loaded.");
+          } else {
+            // Display a message if chart cannot be rendered due to missing data
+            const chartDiv = document.querySelector(`#${chartId}`);
+            if (chartDiv) {
+              chartDiv.innerHTML = '<p class="text-center text-muted">Chart data not available for this exercise.</p>';
+            }
+          }
+          // End of conditional chart creation
           }
         });
 
