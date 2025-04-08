@@ -26,8 +26,8 @@
   </head>
   <body>
     <script src="./preview/js/demo-theme.min.js?1740918423"></script>
-    <div class="page">      <header class="navbar navbar-expand-md d-print-none">
-      </header>
+    <div class="page">
+      <!-- Removed the empty header element that was here -->
       <header class="navbar-expand-md">
         <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar">
@@ -315,10 +315,9 @@
               title: {
                 text: 'DFB Percentile'
               }
-            },
-            yaxis: {
+            },            yaxis: {
               title: {
-                text: 'Ergebnis (Lower is better, except Balljonglieren)'
+                text: 'Ergebnis'
               },
               reversed: ['10m Sprint', '20m Sprint', 'Gewandtheit', 'Dribbling', 'Ballkontrolle'].includes(data.exercise)
             },
