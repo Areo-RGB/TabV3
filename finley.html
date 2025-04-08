@@ -41,6 +41,13 @@
     <!-- END DEMO THEME SCRIPT -->
     <div class="page">
       <!-- BEGIN NAVBAR  -->
+      <header class="navbar navbar-expand-md d-print-none">
+        <div class="container-xl">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </header>
       <header class="navbar-expand-md">
         <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar">
@@ -50,8 +57,8 @@
                   <!-- BEGIN NAVBAR MENU - NOW WITH 4 ITEMS -->
                   <ul class="navbar-nav">
                     <!-- Item 1: Übersicht -->
-                    <li class="nav-item"> <!-- Übersicht is active -->
-                      <a class="nav-link" href="./uebersicht.html">
+                    <li class="nav-item"> <!-- Übersicht -->
+                      <a class="nav-link" href="./index.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -130,7 +137,7 @@
                 <!-- Page pre-title -->
                 <div class="page-pretitle">Overview</div>
                 <!-- Page title matches the active nav item -->
-                <h2 class="page-title">Alex</h2>
+                <h2 class="page-title">Finley</h2>
               </div>
             </div>
           </div>
@@ -429,36 +436,47 @@
           return { rankString, label }; // Return both pieces of info
         }
 
-        // Assuming the data here should be for ALEX since Alex is the active nav item
+        // Assuming the data here should be for Finley since Finley is the active nav item
         const chartData = [
            {
             exercise: "10m Sprint",
-            finleyResult: 2.16, // Using Alex's data from previous version
+            finleyResult: 2.00,
             dfbCategories: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [2.33, 2.28, 2.24, 2.21, 2.18, 2.16, 2.13, 2.10, 2.05, 1.99]
           },
           {
             exercise: "20m Sprint",
-            finleyResult: 3.78, // Using Alex's data
+            finleyResult: 3.59,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [4.14, 4.01, 3.93, 3.87, 3.82, 3.78, 3.74, 3.69, 3.64, 3.57, 3.47]
           },
           {
             exercise: "Gewandtheit",
-            finleyResult: 7.39, // Using Alex's data
+            finleyResult: 7.81,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [9.66, 9.33, 9.07, 8.90, 8.77, 8.66, 8.54, 8.42, 8.28, 8.11, 7.91]
           },
           {
             exercise: "Dribbling",
-            finleyResult: 10.00, // Using Alex's data
+            finleyResult: 10.27,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
           },
-           // Assuming Alex didn't do Ballkontrolle or Balljonglieren? Add if needed.
+          {
+            exercise: "Balljonglieren",
+            finleyResult: 0.00,
+            dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00]
+          },
+          {
+            exercise: "Ballkontrolle",
+            finleyResult: 10.82,
+            dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
+          },
           {
             exercise: "YoYo IR1",
-            finleyResult: 1720, // Using Alex's data
+            finleyResult: 640,
             dfbCategories: [], // No DFB data provided
             dfbValues: []      // No DFB data provided
           }
@@ -477,9 +495,9 @@
           let labelHtml = ''; // Initialize labelHtml
 
           if (data.exercise === "YoYo IR1") {
-            // Manually set label and rank string for YoYo IR1 (Alex's specific rating)
-            rankInfo = { rankString: 'Ranking data not available', label: 'Ausgezeichnet' }; // Alex's rating for YoYo
-            labelHtml = `<span class="badge bg-purple-lt ms-2">${rankInfo.label}</span>`; // Purple for Ausgezeichnet
+            // Manually set label and rank string for YoYo IR1
+            rankInfo = { rankString: 'Below the 30% percentile', label: 'Unterdurchschnittlich' }; 
+            labelHtml = `<span class="badge bg-danger-lt ms-2">${rankInfo.label}</span>`; // Use danger color for Unterdurchschnittlich
           } else {
             // Calculate rank for other exercises
             rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
@@ -528,7 +546,7 @@
 
               // IMPORTANT: Use the correct player name for the series!
               const playerLineData = data.dfbCategories.map(() => data.finleyResult); // Use the data variable holding the result
-              const playerName = "Alex"; // Since Alex is the active page
+              const playerName = "Finley"; // Since Finley is the active page
 
               const options = {
                 chart: {
