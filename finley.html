@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Quo-Vadis</title>
+    <link rel="icon" type="image/png" href="./h03-logo.png">
     <!-- BEGIN PAGE LEVEL STYLES -->
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -40,18 +41,16 @@
     <!-- END DEMO THEME SCRIPT -->
     <div class="page">
       <!-- BEGIN NAVBAR  -->
-      <!-- Removed the first header element that previously held toggler/theme switcher -->
-      <!-- <header class="navbar navbar-expand-md d-print-none"> ... </header> -->
-
-      <!-- This header contains the main navigation links -->
       <header class="navbar-expand-md">
         <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar">
             <div class="container-xl">
               <div class="row flex-fill align-items-center">
                 <div class="col">
+                  <!-- BEGIN NAVBAR MENU - NOW WITH 4 ITEMS -->
                   <ul class="navbar-nav">
-                    <li class="nav-item"> <!-- Übersicht -->
+                    <!-- Item 1: Übersicht -->
+                    <li class="nav-item"> <!-- Übersicht is active -->
                       <a class="nav-link" href="./uebersicht.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -64,9 +63,11 @@
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
-                    <li class="nav-item"> <!-- Finley -->
+                    <!-- Item 2: Finley -->
+                    <li class="nav-item active"> <!-- Finley is active -->
                       <a class="nav-link" href="./finley.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <!-- User icon -->
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
@@ -75,10 +76,23 @@
                         <span class="nav-link-title"> Finley </span>
                       </a>
                     </li>
-                    <li class="nav-item active"> <!-- Bent is active -->
-                      <a class="nav-link" href="./index.html">
+                     <!-- Item 3: Bent -->
+                    <li class="nav-item"> <!-- Bent is NOT active -->
+                      <a class="nav-link" href="./bent.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                          <!-- User icon -->
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-1"
+                          >
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                           </svg>
@@ -86,7 +100,8 @@
                         <span class="nav-link-title"> Bent </span>
                       </a>
                     </li>
-                    <li class="nav-item"> <!-- Alex -->
+                     <!-- Item 4: Alex -->
+                    <li class="nav-item"> <!-- Alex is not active -->
                       <a class="nav-link" href="./alex.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -98,6 +113,7 @@
                       </a>
                     </li>
                   </ul>
+                  <!-- END NAVBAR MENU -->
                 </div>
               </div>
             </div>
@@ -113,7 +129,8 @@
               <div class="col">
                 <!-- Page pre-title -->
                 <div class="page-pretitle">Overview</div>
-                <h2 class="page-title">Bent</h2>
+                <!-- Page title matches the active nav item -->
+                <h2 class="page-title">Alex</h2>
               </div>
             </div>
           </div>
@@ -144,6 +161,7 @@
                   </li>
                   <li class="list-inline-item">
                     <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
+                      <!-- Download SVG icon from http://tabler.io/icons/icon/heart -->
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -182,7 +200,8 @@
     </div>
     <!-- BEGIN PAGE MODALS -->
     <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
+       <!-- Modal content -->
+       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">New report</h5>
@@ -313,17 +332,18 @@
 
         // Helper function to calculate percentile rank
         function calculatePercentileRank(finleyResult, dfbValues, dfbCategories, exerciseName) {
-          // Handle cases where result is missing (e.g., null)
-          if (finleyResult === null || finleyResult === undefined) {
+          // Handle cases where result is missing
+           if (finleyResult === null || finleyResult === undefined) {
              return { rankString: 'No result available', label: '' };
-          }
-          // Handle cases where DFB data is missing or incomplete
-          if (!dfbValues || dfbValues.length === 0 || !dfbCategories || dfbCategories.length === 0 || dfbValues.length !== dfbCategories.length) {
-             return { rankString: 'Ranking data not available', label: '' };
-          }
+           }
+           // Handle cases where DFB data is missing or incomplete
+           if (!dfbValues || dfbValues.length === 0 || !dfbCategories || dfbCategories.length === 0 || dfbValues.length !== dfbCategories.length) {
+             const resultDisplay = finleyResult !== undefined && finleyResult !== null ? finleyResult : 'N/A';
+             return { rankString: 'Ranking data not available', label: '', resultDisplay: resultDisplay };
+           }
 
 
-          const higherIsBetter = exerciseName === 'Balljonglieren';
+          const higherIsBetter = ['YoYo IR1', 'Balljonglieren'].includes(exerciseName); // YoYo IR1 is higher is better
           let percentile = '<' + dfbCategories[0]; // Default if worse than lowest percentile
           let foundRank = false;
 
@@ -399,51 +419,51 @@
             label = 'Durchschnittlich';
           } else {
              // Only assign 'Unterdurchschnittlich' if they are below the 30th percentile *and* a rank could be determined
-             // If rankString is 'Below...', it implies they didn't even meet the lowest percentile, so definitely 'Unterdurchschnittlich'
-             // If they matched a percentile < 30%, also 'Unterdurchschnittlich'
              if (percentile.startsWith('<') || numericPercentile < 30) {
                 label = 'Unterdurchschnittlich';
              }
-             // Otherwise (e.g., rankString is 'No result' or 'Ranking data not available'), label remains empty.
+             // Otherwise, label remains empty.
           }
 
 
           return { rankString, label }; // Return both pieces of info
         }
 
-
+        // Assuming the data here should be for ALEX since Alex is the active nav item
         const chartData = [
-          {
+           {
             exercise: "10m Sprint",
-            finleyResult: 2.32,
+            finleyResult: 2.16, // Using Alex's data from previous version
             dfbCategories: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [2.33, 2.28, 2.24, 2.21, 2.18, 2.16, 2.13, 2.10, 2.05, 1.99]
           },
           {
             exercise: "20m Sprint",
-            finleyResult: 3.82,
+            finleyResult: 3.78, // Using Alex's data
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [4.14, 4.01, 3.93, 3.87, 3.82, 3.78, 3.74, 3.69, 3.64, 3.57, 3.47]
           },
           {
             exercise: "Gewandtheit",
-            finleyResult: 9.17,
+            finleyResult: 7.39, // Using Alex's data
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [9.66, 9.33, 9.07, 8.90, 8.77, 8.66, 8.54, 8.42, 8.28, 8.11, 7.91]
           },
           {
             exercise: "Dribbling",
-            finleyResult: null, // No result for Bent in Dribbling
+            finleyResult: 10.00, // Using Alex's data
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
           },
+           // Assuming Alex didn't do Ballkontrolle or Balljonglieren? Add if needed.
           {
-            exercise: "Balljonglieren",
-            finleyResult: 3.00, // Higher is better for this one
-            dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'], // Note different percentiles
-            dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00] // Note values (higher is better)
+            exercise: "YoYo IR1",
+            finleyResult: 1720, // Using Alex's data
+            dfbCategories: [], // No DFB data provided
+            dfbValues: []      // No DFB data provided
           }
         ];
+
 
         const kpiContainer = document.getElementById('kpi-container');
         const chartsContainer = document.getElementById('charts-container');
@@ -452,30 +472,39 @@
           const chartId = `chart-exercise-${index}`;
           const kpiId = `kpi-exercise-${index}`;
 
-          // Calculate Percentile Rank and Label
-          const rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+          // Calculate Percentile Rank and Label (or use specific label for YoYo IR1)
+          let rankInfo;
+          let labelHtml = ''; // Initialize labelHtml
+
+          if (data.exercise === "YoYo IR1") {
+            // Manually set label and rank string for YoYo IR1 (Alex's specific rating)
+            rankInfo = { rankString: 'Ranking data not available', label: 'Ausgezeichnet' }; // Alex's rating for YoYo
+            labelHtml = `<span class="badge bg-purple-lt ms-2">${rankInfo.label}</span>`; // Purple for Ausgezeichnet
+          } else {
+            // Calculate rank for other exercises
+            rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+            // Determine badge color and create label HTML if a label exists
+            if (rankInfo.label) {
+                 let badgeColor = 'secondary'; // Default color
+                 if (rankInfo.label === 'Gut') badgeColor = 'info';
+                 if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
+                 if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+                 if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
+                 if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+                 labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
+             }
+          }
+
 
           // Create KPI Card HTML and append to KPI container
           const kpiColDiv = document.createElement('div');
-          kpiColDiv.className = 'col-md-4 mb-3'; // Keep KPI column size
-
-          // Determine badge color and create label HTML if a label exists
-          let labelHtml = '';
-          if (rankInfo.label) {
-               let badgeColor = 'secondary'; // Default color
-               if (rankInfo.label === 'Gut') badgeColor = 'info';
-               if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-               if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple'; // Using purple for the top tier
-               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange'; // Light orange background
-               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger'; // Light red background with darker red text
-               labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
-           }
+          kpiColDiv.className = 'col-md-4 mb-3';
 
           // Generate the inner HTML for the KPI card
-          // Use 'N/A' if finleyResult is null or undefined
-          const resultDisplay = (data.finleyResult !== null && data.finleyResult !== undefined)
-                               ? data.finleyResult.toFixed(2)
-                               : 'N/A';
+           const resultDisplay = data.exercise === 'YoYo IR1'
+                               ? (data.finleyResult !== null && data.finleyResult !== undefined ? data.finleyResult + 'm' : 'N/A')
+                               : (data.finleyResult !== null && data.finleyResult !== undefined ? data.finleyResult.toFixed(2) : 'N/A');
+
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
@@ -487,102 +516,73 @@
           `;
           kpiContainer.appendChild(kpiColDiv);
 
+          // Only create chart elements if the exercise is NOT "YoYo IR1"
+          if (data.exercise !== "YoYo IR1") {
+            // Check if data is valid for chart rendering
+            if (data.finleyResult !== null && data.finleyResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
 
-          // Create Chart Card HTML and append to Chart container ONLY if data is valid
-          if (data.finleyResult !== null && data.finleyResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
-            const chartColDiv = document.createElement('div');
-            chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size
-            chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
-            chartsContainer.appendChild(chartColDiv);
+              const chartColDiv = document.createElement('div');
+              chartColDiv.className = 'col-lg-6 mb-4';
+              chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
+              chartsContainer.appendChild(chartColDiv);
 
+              // IMPORTANT: Use the correct player name for the series!
+              const playerLineData = data.dfbCategories.map(() => data.finleyResult); // Use the data variable holding the result
+              const playerName = "Alex"; // Since Alex is the active page
 
-            const finleyLineData = data.dfbCategories.map(() => data.finleyResult); // Repeat Finley's result for the line
-
-            const options = {
-              chart: {
-                type: 'line',
-                height: 350,
-                toolbar: {
-                  show: true
+              const options = {
+                chart: {
+                  type: 'line',
+                  height: 350,
+                  toolbar: { show: true },
+                   zoom: { enabled: false }
                 },
-                 zoom: {
-                  enabled: false
-                }
-              },
-              series: [
-                {
-                  name: 'DFB Percentile',
-                  data: data.dfbValues
+                series: [
+                  { name: 'DFB Percentile', data: data.dfbValues },
+                  { name: playerName, data: playerLineData } // Use correct player name and data
+                ],
+                xaxis: {
+                  categories: data.dfbCategories,
+                  title: { text: 'DFB Percentile' }
                 },
-                {
-                  name: 'Bent', // Changed name to Bent
-                  data: finleyLineData
-                }
-              ],
-              xaxis: {
-                categories: data.dfbCategories,
-                title: {
-                  text: 'DFB Percentile'
-                }
-              },
-              yaxis: {
-                title: {
-                  text: 'Ergebnis'
+                yaxis: {
+                  title: { text: 'Ergebnis' + (data.exercise === 'Balljonglieren' ? ' (Higher is better)' : ' (Lower is better)') },
+                  reversed: data.exercise !== 'Balljonglieren' // Reverse only if lower is better
                 },
-                // Reverse axis ONLY if lower is better
-                reversed: data.exercise !== 'Balljonglieren'
-              },
-              title: {
-                text: data.exercise,
-                align: 'center'
-              },
-              stroke: {
-                curve: 'smooth',
-                width: [4, 2] // Thicker line for DFB, thinner for Bent
-              },
-              markers: {
-                size: 5
-              },
-               tooltip: {
-                y: {
-                  formatter: function (val) {
-                    return val.toFixed(2) // Format tooltip values
-                  }
-                }
-              },
-              legend: {
-                position: 'top',
-                horizontalAlign: 'right',
-                floating: true,
-                offsetY: -25,
-                offsetX: -5
+                title: { text: data.exercise, align: 'center' },
+                stroke: { curve: 'smooth', width: [4, 2] },
+                markers: { size: 5 },
+                 tooltip: { y: { formatter: val => val.toFixed(2) } },
+                legend: { position: 'top', horizontalAlign: 'right', floating: true, offsetY: -25, offsetX: -5 }
+              };
+
+              // Render chart if ApexCharts is available
+              if (window.ApexCharts) {
+                new ApexCharts(document.querySelector(`#${chartId}`), options).render();
+              } else {
+                console.error("ApexCharts library not loaded.");
+                const chartDiv = document.querySelector(`#${chartId}`);
+                 if (chartDiv) chartDiv.innerHTML = '<p class="text-center text-danger">Error: Chart library not loaded.</p>';
               }
-            };
-
-            if (window.ApexCharts) {
-               new ApexCharts(document.querySelector(`#${chartId}`), options).render();
             } else {
-               console.error("ApexCharts library not loaded.");
-               const chartDiv = document.querySelector(`#${chartId}`);
-               if (chartDiv) chartDiv.innerHTML = '<p class="text-center text-muted">Chart library not loaded.</p>';
-            }
-        } else {
-            // Optionally, add a placeholder or message if chart can't be generated
-             const chartColDiv = document.createElement('div');
-             chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size consistent
-             chartColDiv.innerHTML = `
+              // Data is missing, display placeholder message
+              const chartColDiv = document.createElement('div');
+              chartColDiv.className = 'col-lg-6 mb-4';
+              chartColDiv.innerHTML = `
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title text-center">${data.exercise}</h5>
-                    <p class="text-center text-muted mt-3">Chart not available due to missing data.</p>
+                     <h5 class="card-title text-center">${data.exercise}</h5>
+                     <p class="text-center text-muted mt-3">Chart not available due to missing data.</p>
                   </div>
                 </div>`;
-             chartsContainer.appendChild(chartColDiv);
-        }
-
+              chartsContainer.appendChild(chartColDiv);
+            }
+          }
+          // YoYo IR1 charts are skipped
         });
 
         // --- Remove original demo charts ---
+        // (Keep the removal code as it was)
         const revenueChart = document.getElementById("chart-revenue-bg");
         if (revenueChart) revenueChart.closest('.col-sm-6')?.remove();
         const clientsChart = document.getElementById("chart-new-clients");
@@ -601,7 +601,6 @@
             const bounceRateChart = document.getElementById(`sparkline-bounce-rate-${i}`);
              if (bounceRateChart) bounceRateChart.closest('tr')?.remove();
          }
-
 
       });
       // @formatter:on
