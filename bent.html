@@ -133,6 +133,30 @@
         <!-- BEGIN PAGE BODY -->
         <div class="page-body">
           <div class="container-xl">
+            <!-- BEGIN HERO SECTION WITH PORTRAIT AND GESAMTBEWERTUNG -->
+            <div class="row mb-4">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body py-4">
+                    <div class="row align-items-center">
+                      <div class="col-auto d-flex justify-content-center">
+                        <img src="./static/photos/Bent.png" alt="Bent Portrait" class="rounded-circle" width="120" height="120">
+                      </div>
+                      <div class="col">
+                        <div class="text-center">
+                          <h3 class="subheader mb-2">Gesamtbewertung</h3>
+                          <div class="d-flex align-items-center justify-content-center">
+                            <div class="h1 mb-0 me-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
+                            <span class="badge bg-orange-lt" style="font-size: 1.2em; padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END HERO SECTION WITH PORTRAIT AND GESAMTBEWERTUNG -->
             <div class="row row-cards mb-4" id="kpi-container">
               <!-- KPIs will be injected here by JavaScript -->
             </div>
@@ -532,36 +556,26 @@
         // Calculate average percentile across specified exercises
         const averagePercentileInfo = calculateAveragePercentile(chartData);
         
-        // Create Average Percentile KPI card first
-        const avgKpiDiv = document.createElement('div');
-        avgKpiDiv.className = 'col-md-12 mb-3'; // Full width for emphasis
+        // Update the existing Gesamtbewertung values in the hero section
+        const averagePercentileElement = document.getElementById('average-percentile');
+        const averageLabelElement = document.getElementById('average-label');
         
-        // Determine badge color for the average
-        let badgeColor = 'secondary'; // Default color
-        if (averagePercentileInfo.label === 'Gut') badgeColor = 'info';
-        if (averagePercentileInfo.label === 'Sehr gut') badgeColor = 'success';
-        if (averagePercentileInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
-        if (averagePercentileInfo.label === 'Durchschnittlich') badgeColor = 'orange';
-        if (averagePercentileInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+        if (averagePercentileElement) {
+          averagePercentileElement.textContent = Math.ceil(parseFloat(averagePercentileInfo.average));
+        }
         
-        avgKpiDiv.innerHTML = `
-          <div class="card">
-            <div class="card-body text-center">
-              <div class="d-flex align-items-center justify-content-center">
-                <div class="subheader">Gesamtbewertung</div>
-              </div>
-              <div class="d-flex align-items-baseline justify-content-center mt-2">
-                <div class="h1 mb-0 me-2" style="font-size: 2.5rem;">${Math.ceil(parseFloat(averagePercentileInfo.average))}</div>
-              </div>
-              <div class="d-flex justify-content-center mt-2">
-                <span class="badge bg-${badgeColor}-lt" style="font-size: 1.1em;">${averagePercentileInfo.label}</span>
-              </div>
-            </div>
-          </div>
-        `;
-        
-        // Insert the average KPI at the top
-        kpiContainer.appendChild(avgKpiDiv);
+        if (averageLabelElement) {
+          // Determine badge color for the average
+          let badgeColor = 'secondary'; // Default color
+          if (averagePercentileInfo.label === 'Gut') badgeColor = 'info';
+          if (averagePercentileInfo.label === 'Sehr gut') badgeColor = 'success';
+          if (averagePercentileInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+          if (averagePercentileInfo.label === 'Durchschnittlich') badgeColor = 'orange';
+          if (averagePercentileInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+          
+          averageLabelElement.textContent = averagePercentileInfo.label;
+          averageLabelElement.className = `badge bg-${badgeColor}-lt`;
+        }
         
         chartData.forEach((data, index) => {
           const chartId = `chart-exercise-${index}`;
