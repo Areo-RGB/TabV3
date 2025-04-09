@@ -372,8 +372,8 @@
           
           // Go through all exercises that should be included
           chartData.forEach(data => {
-            // In bent.html the result property is named finleyResult, but we're using it for Bent's data
-            const playerResult = data.finleyResult;
+            // Use bentResult property for Bent's data
+            const playerResult = data.bentResult;
             
             if (exercisesToInclude.includes(data.exercise) && 
                 playerResult !== null && playerResult !== undefined &&
@@ -417,9 +417,9 @@
         }
 
         // Helper function to calculate percentile rank
-        function calculatePercentileRank(finleyResult, dfbValues, dfbCategories, exerciseName) {
+        function calculatePercentileRank(bentResult, dfbValues, dfbCategories, exerciseName) {
           // Handle cases where result is missing (e.g., null)
-          if (finleyResult === null || finleyResult === undefined) {
+          if (bentResult === null || bentResult === undefined) {
              return { rankString: 'No result available', label: '' };
           }
           // Handle cases where DFB data is missing or incomplete
@@ -438,16 +438,16 @@
             const dfbPercentile = dfbCategories[i];
 
             if (higherIsBetter) {
-              if (finleyResult >= dfbValue) {
+              if (bentResult >= dfbValue) {
                 percentile = dfbPercentile;
                 foundRank = true;
-                break; // Found the highest percentile Finley meets or exceeds
+                break; // Found the highest percentile Bent meets or exceeds
               }
             } else { // Lower is better
-              if (finleyResult <= dfbValue) {
+              if (bentResult <= dfbValue) {
                 percentile = dfbPercentile;
                 foundRank = true;
-                break; // Found the highest percentile Finley meets or exceeds
+                break; // Found the highest percentile Bent meets or exceeds
               }
             }
           }
@@ -457,14 +457,14 @@
               const bestDfbValue = dfbValues[dfbValues.length - 1];
               const bestDfbPercentile = dfbCategories[dfbCategories.length - 1];
               if (higherIsBetter) {
-                  if (finleyResult > bestDfbValue) {
+                  if (bentResult > bestDfbValue) {
                       percentile = '>' + bestDfbPercentile;
                   }
               } else {
                   // Check if LOWER than the best value (which corresponds to the highest percentile)
                   // For lower-is-better, the lowest value has the highest percentile
                   const lowestDfbValue = dfbValues[dfbCategories.length - 1]; // The value for the highest percentile
-                   if (finleyResult < lowestDfbValue) {
+                   if (bentResult < lowestDfbValue) {
                       percentile = '>' + bestDfbPercentile;
                   }
               }
@@ -520,31 +520,31 @@
         const chartData = [
           {
             exercise: "10m Sprint",
-            finleyResult: 2.32,
+            bentResult: 2.32,
             dfbCategories: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [2.33, 2.28, 2.24, 2.21, 2.18, 2.16, 2.13, 2.10, 2.05, 1.99]
           },
           {
             exercise: "20m Sprint",
-            finleyResult: 3.82,
+            bentResult: 3.82,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [4.14, 4.01, 3.93, 3.87, 3.82, 3.78, 3.74, 3.69, 3.64, 3.57, 3.47]
           },
           {
             exercise: "Gewandtheit",
-            finleyResult: 9.17,
+            bentResult: 9.17,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [9.66, 9.33, 9.07, 8.90, 8.77, 8.66, 8.54, 8.42, 8.28, 8.11, 7.91]
           },
           {
             exercise: "Dribbling",
-            finleyResult: null, // No result for Bent in Dribbling
+            bentResult: null, // No result for Bent in Dribbling
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
           },
           {
             exercise: "Balljonglieren",
-            finleyResult: 3.00, // Higher is better for this one
+            bentResult: 3.00, // Higher is better for this one
             dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'], // Note different percentiles
             dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00] // Note values (higher is better)
           }
