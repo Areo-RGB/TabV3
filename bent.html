@@ -580,7 +580,7 @@
           const kpiId = `kpi-exercise-${index}`;
 
           // Calculate Percentile Rank and Label
-          const rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+          const rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
 
           // Create KPI Card HTML and append to KPI container
           const kpiColDiv = document.createElement('div');
@@ -599,9 +599,9 @@
            }
 
           // Generate the inner HTML for the KPI card
-          // Use 'N/A' if finleyResult is null or undefined
-          const resultDisplay = (data.finleyResult !== null && data.finleyResult !== undefined)
-                               ? data.finleyResult.toFixed(2)
+          // Use 'N/A' if bentResult is null or undefined
+          const resultDisplay = (data.bentResult !== null && data.bentResult !== undefined)
+                               ? data.bentResult.toFixed(2)
                                : 'N/A';
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
@@ -616,14 +616,14 @@
 
 
           // Create Chart Card HTML and append to Chart container ONLY if data is valid
-          if (data.finleyResult !== null && data.finleyResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
+          if (data.bentResult !== null && data.bentResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
             const chartColDiv = document.createElement('div');
             chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size
             chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
             chartsContainer.appendChild(chartColDiv);
 
 
-            const finleyLineData = data.dfbCategories.map(() => data.finleyResult); // Repeat Finley's result for the line
+            const finleyLineData = data.dfbCategories.map(() => data.bentResult); // Repeat Bent's result for the line
 
             const options = {
               chart: {
