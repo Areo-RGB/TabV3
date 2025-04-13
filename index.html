@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Übersicht - Spielergebnisse</title>
+    <title>Übersicht</title>
 
     <!-- Tabler CSS -->
     <link href="./dist/css/tabler.min.css" rel="stylesheet" />
@@ -51,6 +51,12 @@
       .card-header .avatar {
           width: 4rem;
           height: 4rem;
+      }
+      
+      /* Add darker border to the row of player cards */
+      .row-cards {
+          padding-top: 1.5rem;
+          padding-bottom: 1.5rem;
       }
     </style>
   </head>
@@ -104,11 +110,7 @@
           </div>
         </div>
       </header>      <div class="page-wrapper">
-        <div class="page-header d-print-none">
-          <div class="container-xl">
-            <h2 class="page-title">Übersicht Spielergebnisse</h2>
-          </div>
-        </div>
+        <!-- Page header removed -->
         <div class="page-body">
           <div class="container-xl">
             <!-- Rankings Cards -->

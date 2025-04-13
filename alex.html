@@ -34,6 +34,56 @@
       .card:hover {
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
       }
+      /* Hero card styling with blue background */
+      #kpi-container .card {
+          background-color: #274f9d;
+          color: white;
+      }
+      #kpi-container .card-title {
+          color: white;
+      }
+      #kpi-container .text-secondary {
+          color: rgba(255, 255, 255, 0.8) !important;
+      }
+      /* Main hero card with portrait */
+      .page-body .row:first-child .card {
+          background-color: #274f9d;
+          color: white;
+      }
+      .page-body .row:first-child .card .subheader {
+          color: rgba(255, 255, 255, 0.8);
+      }
+      /* Ensure badges remain readable on blue background */
+      html body .badge.bg-orange-lt {
+          background-color: rgba(255, 200, 120, 0.3) !important;
+          color: #ff9800 !important;
+          font-weight: bold !important;
+      }
+      html body .badge.bg-danger-lt {
+          background-color: rgba(255, 99, 99, 0.2) !important;
+          color: #dc3545 !important;
+          font-weight: bold !important;
+      }
+      .badge.bg-info-lt {
+          background-color: rgba(23, 162, 184, 0.3) !important;
+          color: white !important;
+          font-weight: bold;
+      }
+      .badge.bg-success-lt {
+          background-color: rgba(72, 199, 116, 0.5) !important;
+          color: white !important;
+          font-weight: bold;
+      }
+      .badge.bg-purple-lt {
+          background-color: rgba(72, 199, 116, 0.5) !important;
+          color: white !important;
+          font-weight: bold;
+      }
+      .badge.bg-secondary-lt {
+          background-color: rgba(108, 117, 125, 0.3) !important;
+          color: white !important;
+          font-weight: bold;
+      }
       @import url("https://rsms.me/inter/inter.css");
     </style>
   </head>
@@ -372,7 +422,7 @@
           let badgeClass = 'badge ';
           if (averagePercentileInfo.label === 'Gut') badgeClass += 'bg-info-lt';
           else if (averagePercentileInfo.label === 'Sehr gut') badgeClass += 'bg-success-lt';
-          else if (averagePercentileInfo.label === 'Ausgezeichnet') badgeClass += 'bg-purple-lt';
+          else if (averagePercentileInfo.label === 'Ausgezeichnet') badgeClass += 'bg-success-lt';
           else if (averagePercentileInfo.label === 'Durchschnittlich') badgeClass += 'bg-orange-lt';
           else if (averagePercentileInfo.label === 'Unterdurchschnittlich') badgeClass += 'bg-danger-lt';
           else badgeClass += 'bg-secondary-lt';
@@ -393,7 +443,7 @@
           if (data.exercise === "YoYo IR1") {
             // Manually set label and rank string for YoYo IR1 as requested
             rankInfo = { rankString: 'Ranking data not available', label: 'Ausgezeichnet' }; // Use provided label
-            labelHtml = `<span class="badge bg-purple-lt ms-2">${rankInfo.label}</span>`; // Use purple color for Ausgezeichnet
+            labelHtml = `<span class="badge bg-success-lt ms-2">${rankInfo.label}</span>`; // Use green color for Ausgezeichnet
           } else {
              // Calculate rank for other exercises
             rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
@@ -402,7 +452,7 @@
               let badgeColor = 'secondary';
               if (rankInfo.label === 'Gut') badgeColor = 'info';
               if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-              if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+              if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'success';
               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
               labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
