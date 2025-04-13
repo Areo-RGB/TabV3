@@ -1,0 +1,477 @@
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.1.1
+* @link https://tabler.io
+* Copyright 2018-2025 The Tabler Authors
+* Copyright 2018-2025 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="en">  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quo-Vadis - Daten</title>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./static/Favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./static/Favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/Favicon/favicon-16x16.png">
+    <link rel="manifest" href="./static/Favicon/site.webmanifest">
+    <link rel="shortcut icon" href="./static/Favicon/favicon.ico">
+    <!-- BEGIN STYLES -->
+    <link href="./dist/css/tabler.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-flags.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-socials.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-payments.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-vendors.min.css?1740918423" rel="stylesheet" />
+    <link href="./dist/css/tabler-marketing.min.css?1740918423" rel="stylesheet" />
+    <link href="./preview/css/demo.min.css?1740918423" rel="stylesheet" />
+    <style>
+      /* Add drop shadow to cards */
+      .card {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          transition: box-shadow 0.3s ease;
+      }
+      .card:hover {
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      /* Hero card styling with blue background */
+      #kpi-container .card {
+          background-color: #274f9d;
+          color: white;
+      }
+      #kpi-container .card-title {
+          color: white;
+      }
+      #kpi-container .text-secondary {
+          color: rgba(255, 255, 255, 0.8) !important;
+      }
+      /* Sortable table styling */
+      th[data-sort] {
+          cursor: pointer;
+      }
+      th[data-sort]:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+      }
+      th[data-sort]::after {
+          content: "↕";
+          margin-left: 5px;
+          opacity: 0.5;
+      }
+      th[data-sort].sort-asc::after {
+          content: "↑";
+          opacity: 1;
+      }
+      th[data-sort].sort-desc::after {
+          content: "↓";
+          opacity: 1;
+      }
+      @import url("https://rsms.me/inter/inter.css");
+    </style>
+  </head>
+  <body>
+    <script src="./preview/js/demo-theme.min.js?1740918423"></script>
+    <div class="page">
+      <header class="navbar navbar-expand-md d-print-none">
+        <div class="container-xl">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </header>
+      <header class="navbar-expand-md">
+        <div class="collapse navbar-collapse" id="navbar-menu">
+          <div class="navbar">
+            <div class="container-xl">
+              <div class="row flex-fill align-items-center">
+                <div class="col">
+                  <ul class="navbar-nav">
+                    <li class="nav-item"> <!-- Übersicht -->
+                      <a class="nav-link" href="./index.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title"> Übersicht </span>
+                      </a>
+                    </li>
+                    <li class="nav-item"> <!-- Finley -->
+                      <a class="nav-link" href="./finley.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title"> Finley </span>
+                      </a>
+                    </li>
+                    <li class="nav-item"> <!-- Bent -->
+                      <a class="nav-link" href="./bent.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title"> Bent </span>
+                      </a>
+                    </li>
+                    <li class="nav-item active"> <!-- Daten is active -->
+                      <a class="nav-link" href="./daten.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M4 7v-1a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-1" />
+                            <path d="M7 9l4 -4l4 4" />
+                            <path d="M12 5l0 9" />
+                            <path d="M7 14l4 4l4 -4" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title"> Daten </span>
+                      </a>
+                    </li>
+                    <li class="nav-item"> <!-- Alex -->
+                      <a class="nav-link" href="./alex.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title"> Alex </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="page-wrapper">
+        <!-- BEGIN PAGE HEADER -->
+        <div class="page-header d-print-none py-2">
+          <div class="container-xl">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="page-title">Athletikdaten</h2>
+                <div class="text-secondary mt-1">
+                  <span>Übersicht aller Trainingsdaten und Bewertungen</span>
+                </div>
+              </div>
+              <!-- Page header actions -->
+              <div class="col-auto ms-auto d-print-none">
+                <div class="d-flex">
+                  <div class="me-3">
+                    <div class="input-icon">
+                      <span class="input-icon-addon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                          <path d="M21 21l-6 -6"></path>
+                        </svg>
+                      </span>
+                      <input type="text" id="search-input" class="form-control" placeholder="Suche..." aria-label="Suche">
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 5l0 14"></path>
+                        <path d="M5 12l14 0"></path>
+                      </svg>
+                      Neue Daten
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">
+                        Neue Messung
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Neuen Athleten
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END PAGE HEADER -->
+        
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Alle Testdaten</h3>
+                <div class="card-actions">
+                  <a href="#" class="btn btn-outline-primary btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                      <path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3"></path>
+                    </svg>
+                    Export
+                  </a>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-vcenter card-table" id="data-table">                    <thead>
+                      <tr>
+                        <th data-sort="category">Kategorie</th>
+                        <th data-sort="exercise">Übung</th>
+                        <th data-sort="name">Name</th>
+                        <th data-sort="result">Ergebnis</th>
+                        <th class="w-1"></th>
+                      </tr>
+                    </thead>                    <tbody>
+                      <!-- Table data will be populated from the Google Sheet -->
+                    </tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer d-flex align-items-center">
+                <p class="m-0 text-secondary">Zeige <span>1</span> bis <span>7</span> von <span>7</span> Einträgen</p>
+                <ul class="pagination m-0 ms-auto">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                      <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+                      Zurück
+                    </a>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      Weiter <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer section... -->
+      </div>
+    </div>    <!-- Scripts section -->
+    <script src="./libs/apexcharts/dist/apexcharts.min.js?1740918423" defer></script>
+    <script src="./libs/jsvectormap/dist/jsvectormap.min.js?1740918423" defer></script>
+    <script src="./libs/jsvectormap/dist/maps/world.js?1740918423" defer></script>
+    <script src="./libs/jsvectormap/dist/maps/world-merc.js?1740918423" defer></script>
+    <script src="./dist/js/tabler.min.js?1740918423" defer></script>
+    <script src="./preview/js/demo.min.js?1740918423" defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>    <script>      // Google Sheets API constants
+      const API_KEY = 'AIzaSyDG2xJ-sK2eGEe4bs7lBRWKqcoEj0h6O0g';
+      const SPREADSHEET_ID = '136NX0510MEeGeAxMYErxMGgpo5VZ2ph68eSKMfsUw-E';
+      // Fix: Use a more specific range format or the default sheet name
+      const SHEET_RANGE = 'A:D'; // Removed 'Sheet1!' prefix since it might not be the actual sheet name
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Google API
+        gapi.load('client', initClient);
+
+        function initClient() {
+          gapi.client.init({
+            apiKey: API_KEY,
+            discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+          }).then(() => {
+            // After initialization, fetch the data
+            fetchSheetData();
+          }, (error) => {
+            console.error('Error initializing Google API client:', error);
+          });
+        }        function fetchSheetData() {
+          gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: SPREADSHEET_ID,
+            range: SHEET_RANGE,
+          }).then((response) => {
+            const values = response.result.values;
+            if (values && values.length > 0) {
+              // Log the entire spreadsheet data for debugging
+              console.log("Full spreadsheet data:", values);
+              populateTable(values);
+            } else {
+              console.log('No data found in spreadsheet.');
+            }
+          }, (error) => {
+            console.error('Error fetching spreadsheet data:', error);
+          });
+        }function populateTable(values) {
+          // Clear existing table content
+          const tableBody = document.querySelector('#data-table tbody');
+          tableBody.innerHTML = '';
+          
+          // Log the headers to console for debugging
+          console.log("Spreadsheet headers:", values[0]);
+          
+          // Skip the header row (index 0) and start from row 1
+          for (let i = 1; i < values.length; i++) {
+            const row = values[i];
+            
+            // Check if row has meaningful data
+            if (row.length < 3) continue;
+            
+            // Based on the CSV structure from DFB_WERTE(6).csv
+            // Map the columns correctly: Kategorie, Übung, Name, Ergebnis
+            const category = row[0] || '';
+            const exercise = row[1] || '';
+            const name = row[2] || '';
+            const result = row[3] || '';
+            
+            // Create table row HTML matching the 4 columns + action
+            const rowHtml = `
+              <tr>
+                <td>${category}</td>
+                <td>${exercise}</td>
+                <td>${name}</td>
+                <td>${result}</td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn-action" data-bs-toggle="dropdown">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="#">
+                        Bearbeiten
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Löschen
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            `;
+            
+            // Append row to table body
+            tableBody.innerHTML += rowHtml;
+          }
+          
+          // Update pagination count
+          const totalEntries = values.length - 1; // Subtract header row
+          document.querySelector('.card-footer p').innerHTML = 
+            `Zeige <span>1</span> bis <span>${totalEntries}</span> von <span>${totalEntries}</span> Einträgen`;
+            
+          // Re-initialize search functionality with the new rows
+          initializeSearch();
+          
+          // Initialize table sorting
+          initializeTableSorting();
+        }
+        
+        // Table search functionality
+        function initializeSearch() {
+          const searchInput = document.getElementById('search-input');
+          const tableRows = document.querySelectorAll('#data-table tbody tr');
+          
+          if (searchInput) {
+            // Remove existing event listeners first
+            const newSearchInput = searchInput.cloneNode(true);
+            searchInput.parentNode.replaceChild(newSearchInput, searchInput);
+            
+            // Add event listener to the new element
+            newSearchInput.addEventListener('keyup', function() {
+              const searchTerm = newSearchInput.value.toLowerCase();
+              
+              tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                  row.style.display = '';
+                } else {
+                  row.style.display = 'none';
+                }
+              });
+            });
+          }
+        }
+        
+        // Table sorting functionality
+        function initializeTableSorting() {
+          const tableHeaders = document.querySelectorAll('th[data-sort]');
+          
+          tableHeaders.forEach(header => {
+            // Remove existing event listeners first
+            const newHeader = header.cloneNode(true);
+            header.parentNode.replaceChild(newHeader, header);
+            
+            // Add event listener to the new element
+            newHeader.addEventListener('click', function() {
+              const sortKey = this.dataset.sort;
+              const isAsc = !this.classList.contains('sort-asc');
+              
+              // Reset all headers
+              tableHeaders.forEach(h => {
+                h.classList.remove('sort-asc', 'sort-desc');
+              });
+              
+              // Set the current header sort state
+              this.classList.add(isAsc ? 'sort-asc' : 'sort-desc');
+              
+              const tbody = document.querySelector('#data-table tbody');
+              const rows = Array.from(tbody.querySelectorAll('tr'));
+              
+              // Sort rows based on the column data
+              rows.sort((a, b) => {
+                let aValue, bValue;
+                
+                if (sortKey === 'name' || sortKey === 'exercise') {
+                  // For text columns
+                  const aIndex = Array.from(a.cells).findIndex(cell => cell.textContent.trim() === a.cells[sortKey === 'name' ? 0 : 1].textContent.trim());
+                  const bIndex = Array.from(b.cells).findIndex(cell => cell.textContent.trim() === b.cells[sortKey === 'name' ? 0 : 1].textContent.trim());
+                  aValue = a.cells[aIndex].textContent.trim().toLowerCase();
+                  bValue = b.cells[bIndex].textContent.trim().toLowerCase();
+                } else if (sortKey === 'result') {
+                  // Parse numeric value from result (removing 's' or 'm')
+                  aValue = parseFloat(a.cells[3].textContent.replace(/[^\d.-]/g, ''));
+                  bValue = parseFloat(b.cells[3].textContent.replace(/[^\d.-]/g, ''));
+                } else if (sortKey === 'percentile') {
+                  // Parse percentile value
+                  aValue = parseInt(a.cells[4].textContent.replace('%', ''));
+                  bValue = parseInt(b.cells[4].textContent.replace('%', ''));
+                } else if (sortKey === 'date') {
+                  // Parse date values (DD.MM.YYYY format)
+                  const aDateParts = a.cells[2].textContent.trim().split('.');
+                  const bDateParts = b.cells[2].textContent.trim().split('.');
+                  aValue = new Date(aDateParts[2], aDateParts[1] - 1, aDateParts[0]);
+                  bValue = new Date(bDateParts[2], bDateParts[1] - 1, bDateParts[0]);
+                } else if (sortKey === 'rating') {
+                  // Sorting by rating (badge text)
+                  const ratingOrder = {
+                    'Ausgezeichnet': 5,
+                    'Sehr gut': 4,
+                    'Gut': 3,
+                    'Durchschnittlich': 2,
+                    'Unterdurchschnittlich': 1
+                  };
+                  aValue = ratingOrder[a.cells[5].querySelector('.badge').textContent.trim()] || 0;
+                  bValue = ratingOrder[b.cells[5].querySelector('.badge').textContent.trim()] || 0;
+                }
+                
+                if (aValue === bValue) return 0;
+                
+                const comparison = aValue > bValue ? 1 : -1;
+                return isAsc ? comparison : -comparison;
+              });
+              
+              // Re-append rows in the sorted order
+              rows.forEach(row => {
+                tbody.appendChild(row);
+              });
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
