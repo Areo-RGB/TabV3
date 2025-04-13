@@ -489,7 +489,7 @@
           if (data.exercise !== "YoYo IR1") {
             const chartColDiv = document.createElement('div');
             chartColDiv.className = 'col-lg-6 mb-4';
-            chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
+            chartColDiv.innerHTML = `<div class="card" style="background-color: #274f9d;"><div class="card-body"><div id="${chartId}"></div><style>.apexcharts-text, .apexcharts-title-text, .apexcharts-legend-text, .apexcharts-xaxis-label, .apexcharts-yaxis-label { fill: white !important; color: white !important; } .apexcharts-gridline, .apexcharts-xaxis-tick { stroke: rgba(255, 255, 255, 0.2) !important; } .card-title { color: white !important; }</style></div></div>`;
             chartsContainer.appendChild(chartColDiv);
 
             // Create a single data point for the player's result
@@ -565,10 +565,9 @@
                 title: { text: 'Performance Results' },
                 min: 0, // Start x-axis at 0
                 max: Math.max(...allValues) * 1.1, // Set max to slightly higher than the highest value
-              },
-              yaxis: {
+              },              yaxis: {
                 title: { 
-                  text: higherIsBetter ? 'Count (Higher is better)' : 'Time (s) (Lower is better)'
+                  text: data.exercise === 'Balljonglieren' ? 'Count' : 'Time (s)'
                 },
                 reversed: false, // Always false to keep best performance at the top
                 opposite: false, // This places the y-axis on the left side
@@ -621,7 +620,7 @@
             // Display a message if chart cannot be rendered due to missing data
             const chartDiv = document.querySelector(`#${chartId}`);
             if (chartDiv) {
-              chartDiv.innerHTML = '<p class="text-center text-muted">Chart data not available for this exercise.</p>';
+              chartDiv.innerHTML = '<p class="text-center" style="color: rgba(255, 255, 255, 0.8);">Chart data not available for this exercise.</p>';
             }
           }
           // End of conditional chart creation

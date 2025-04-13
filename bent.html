@@ -687,7 +687,7 @@
           if (data.bentResult !== null && data.bentResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
             const chartColDiv = document.createElement('div');
             chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size
-            chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
+            chartColDiv.innerHTML = `<div class="card" style="background-color: #274f9d;"><div class="card-body"><div id="${chartId}"></div><style>.apexcharts-text, .apexcharts-title-text, .apexcharts-legend-text, .apexcharts-xaxis-label, .apexcharts-yaxis-label { fill: white !important; color: white !important; } .apexcharts-gridline, .apexcharts-xaxis-tick { stroke: rgba(255, 255, 255, 0.2) !important; } .card-title { color: white !important; }</style></div></div>`;
             chartsContainer.appendChild(chartColDiv);
 
 
@@ -764,10 +764,9 @@
                 title: { text: 'Performance Results' },
                 min: 0, // Start x-axis at 0
                 max: Math.max(...allValues) * 1.1, // Set max to slightly higher than the highest value
-              },
-              yaxis: {
+              },              yaxis: {
                 title: { 
-                  text: higherIsBetter ? 'Count (Higher is better)' : 'Time (s) (Lower is better)'
+                  text: data.exercise === 'Balljonglieren' ? 'Count' : 'Time (s)'
                 },
                 reversed: false, // Always false to keep best performance at the top
                 opposite: false, // This places the y-axis on the left side
@@ -817,10 +816,10 @@
              const chartColDiv = document.createElement('div');
              chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size consistent
              chartColDiv.innerHTML = `
-                <div class="card">
+                <div class="card" style="background-color: #274f9d;">
                   <div class="card-body">
-                    <h5 class="card-title text-center">${data.exercise}</h5>
-                    <p class="text-center text-muted mt-3">Chart not available due to missing data.</p>
+                    <h5 class="card-title text-center" style="color: white;">${data.exercise}</h5>
+                    <p class="text-center mt-3" style="color: rgba(255, 255, 255, 0.8);">Chart not available due to missing data.</p>
                   </div>
                 </div>`;
              chartsContainer.appendChild(chartColDiv);
