@@ -1,6 +1,5 @@
 <!doctype html> <!-- MUST be the very first line -->
-<html lang="en">
-  <head>
+<html lang="en">  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -15,11 +14,9 @@
     <link href="./preview/css/demo.min.css" rel="stylesheet" />
 
     <!-- === Libraries FIRST === -->
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Chart.js -->    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Include Chart.js Datalabels plugin -->
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>    <style>
-      /* Optional: Add some margin between charts */
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>    <style>      /* Optional: Add some margin between charts */
       .chart-card {
         margin-bottom: 1.5rem;
       }
@@ -39,6 +36,15 @@
       }
       .card:hover {
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      /* Blue background for card headers with white text */
+      .card-header {
+          background-color: #274f9d; /* Blue color as requested */
+          color: white; /* White text color */
+      }
+      /* Make sure card title is also white */
+      .card-header .card-title {
+          color: white;
       }
     </style>
   </head>
@@ -91,8 +97,7 @@
             </div>
           </div>
         </div>
-      </header>
-      <div class="page-wrapper">
+      </header>      <div class="page-wrapper">
         <div class="page-header d-print-none">
           <div class="container-xl">
             <h2 class="page-title">Übersicht Spielergebnisse</h2>
@@ -100,8 +105,169 @@
         </div>
         <div class="page-body">
           <div class="container-xl">
-            <div class="row row-cards">
+            <!-- Rankings Cards -->
+            <div class="row row-deck row-cards mb-4">              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/Finley_portrait.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">10m Sprint Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Finley</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-10m-sprint">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/Finley_portrait.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">20m Sprint Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Finley</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-20m-sprint">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/alex.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">Gewandtheit Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Alex</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-gewandtheit">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/alex.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">Dribbling Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Alex</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-dribbling">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/alex.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">Ballkontrolle Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Alex</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-ballkontrolle">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/bent.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">Balljonglieren Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Bent</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-balljonglieren">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header d-flex align-items-center">
+                    <div class="avatar me-3" style="background-image: url('static/photos/alex.png')"></div>
+                    <div>
+                      <h3 class="card-title mb-0">YoYo IR1 Test Ranking</h3>
+                      <div class="small" style="color: #ffffff; font-weight: bold;">Bestleistung: Alex</div>
+                    </div>
+                  </div>
+                  <div class="card-table table-responsive">
+                    <table class="table table-vcenter">
+                      <thead>
+                        <tr>
+                          <th>Spieler</th>
+                          <th>Ergebnis</th>
+                        </tr>
+                      </thead>                      <tbody id="ranking-yoyo">
+                        <!-- Rankings will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="row row-cards">
               <!-- Chart Canvas Elements -->
               <div class="col-lg-6 chart-card">
                 <div class="card"><div class="card-body"><h3 class="card-title">Sprintzeiten</h3><canvas id="sprintChart"></canvas></div></div>
@@ -129,8 +295,7 @@
     <script src="./dist/js/tabler.min.js" defer></script>
 
     <!-- === Custom Chart Logic LAST, inside DOMContentLoaded === -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
+    <script>      document.addEventListener('DOMContentLoaded', function() {
         // Ensure Chart and ChartDataLabels are available
         if (typeof Chart === 'undefined') { console.error("FATAL: Chart.js library not loaded!"); return; }
         if (typeof ChartDataLabels === 'undefined') { console.warn("WARN: ChartDataLabels plugin not loaded. Labels will not appear."); /* Continue without labels */ }
@@ -143,6 +308,209 @@
            { uebung: "10m Sprint", name: "Bent", ergebnis: 2.32 }, { uebung: "20m Sprint", name: "Bent", ergebnis: 3.82 }, { uebung: "Gewandtheit", name: "Bent", ergebnis: 9.17 }, { uebung: "Balljonglieren", name: "Bent", ergebnis: 3 },
          ];
         const players = ["Finley", "Alex", "Bent"]; // Define all possible players
+        
+        // Benchmark values for each exercise based on DFB percentiles
+        // Structure: {exercise: {percentile: value}}
+        const benchmarks = {
+          "10m Sprint": {
+            "97%": 1.99, "90%": 2.05, "80%": 2.10, "70%": 2.13, "60%": 2.16, "50%": 2.18, "40%": 2.21, "30%": 2.24, "20%": 2.28, "10%": 2.33
+          },
+          "20m Sprint": {
+            "97%": 3.47, "90%": 3.57, "80%": 3.64, "70%": 3.69, "60%": 3.74, "50%": 3.78, "40%": 3.82, "30%": 3.87, "20%": 3.93, "10%": 4.01, "3%": 4.14
+          },
+          "Gewandtheit": {
+            "97%": 7.91, "90%": 8.11, "80%": 8.28, "70%": 8.42, "60%": 8.54, "50%": 8.66, "40%": 8.77, "30%": 8.90, "20%": 9.07, "10%": 9.33, "3%": 9.66
+          },
+          "Dribbling": {
+            "97%": 10.43, "90%": 10.84, "80%": 11.16, "70%": 11.44, "60%": 11.68, "50%": 11.90, "40%": 12.15, "30%": 12.50, "20%": 12.84, "10%": 13.42, "3%": 14.37
+          },
+          "Ballkontrolle": {
+            "97%": 10.43, "90%": 10.84, "80%": 11.16, "70%": 11.44, "60%": 11.68, "50%": 11.90, "40%": 12.15, "30%": 12.50, "20%": 12.84, "10%": 13.42, "3%": 14.37
+          },
+          "Balljonglieren": {
+            "97%": 6, "90%": 3, "80%": 2, "70%": 1, "60%": 1, "50%": 1, "40%": 1
+          },
+          "YoYo IR1": {
+            "Excellent": 1500, "Good": 1000, "Average": 750, "Below Average": 500
+          }
+        };
+        
+        // Function to determine percentile/benchmark rating
+        function getBenchmarkRating(exercise, value) {
+          if (!benchmarks[exercise]) return "N/A";
+          
+          const isHigherBetter = ["Balljonglieren", "YoYo IR1"].includes(exercise);
+          const bench = benchmarks[exercise];
+          
+          // Special case for YoYo IR1
+          if (exercise === "YoYo IR1") {
+            if (value >= bench["Excellent"]) return "Excellent (97%)";
+            if (value >= bench["Good"]) return "Good (80%)";
+            if (value >= bench["Average"]) return "Average (50%)";
+            return "Below Average (<30%)";
+          }
+          
+          // For all other exercises
+          const percentiles = Object.keys(bench);
+          for (let i = 0; i < percentiles.length; i++) {
+            const percentile = percentiles[i];
+            const benchValue = bench[percentile];
+            
+            if (isHigherBetter) {
+              if (value >= benchValue) return percentile;
+            } else {
+              if (value <= benchValue) return percentile;
+            }
+          }
+          
+          return isHigherBetter ? "< " + percentiles[percentiles.length-1] : "> " + percentiles[0];
+        }
+          // Function to populate ranking table
+        function populateRankingTable(exercise, tableId) {
+          const exerciseData = rawData.filter(item => item.uebung === exercise);
+          
+          // Sort based on whether higher or lower is better
+          const isHigherBetter = ["Balljonglieren", "YoYo IR1"].includes(exercise);
+          
+          // Create benchmark entries from the benchmark data
+          let benchmarkEntries = [];
+          if (benchmarks[exercise]) {
+            if (exercise === "YoYo IR1") {
+              // Special handling for YoYo IR1 with text benchmarks
+              benchmarkEntries = [
+                { name: "Excellent", ergebnis: benchmarks[exercise]["Excellent"], isBenchmark: true },
+                { name: "Good", ergebnis: benchmarks[exercise]["Good"], isBenchmark: true },
+                { name: "Average", ergebnis: benchmarks[exercise]["Average"], isBenchmark: true },
+                { name: "Below Average", ergebnis: benchmarks[exercise]["Below Average"], isBenchmark: true }
+              ];
+            } else {
+              // For percentile-based benchmarks
+              Object.entries(benchmarks[exercise]).forEach(([percentile, value]) => {
+                benchmarkEntries.push({ 
+                  name: percentile, 
+                  ergebnis: value, 
+                  isBenchmark: true 
+                });
+              });
+            }
+          }
+          
+          // Combine player data and benchmark data
+          const allData = [...exerciseData, ...benchmarkEntries];
+          
+          // Sort all entries
+          allData.sort((a, b) => {
+            if (isHigherBetter) {
+              return b.ergebnis - a.ergebnis; // Higher is better
+            } else {
+              return a.ergebnis - b.ergebnis; // Lower is better
+            }
+          });
+          
+          const tableBody = document.getElementById(tableId);
+          if (!tableBody) return;
+          
+          tableBody.innerHTML = ''; // Clear existing content
+            // Add rows for each entry (players and benchmarks)
+          let playerRank = 0; // Track the player rank separately
+          
+          allData.forEach((data, index) => {
+            const row = document.createElement('tr');
+            
+            // For benchmarks, add a distinct style
+            if (data.isBenchmark) {
+              row.className = 'bg-light';
+            } else {
+              playerRank++; // Only increment rank for actual players
+            }
+            
+            // Add name with different styling for benchmarks vs players
+            const nameCell = document.createElement('td');
+            if (data.isBenchmark) {
+              // For benchmark, display as badge
+              const benchBadge = document.createElement('span');
+              let badgeClass = 'badge bg-';
+              
+              const percentile = data.name;
+              if (percentile.includes('97%') || percentile === 'Excellent') {
+                badgeClass += 'purple-lt';
+              } else if (percentile.includes('90%') || percentile === 'Good') {
+                badgeClass += 'success-lt';
+              } else if (parseInt(percentile) >= 60 || percentile === 'Average') {
+                badgeClass += 'info-lt';
+              } else if (parseInt(percentile) >= 30) {
+                badgeClass += 'orange-lt';
+              } else {
+                badgeClass += 'danger-lt';
+              }
+              
+              benchBadge.className = badgeClass;
+              benchBadge.textContent = data.name;
+              nameCell.appendChild(benchBadge);
+            } else {
+              // No rank number displayed
+              
+              // Add player name with emphasis if first place among players
+              if (playerRank === 1) {
+                const strong = document.createElement('strong');
+                strong.textContent = data.name;
+                nameCell.appendChild(strong);
+              } else {
+                nameCell.appendChild(document.createTextNode(data.name));
+              }
+            }
+            
+            // Add result with proper formatting
+            const resultCell = document.createElement('td');
+            if (exercise === "YoYo IR1") {
+              resultCell.textContent = data.ergebnis + "m";
+            } else if (exercise === "Balljonglieren") {
+              // For Balljonglieren, show whole numbers without decimal places or suffix
+              resultCell.textContent = typeof data.ergebnis === 'number' ? Math.round(data.ergebnis).toString() : data.ergebnis;
+            } else {
+              // For all other exercises with time values
+              resultCell.textContent = typeof data.ergebnis === 'number' ? data.ergebnis.toFixed(2) + "s" : data.ergebnis;
+            }
+              
+            if (data.isBenchmark) {
+              resultCell.className = 'text-muted';
+            }
+            
+            // Build the row - only append nameCell and resultCell
+            row.appendChild(nameCell);
+            row.appendChild(resultCell);
+            
+            tableBody.appendChild(row);
+          });
+          
+          // Add default rows for missing players to complete the table
+          const existingPlayers = exerciseData.map(d => d.name);
+          const missingPlayers = players.filter(p => !existingPlayers.includes(p));
+            missingPlayers.forEach(player => {
+            const row = document.createElement('tr');
+            row.className = 'text-muted';
+            
+            const nameCell = document.createElement('td');
+            nameCell.textContent = player;
+            
+            const resultCell = document.createElement('td');
+            resultCell.textContent = 'N/A';
+            
+            row.appendChild(nameCell);
+            row.appendChild(resultCell);
+            
+            tableBody.appendChild(row);
+          });
+        }
+        
+        // Populate all ranking tables
+        populateRankingTable("10m Sprint", "ranking-10m-sprint");
+        populateRankingTable("20m Sprint", "ranking-20m-sprint");
+        populateRankingTable("Gewandtheit", "ranking-gewandtheit");
+        populateRankingTable("Dribbling", "ranking-dribbling");
+        populateRankingTable("Ballkontrolle", "ranking-ballkontrolle");
+        populateRankingTable("Balljonglieren", "ranking-balljonglieren");
+        populateRankingTable("YoYo IR1", "ranking-yoyo");
 
         function getChartData(exercises, players) {
             const datasets = players.map((player, index) => {
