@@ -13,8 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Quo-Vadis</title>
-    <!-- BEGIN PAGE LEVEL STYLES -->
-    <!-- END PAGE LEVEL STYLES -->
+    <link rel="icon" type="image/png" href="./h03-logo.png">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="./dist/css/tabler.min.css?1740918423" rel="stylesheet" />
     <!-- END GLOBAL MANDATORY STYLES -->
@@ -28,86 +27,334 @@
     <!-- BEGIN DEMO STYLES -->
     <link href="./preview/css/demo.min.css?1740918423" rel="stylesheet" />
     <!-- END DEMO STYLES -->
-    <!-- BEGIN CUSTOM FONT -->
+    <!-- BEGIN CUSTOM STYLES -->
     <style>
-      /* Add drop shadow to cards */
+      /* Reset and Base Styles */
+      body {
+        background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+        font-family: 'Exo 2', sans-serif;
+        color: #e0e7ff;
+        overflow-x: hidden;
+        margin: 0;
+      }
+
+      /* HUD Overlay */
+      .hud-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        background: rgba(13, 27, 42, 0.5);
+      }
+
+      .scan-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 50%, transparent 50%);
+        background-size: 100% 4px;
+        animation: scan 10s linear infinite;
+      }
+
+      .noise {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAAXNSR0IArs4c6QAAAEZQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBB4lAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAHGlET1QAAAACAAAAAAAAABMAAAAoAAAAEwAAABMAAADXa6TfAAAAVUlEQVQ4y+3SSQ4AIAwDwQ8C/f9vdkkZAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAMk/YB48oD5uAAAAAElFTkSuQmCC');
+      }
+
+      @keyframes scan {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-100%); }
+      }
+
+      /* Cards */
       .card {
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          transition: box-shadow 0.3s ease;
+        background: rgba(27, 38, 59, 0.85);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(69, 162, 255, 0.1);
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
       }
+
       .card:hover {
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(69, 162, 255, 0.2);
       }
-      /* Hero card styling with blue background */
-      #kpi-container .card {
-          background-color: #274f9d;
-          color: white;
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10% 10%, rgba(69, 162, 255, 0.2), transparent 50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
       }
-      #kpi-container .card-title {
-          color: white;
+
+      .card:hover::before {
+        opacity: 1;
       }
-      #kpi-container .text-secondary {
-          color: rgba(255, 255, 255, 0.8) !important;
-      }
-      /* Main hero card with portrait */
+
+      /* Hero Card */
       .page-body .row:first-child .card {
-          background-color: #274f9d;
-          color: white;
+        background: linear-gradient(45deg, #274f9d, #45a2ff);
+        color: #e0e7ff;
       }
+
       .page-body .row:first-child .card .subheader {
-          color: rgba(255, 255, 255, 0.8);
+        color: rgba(224, 231, 255, 0.8);
       }
-      /* Ensure badges remain readable on blue background */
+
+      /* KPI Cards */
+      #kpi-container .card {
+        background: rgba(27, 38, 59, 0.9);
+        border: 1px solid rgba(132, 99, 255, 0.3);
+      }
+
+      #kpi-container .card-title {
+        color: #e0e7ff;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      #kpi-container .text-secondary {
+        color: rgba(224, 231, 255, 0.7) !important;
+      }
+
+      /* Badges */
       .badge.bg-orange-lt {
-          background-color: rgba(255, 200, 120, 0.3) !important;
-          color: #ff9800 !important;
-          font-weight: bold;
+        background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
+        color: #fff !important;
+        font-weight: 700;
+        padding: 0.5em 1em;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
       }
+
       .badge.bg-danger-lt {
-          background-color: rgba(255, 99, 99, 0.2) !important;
-          color: #dc3545 !important;
-          font-weight: bold;
+        background: linear-gradient(45deg, #dc3545, #ef5350) !important;
+        color: #fff !important;
+        font-weight: 700;
       }
-      html body .badge.bg-danger-lt {
-          background-color: rgba(255, 99, 99, 0.2) !important;
-          color: #dc3545 !important;
-          font-weight: bold !important;
-      }
+
       .badge.bg-info-lt {
-          background-color: rgba(23, 162, 184, 0.3) !important;
-          color: white !important;
-          font-weight: bold;
+        background: linear-gradient(45deg, #17a2b8, #4dd0e1) !important;
+        color: #fff !important;
       }
+
       .badge.bg-success-lt {
-          background-color: rgba(72, 199, 116, 0.5) !important;
-          color: white !important;
-          font-weight: bold;
+        background: linear-gradient(45deg, #28a745, #4caf50) !important;
+        color: #fff !important;
       }
+
       .badge.bg-purple-lt {
-          background-color: rgba(72, 199, 116, 0.5) !important;
-          color: white !important;
-          font-weight: bold;
+        background: linear-gradient(45deg, #9c27b0, #ba68c8) !important;
+        color: #fff !important;
       }
+
       .badge.bg-secondary-lt {
-          background-color: rgba(108, 117, 125, 0.3) !important;
-          color: white !important;
-          font-weight: bold;
+        background: linear-gradient(45deg, #6c757d, #adb5bd) !important;
+        color: #fff !important;
       }
-      @import url("https://rsms.me/inter/inter.css");
+
+      /* Navbar */
+      .navbar {
+        background: rgba(13, 27, 42, 0.9);
+        border-bottom: 1px solid rgba(69, 162, 255, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-link {
+        color: #e0e7ff !important;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #45a2ff !important;
+        transform: scale(1.1);
+      }
+
+      .nav-item.active .nav-link {
+        color: #45a2ff !important;
+        font-weight: 700;
+        position: relative;
+      }
+
+      .nav-item.active .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #45a2ff;
+        box-shadow: 0 0 5px #45a2ff;
+      }
+
+      /* Charts */
+      #charts-container .card {
+        background: rgba(27, 38, 59, 0.9);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+      }
+
+      .apexcharts-text,
+      .apexcharts-title-text,
+      .apexcharts-legend-text,
+      .apexcharts-xaxis-label,
+      .apexcharts-yaxis-label {
+        fill: #e0e7ff !important;
+        font-family: 'Exo 2', sans-serif !important;
+      }
+
+      .apexcharts-gridline,
+      .apexcharts-xaxis-tick {
+        stroke: rgba(69, 162, 255, 0.2) !important;
+      }
+
+      /* Footer */
+      .footer {
+        background: rgba(13, 27, 42, 0.8);
+        border-top: 1px solid rgba(69, 162, 255, 0.2);
+      }
+
+      .footer a {
+        color: #45a2ff;
+        transition: color 0.3s ease;
+      }
+
+      .footer a:hover {
+        color: #84a6ff;
+      }
+
+      /* Modal */
+      .modal-content {
+        background: rgba(27, 38, 59, 0.95);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-header,
+      .modal-footer {
+        border-color: rgba(69, 162, 255, 0.2);
+      }
+
+      .modal-title,
+      .form-label {
+        color: #e0e7ff;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .card,
+      .nav-link {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      .card:nth-child(1) { animation-delay: 0.1s; }
+      .card:nth-child(2) { animation-delay: 0.2s; }
+      .card:nth-child(3) { animation-delay: 0.3s; }
+      .card:nth-child(4) { animation-delay: 0.4s; }
+      .card:nth-child(5) { animation-delay: 0.5s; }
+      .card:nth-child(6) { animation-delay: 0.6s; }
+
+      /* Loader */
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .chart-loader {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .chart-loader div {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #45a2ff;
+        border-top: 4px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Ripple Effect */
+      .ripple {
+        position: absolute;
+        background: rgba(69, 162, 255, 0.3);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      /* Font Import */
+      @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap');
     </style>
-    <!-- END CUSTOM FONT -->
+    <!-- END CUSTOM STYLES -->
   </head>
   <body>
+    <!-- HUD Overlay -->
+    <div class="hud-overlay">
+      <div class="scan-lines"></div>
+      <div class="noise"></div>
+    </div>
     <!-- BEGIN DEMO THEME SCRIPT -->
     <script src="./preview/js/demo-theme.min.js?1740918423"></script>
     <!-- END DEMO THEME SCRIPT -->
     <div class="page">
-      <!-- BEGIN NAVBAR  -->
+      <!-- BEGIN NAVBAR -->
       <header class="navbar navbar-expand-md d-print-none">
         <div class="container-xl">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <div class="navbar-nav flex-row order-md-last">
+            <div class="d-none d-md-flex">
+              <a href="#" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom" id="darkModeToggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+                </svg>
+              </a>
+              <a href="#" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom" id="lightModeToggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </header>
       <header class="navbar-expand-md">
@@ -117,20 +364,18 @@
               <div class="row flex-fill align-items-center">
                 <div class="col">
                   <ul class="navbar-nav">
-                    <li class="nav-item"> <!-- Übersicht -->
+                    <li class="nav-item">
                       <a class="nav-link" href="./index.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12L12 3L21 12V20C21 21.1 20.1 22 19 22H5C3.9 22 3 21.1 3 20V12Z"/>
+                            <path d="M9 22V14H15V22"/>
                           </svg>
                         </span>
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
-                    <li class="nav-item"> <!-- Finley -->
+                    <li class="nav-item">
                       <a class="nav-link" href="./finley.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -141,7 +386,7 @@
                         <span class="nav-link-title"> Finley </span>
                       </a>
                     </li>
-                    <li class="nav-item active"> <!-- Bent is active -->
+                    <li class="nav-item active">
                       <a class="nav-link" href="./bent.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -152,7 +397,7 @@
                         <span class="nav-link-title"> Bent </span>
                       </a>
                     </li>
-                    <li class="nav-item"> <!-- Alex -->
+                    <li class="nav-item">
                       <a class="nav-link" href="./alex.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -163,7 +408,7 @@
                         <span class="nav-link-title"> Alex </span>
                       </a>
                     </li>
-                    <li class="nav-item"> <!-- Daten -->
+                    <li class="nav-item">
                       <a class="nav-link" href="./daten.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -183,7 +428,7 @@
           </div>
         </div>
       </header>
-      <!-- END NAVBAR  -->
+      <!-- END NAVBAR -->
       <div class="page-wrapper">
         <!-- BEGIN PAGE HEADER -->
         <div class="page-header d-print-none py-2">
@@ -208,7 +453,8 @@
                       <div class="col-auto d-flex justify-content-center">
                         <img src="./static/photos/Bent.png" alt="Bent Portrait" class="rounded-circle" width="120" height="120">
                       </div>
-                      <div class="col">                          <div class="text-center">
+                      <div class="col">
+                        <div class="text-center">
                           <h2 class="mb-1">Bent</h2>
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
@@ -222,17 +468,17 @@
                 </div>
               </div>
             </div>
-            <!-- END HERO SECTION WITH PORTRAIT AND GESAMTBEWERTUNG -->
+            <!-- END HERO SECTION -->
             <div class="row row-cards mb-4" id="kpi-container">
-              <!-- KPIs will be injected here by JavaScript -->
+              <!-- KPIs injected here -->
             </div>
             <div class="row row-cards" id="charts-container">
-              <!-- Charts will be injected here by JavaScript -->
+              <!-- Charts injected here -->
             </div>
           </div>
         </div>
         <!-- END PAGE BODY -->
-        <!--  BEGIN FOOTER  -->
+        <!-- BEGIN FOOTER -->
         <footer class="footer footer-transparent d-print-none">
           <div class="container-xl">
             <div class="row text-center align-items-center flex-row-reverse">
@@ -240,23 +486,10 @@
                 <ul class="list-inline list-inline-dots mb-0">
                   <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
                   <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
-                  <li class="list-inline-item">
-                    <a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a>
-                  </li>
+                  <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
                   <li class="list-inline-item">
                     <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="icon text-pink icon-inline icon-4"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-pink icon-inline icon-4">
                         <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                       </svg>
                       Sponsor
@@ -278,7 +511,7 @@
             </div>
           </div>
         </footer>
-        <!--  END FOOTER  -->
+        <!-- END FOOTER -->
       </div>
     </div>
     <!-- BEGIN PAGE MODALS -->
@@ -372,19 +605,7 @@
           <div class="modal-footer">
             <a href="#" class="btn btn-link link-secondary btn-3" data-bs-dismiss="modal"> Cancel </a>
             <a href="#" class="btn btn-primary btn-5 ms-auto" data-bs-dismiss="modal">
-              <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="icon icon-2"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-2">
                 <path d="M12 5l0 14" />
                 <path d="M5 12l14 0" />
               </svg>
@@ -411,69 +632,46 @@
     <script>
       // @formatter:off
       document.addEventListener("DOMContentLoaded", function () {
-      
         // Helper function to calculate numeric percentile value
         function getNumericPercentile(percentileStr) {
           if (!percentileStr) return 0;
-          
           if (percentileStr.startsWith('>')) {
-            // Better than highest recorded percentile, use that percentile value
             return parseFloat(percentileStr.substring(1).replace('%',''));
           } else if (percentileStr.startsWith('<')) {
-            // Worse than lowest recorded percentile
             return 0;
           } else {
-            // Matched a specific percentile bracket
             return parseFloat(percentileStr.replace('%',''));
           }
         }
-        
-        // Helper function to calculate average percentile across exercises
+
+        // Helper function to calculate average percentile
         function calculateAveragePercentile(chartData) {
           const exercisesToInclude = ['10m Sprint', '20m Sprint', 'Gewandtheit', 'Dribbling', 'Balljonglieren', 'Ballkontrolle'];
           let totalPercentile = 0;
           let countedExercises = 0;
-          
-          console.log("Calculating average percentile with data:", chartData);
-          
-          // Go through all exercises that should be included
+
           chartData.forEach(data => {
-            // Use bentResult property for Bent's data
             const playerResult = data.bentResult;
-            
             if (exercisesToInclude.includes(data.exercise) && 
                 playerResult !== null && playerResult !== undefined &&
                 data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
-                
               const rankInfo = calculatePercentileRank(playerResult, data.dfbValues, data.dfbCategories, data.exercise);
-              console.log(`Exercise: ${data.exercise}, Result: ${playerResult}, Percentile: ${rankInfo.numericPercentile}`);
-              
-              if (rankInfo && typeof rankInfo.numericPercentile === 'number') {
-                totalPercentile += rankInfo.numericPercentile;
-                countedExercises++;
-              } else {
-                console.log(`Invalid rank info for ${data.exercise}: `, rankInfo);
-              }
-            } else {
-              console.log(`Skipping exercise: ${data.exercise} - missing data or not included`);
+              totalPercentile += rankInfo.numericPercentile;
+              countedExercises++;
             }
           });
-          
-          // Calculate and return average if we have any valid exercises
+
           if (countedExercises > 0) {
             const avgPercentile = totalPercentile / countedExercises;
-            console.log(`Average percentile: ${avgPercentile.toFixed(1)} from ${countedExercises} exercises`);
             return {
               average: avgPercentile.toFixed(1),
               label: getPercentileLabel(avgPercentile)
             };
-          } else {
-            console.log("WARNING: No exercises had valid data for percentile calculation");
-            return { average: 50, label: 'Durchschnittlich' }; // Default to 50 if no data
           }
+          return { average: 0, label: 'Insufficient Data' };
         }
-        
-        // Helper to get label based on percentile value
+
+        // Helper to get label based on percentile
         function getPercentileLabel(percentile) {
           if (percentile >= 97) return 'Ausgezeichnet';
           if (percentile >= 90) return 'Sehr gut';
@@ -484,82 +682,61 @@
 
         // Helper function to calculate percentile rank
         function calculatePercentileRank(bentResult, dfbValues, dfbCategories, exerciseName) {
-          // Handle cases where result is missing (e.g., null)
           if (bentResult === null || bentResult === undefined) {
-             return { rankString: 'No result available', label: '' };
+            return { rankString: 'No result available', label: '', numericPercentile: 0 };
           }
-          // Handle cases where DFB data is missing or incomplete
           if (!dfbValues || dfbValues.length === 0 || !dfbCategories || dfbCategories.length === 0 || dfbValues.length !== dfbCategories.length) {
-             return { rankString: 'Ranking data not available', label: '' };
+            const resultDisplay = bentResult !== undefined && bentResult !== null ? bentResult : 'N/A';
+            return { rankString: 'Ranking data not available', label: '', resultDisplay: resultDisplay, numericPercentile: 0 };
           }
 
-
-          const higherIsBetter = exerciseName === 'Balljonglieren';
-          let percentile = '<' + dfbCategories[0]; // Default if worse than lowest percentile
+          const higherIsBetter = ['Balljonglieren'].includes(exerciseName);
+          let percentile = '<' + dfbCategories[0];
           let foundRank = false;
 
-          // Iterate from best percentile downwards
           for (let i = dfbCategories.length - 1; i >= 0; i--) {
             const dfbValue = dfbValues[i];
             const dfbPercentile = dfbCategories[i];
-
             if (higherIsBetter) {
               if (bentResult >= dfbValue) {
                 percentile = dfbPercentile;
                 foundRank = true;
-                break; // Found the highest percentile Bent meets or exceeds
+                break;
               }
-            } else { // Lower is better
+            } else {
               if (bentResult <= dfbValue) {
                 percentile = dfbPercentile;
                 foundRank = true;
-                break; // Found the highest percentile Bent meets or exceeds
+                break;
               }
             }
           }
 
-          // Check if better than the best recorded percentile (only if a rank was found within the range)
           if (foundRank) {
-              const bestDfbValue = dfbValues[dfbValues.length - 1];
-              const bestDfbPercentile = dfbCategories[dfbCategories.length - 1];
-              if (higherIsBetter) {
-                  if (bentResult > bestDfbValue) {
-                      percentile = '>' + bestDfbPercentile;
-                  }
-              } else {
-                  // Check if LOWER than the best value (which corresponds to the highest percentile)
-                  // For lower-is-better, the lowest value has the highest percentile
-                  const lowestDfbValue = dfbValues[dfbCategories.length - 1]; // The value for the highest percentile
-                   if (bentResult < lowestDfbValue) {
-                      percentile = '>' + bestDfbPercentile;
-                  }
-              }
-          } else {
-             // If no rank found, it means the result is worse than the lowest percentile recorded
-             percentile = '<' + dfbCategories[0];
+            const bestDfbValue = dfbValues[dfbValues.length - 1];
+            const bestDfbPercentile = dfbCategories[dfbCategories.length - 1];
+            if (higherIsBetter && bentResult > bestDfbValue) {
+              percentile = '>' + bestDfbPercentile;
+            } else if (!higherIsBetter && bentResult < bestDfbValue) {
+              percentile = '>' + bestDfbPercentile;
+            }
           }
-
 
           let rankString = '';
           let label = '';
           let numericPercentile = 0;
 
-          // Determine the rank string and numeric percentile
           if (percentile.startsWith('>')) {
-             // Case 1: Better than the highest recorded percentile
-             numericPercentile = parseFloat(percentile.substring(1).replace('%',''));
-             rankString = `Better than ${numericPercentile}% of players`;
+            numericPercentile = parseFloat(percentile.substring(1).replace('%',''));
+            rankString = `Better than ${numericPercentile}% of players`;
           } else if (percentile.startsWith('<')) {
-             // Case 3: Worse than the lowest recorded percentile
-             numericPercentile = 0; // Indicates below threshold
-             rankString = `Below the ${dfbCategories[0]} percentile`;
+            numericPercentile = 0;
+            rankString = `Below the ${dfbCategories[0]} percentile`;
           } else {
-             // Case 2: Matched a specific percentile bracket
-             numericPercentile = parseFloat(percentile.replace('%',''));
-             rankString = `Better than ${numericPercentile}% of players`;
+            numericPercentile = parseFloat(percentile.replace('%',''));
+            rankString = `Better than ${numericPercentile}% of players`;
           }
 
-          // Determine the qualitative label based on numeric percentile
           if (numericPercentile >= 97) {
             label = 'Ausgezeichnet';
           } else if (numericPercentile >= 90) {
@@ -568,21 +745,14 @@
             label = 'Gut';
           } else if (numericPercentile >= 30) {
             label = 'Durchschnittlich';
-          } else {
-             // Only assign 'Unterdurchschnittlich' if they are below the 30th percentile *and* a rank could be determined
-             // If rankString is 'Below...', it implies they didn't even meet the lowest percentile, so definitely 'Unterdurchschnittlich'
-             // If they matched a percentile < 30%, also 'Unterdurchschnittlich'
-             if (percentile.startsWith('<') || numericPercentile < 30) {
-                label = 'Unterdurchschnittlich';
-             }
-             // Otherwise (e.g., rankString is 'No result' or 'Ranking data not available'), label remains empty.
+          } else if (percentile.startsWith('<') || numericPercentile < 30) {
+            label = 'Unterdurchschnittlich';
           }
 
-
-          return { rankString, label, numericPercentile }; // Return all info including numeric percentile
+          return { rankString, label, numericPercentile };
         }
 
-
+        // Chart data
         const chartData = [
           {
             exercise: "10m Sprint",
@@ -604,73 +774,66 @@
           },
           {
             exercise: "Dribbling",
-            bentResult: null, // No result for Bent in Dribbling
+            bentResult: null,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
           },
           {
             exercise: "Balljonglieren",
-            bentResult: 3.00, // Higher is better for this one
-            dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'], // Note different percentiles
-            dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00] // Note values (higher is better)
+            bentResult: 3.00,
+            dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00]
           }
         ];
 
         const kpiContainer = document.getElementById('kpi-container');
         const chartsContainer = document.getElementById('charts-container');
-        
-        // Calculate average percentile across specified exercises
+
+        // Calculate average percentile
         const averagePercentileInfo = calculateAveragePercentile(chartData);
-        
-        // Update the existing Gesamtbewertung values in the hero section
+
+        // Update Gesamtbewertung
         const averagePercentileElement = document.getElementById('average-percentile');
         const averageLabelElement = document.getElementById('average-label');
-        
+
         if (averagePercentileElement) {
           averagePercentileElement.textContent = Math.ceil(parseFloat(averagePercentileInfo.average));
         }
-        
+
         if (averageLabelElement) {
-          // Determine badge color for the average
-          let badgeColor = 'secondary'; // Default color
+          let badgeColor = 'secondary';
           if (averagePercentileInfo.label === 'Gut') badgeColor = 'info';
           if (averagePercentileInfo.label === 'Sehr gut') badgeColor = 'success';
           if (averagePercentileInfo.label === 'Ausgezeichnet') badgeColor = 'success';
           if (averagePercentileInfo.label === 'Durchschnittlich') badgeColor = 'orange';
           if (averagePercentileInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-          
           averageLabelElement.textContent = averagePercentileInfo.label;
           averageLabelElement.className = `badge bg-${badgeColor}-lt`;
         }
-        
+
         chartData.forEach((data, index) => {
           const chartId = `chart-exercise-${index}`;
           const kpiId = `kpi-exercise-${index}`;
 
-          // Calculate Percentile Rank and Label
+          // Calculate rank and label
           const rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
-
-          // Create KPI Card HTML and append to KPI container
-          const kpiColDiv = document.createElement('div');
-          kpiColDiv.className = 'col-md-4 mb-3'; // Keep KPI column size
-
-          // Determine badge color and create label HTML if a label exists
           let labelHtml = '';
           if (rankInfo.label) {
-               let badgeColor = 'secondary'; // Default color
-               if (rankInfo.label === 'Gut') badgeColor = 'info';
-               if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-               if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'success'; // Using green for the top tier
-               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange'; // Light orange background
-               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger'; // Light red background with darker red text
-               labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
-           }
+            let badgeColor = 'secondary';
+            if (rankInfo.label === 'Gut') badgeColor = 'info';
+            if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
+            if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+            if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
+            if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+            labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2" style="${rankInfo.label === 'Durchschnittlich' ? 'font-size: 1.2em;' : ''}">${rankInfo.label}</span>`;
+          }
 
-          // Generate the inner HTML for the KPI card
-          // Use 'N/A' if bentResult is null or undefined
+          // Create KPI Card
+          const kpiColDiv = document.createElement('div');
+          kpiColDiv.className = 'col-md-4 mb-3';
           const resultDisplay = (data.bentResult !== null && data.bentResult !== undefined)
-                               ? data.bentResult.toFixed(2)
-                               : 'N/A';
+            ? (data.exercise === 'Balljonglieren' ? Math.round(data.bentResult) : data.bentResult.toFixed(2))
+            : 'N/A';
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
@@ -682,152 +845,150 @@
           `;
           kpiContainer.appendChild(kpiColDiv);
 
-
-          // Create Chart Card HTML and append to Chart container ONLY if data is valid
+          // Create Chart
           if (data.bentResult !== null && data.bentResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
             const chartColDiv = document.createElement('div');
-            chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size
-            chartColDiv.innerHTML = `<div class="card" style="background-color: #274f9d;"><div class="card-body"><div id="${chartId}"></div><style>.apexcharts-text, .apexcharts-title-text, .apexcharts-legend-text, .apexcharts-xaxis-label, .apexcharts-yaxis-label { fill: white !important; color: white !important; } .apexcharts-gridline, .apexcharts-xaxis-tick { stroke: rgba(255, 255, 255, 0.2) !important; } .card-title { color: white !important; }</style></div></div>`;
+            chartColDiv.className = 'col-lg-6 mb-4';
+            chartColDiv.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <div id="${chartId}"></div>
+                  <div class="chart-loader">
+                    <div></div>
+                  </div>
+                </div>
+              </div>`;
             chartsContainer.appendChild(chartColDiv);
 
-
-            // Create a single data point for the player's result
-            const playerName = "Bent"; // Since Bent is the active page
-
-            // Create consolidated array with both DFB values and player's result
-            const higherIsBetter = ['Balljonglieren'].includes(data.exercise);
-            
-            // Create arrays for values and categories
+            const playerName = "Bent";
             let allValues = [];
             let allCategories = [];
-            
-            // Add player's result first, ensuring proper decimal precision
             allValues.push(data.exercise === 'Balljonglieren' ? Math.round(data.bentResult) : parseFloat(data.bentResult.toFixed(2)));
             allCategories.push(playerName);
-            
-            // Then add all DFB percentile values with proper decimal precision
             data.dfbValues.forEach((value, index) => {
               allValues.push(data.exercise === 'Balljonglieren' ? Math.round(value) : parseFloat(value.toFixed(2)));
               allCategories.push(data.dfbCategories[index]);
             });
-            
-            // Sort the arrays based on the values
+
+            const higherIsBetter = ['Balljonglieren'].includes(data.exercise);
             const combinedData = allValues.map((value, index) => {
               return { value: value, category: allCategories[index] };
             });
-            
-            // Sort by value (ascending or descending based on the exercise)
-            combinedData.sort((a, b) => {
-              if (higherIsBetter) {
-                // For higher is better exercises, sort descending (highest first)
-                return b.value - a.value;
-              } else {
-                // For lower is better exercises, sort ascending (lowest first)
-                return a.value - b.value;
-              }
-            });
-            
-            // Find the index of the player in the sorted array
+            combinedData.sort((a, b) => higherIsBetter ? b.value - a.value : a.value - b.value);
             const playerIndex = combinedData.findIndex(item => item.category === playerName);
-            
-            // Extract sorted arrays
             allValues = combinedData.map(item => item.value);
             allCategories = combinedData.map(item => item.category);
-            
+
             const options = {
               chart: {
                 type: 'bar',
                 height: 350,
                 toolbar: { show: true },
-                zoom: { enabled: false }
+                zoom: { enabled: false },
+                animations: {
+                  enabled: true,
+                  easing: 'easeinout',
+                  speed: 800
+                }
               },
               plotOptions: {
                 bar: {
-                  horizontal: true, // Using horizontal bars
+                  horizontal: true,
                   dataLabels: {
-                    position: 'top',
-                  },
+                    position: 'top'
+                  }
                 }
               },
               series: [
                 {
                   name: 'Results',
                   data: allValues,
-                  // Color function to highlight the player's bar
                   color: function(opts) {
-                    return opts.dataPointIndex === playerIndex ? '#2196F3' : '#A0A0A0';
+                    return opts.dataPointIndex === playerIndex ? '#45a2ff' : '#6c757d';
                   }
                 }
               ],
               xaxis: {
                 categories: allCategories,
-                title: { text: 'Performance Results' },
-                min: 0, // Start x-axis at 0
-                max: Math.max(...allValues) * 1.1, // Set max to slightly higher than the highest value
-              },              yaxis: {
+                title: { text: 'Performance Results', style: { color: '#e0e7ff', fontFamily: 'Exo 2' } },
+                min: 0,
+                max: Math.max(...allValues) * 1.1,
+                labels: { style: { colors: '#e0e7ff', fontFamily: 'Exo 2' } }
+              },
+              yaxis: {
                 title: { 
-                  text: data.exercise === 'Balljonglieren' ? 'Count' : 'Time (s)'
+                  text: data.exercise === 'Balljonglieren' ? 'Count' : 'Time (s)',
+                  style: { color: '#e0e7ff', fontFamily: 'Exo 2' }
                 },
-                reversed: false, // Always false to keep best performance at the top
-                opposite: false, // This places the y-axis on the left side
+                reversed: false,
+                opposite: false,
                 labels: {
-                  align: 'left'
+                  align: 'left',
+                  style: { colors: '#e0e7ff', fontFamily: 'Exo 2' }
                 }
               },
-              title: { text: data.exercise, align: 'center' },
+              title: { 
+                text: data.exercise, 
+                align: 'center', 
+                style: { color: '#e0e7ff', fontFamily: 'Exo 2', fontWeight: 600 }
+              },
               dataLabels: {
                 enabled: true,
                 formatter: function (val) {
                   return data.exercise === 'Balljonglieren' ? Math.round(val) : val.toFixed(2);
                 },
-                textAnchor: 'middle', // Center-align text
-                offsetX: -30, // Move labels closer to the center of the bar
+                offsetX: -30,
                 style: {
-                  colors: ['#FFFFFF'], // Use white text for all bars
+                  colors: ['#e0e7ff'],
                   fontSize: '13px',
-                  fontWeight: 700
-                },
-                background: {
-                  enabled: false // No background
-                },
-                position: 'center', // Position in center of bar
-                distributed: true, // Enable per-datapoint formatting
-                align: 'center' // Align centered within the bar
+                  fontWeight: 700,
+                  fontFamily: 'Exo 2'
+                }
               },
-              tooltip: { x: { formatter: val => data.exercise === 'Balljonglieren' ? Math.round(val) : val.toFixed(2) } },
-              legend: {
-                position: 'top',
-                horizontalAlign: 'right',
-                floating: true,
-                offsetY: -25,
-                offsetX: -5
+              tooltip: { 
+                theme: 'dark',
+                x: { formatter: val => data.exercise === 'Balljonglieren' ? Math.round(val) : val.toFixed(2) }
+              },
+              legend: { 
+                position: 'top', 
+                horizontalAlign: 'right', 
+                floating: true, 
+                offsetY: -25, 
+                offsetX: -5,
+                labels: { colors: '#e0e7ff', fontFamily: 'Exo 2' }
+              },
+              grid: {
+                borderColor: 'rgba(69, 162, 255, 0.2)'
               }
             };
 
-            if (window.ApexCharts) {
-               new ApexCharts(document.querySelector(`#${chartId}`), options).render();
-            } else {
-               console.error("ApexCharts library not loaded.");
-               const chartDiv = document.querySelector(`#${chartId}`);
-               if (chartDiv) chartDiv.innerHTML = '<p class="text-center text-muted">Chart library not loaded.</p>';
-            }
-        } else {
-            // Optionally, add a placeholder or message if chart can't be generated
-             const chartColDiv = document.createElement('div');
-             chartColDiv.className = 'col-lg-6 mb-4'; // Keep chart column size consistent
-             chartColDiv.innerHTML = `
-                <div class="card" style="background-color: #274f9d;">
-                  <div class="card-body">
-                    <h5 class="card-title text-center" style="color: white;">${data.exercise}</h5>
-                    <p class="text-center mt-3" style="color: rgba(255, 255, 255, 0.8);">Chart not available due to missing data.</p>
-                  </div>
-                </div>`;
-             chartsContainer.appendChild(chartColDiv);
-        }
-
+            // Show loader briefly
+            const loader = chartColDiv.querySelector('.chart-loader');
+            loader.style.display = 'block';
+            setTimeout(() => {
+              loader.style.display = 'none';
+              if (window.ApexCharts) {
+                new ApexCharts(document.querySelector(`#${chartId}`), options).render();
+              } else {
+                console.error("ApexCharts library not loaded.");
+                document.querySelector(`#${chartId}`).innerHTML = '<p class="text-center text-danger">Error: Chart library not loaded.</p>';
+              }
+            }, 500);
+          } else {
+            const chartColDiv = document.createElement('div');
+            chartColDiv.className = 'col-lg-6 mb-4';
+            chartColDiv.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center" style="color: #e0e7ff;">${data.exercise}</h5>
+                  <p class="text-center mt-3" style="color: rgba(224, 231, 255, 0.8);">Chart not available due to missing data.</p>
+                </div>
+              </div>`;
+            chartsContainer.appendChild(chartColDiv);
+          }
         });
 
-        // --- Remove original demo charts ---
+        // Remove original demo charts
         const revenueChart = document.getElementById("chart-revenue-bg");
         if (revenueChart) revenueChart.closest('.col-sm-6')?.remove();
         const clientsChart = document.getElementById("chart-new-clients");
@@ -836,18 +997,65 @@
         if (usersChart) usersChart.closest('.col-sm-6')?.remove();
         const mentionsChart = document.getElementById("chart-mentions");
         if (mentionsChart) mentionsChart.closest('.col-lg-12')?.remove();
-         const mapWorld = document.getElementById("map-world");
+        const mapWorld = document.getElementById("map-world");
         if (mapWorld) mapWorld.closest('.col-lg-8')?.remove();
         const sparklineActivity = document.getElementById("sparkline-activity");
         if (sparklineActivity) sparklineActivity.closest('.col-lg-4')?.remove();
         const devActivity = document.getElementById("chart-development-activity");
-         if (devActivity) devActivity.closest('.col-md-6')?.remove();
-         for (let i = 1; i <= 6; i++) {
-            const bounceRateChart = document.getElementById(`sparkline-bounce-rate-${i}`);
-             if (bounceRateChart) bounceRateChart.closest('tr')?.remove();
-         }
+        if (devActivity) devActivity.closest('.col-md-6')?.remove();
+        for (let i = 1; i <= 6; i++) {
+          const bounceRateChart = document.getElementById(`sparkline-bounce-rate-${i}`);
+          if (bounceRateChart) bounceRateChart.closest('tr')?.remove();
+        }
 
+        // Theme toggling
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const lightModeToggle = document.getElementById('lightModeToggle');
 
+        function setTheme(themeName) {
+          document.body.setAttribute('data-bs-theme', themeName);
+          localStorage.setItem('tabler-theme', themeName);
+        }
+
+        function initTheme() {
+          const savedTheme = localStorage.getItem('tabler-theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            setTheme('dark');
+          }
+        }
+
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            setTheme('dark');
+          });
+        }
+
+        if (lightModeToggle) {
+          lightModeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            setTheme('light');
+          });
+        }
+
+        initTheme();
+
+        // Ripple effect for cards
+        document.querySelectorAll('.card').forEach(card => {
+          card.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            const rect = card.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+            ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+            card.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+          });
+        });
       });
       // @formatter:on
     </script>
