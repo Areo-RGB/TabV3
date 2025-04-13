@@ -106,11 +106,11 @@
           </button>
           <div class="navbar-nav flex-row order-md-last">
             <div class="d-none d-md-flex">
-              <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+              <a href="#" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom" id="darkModeToggle">
                 <!-- Download SVG icon from http://tabler.io/icons/icon/moon -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
               </a>
-              <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+              <a href="#" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom" id="lightModeToggle">
                 <!-- Download SVG icon from http://tabler.io/icons/icon/sun -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
               </a>
@@ -713,7 +713,9 @@
           // Generate the inner HTML for the KPI card
            const resultDisplay = data.exercise === 'YoYo IR1'
                                ? (data.finleyResult !== null && data.finleyResult !== undefined ? data.finleyResult + 'm' : 'N/A')
-                               : (data.finleyResult !== null && data.finleyResult !== undefined ? data.finleyResult.toFixed(2) : 'N/A');
+                               : (data.finleyResult !== null && data.finleyResult !== undefined 
+                                 ? (data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : data.finleyResult.toFixed(2)) 
+                                 : 'N/A');
 
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
@@ -736,33 +738,111 @@
               chartColDiv.innerHTML = `<div class="card"><div class="card-body"><div id="${chartId}"></div></div></div>`;
               chartsContainer.appendChild(chartColDiv);
 
-              // IMPORTANT: Use the correct player name for the series!
-              const playerLineData = data.dfbCategories.map(() => data.finleyResult); // Use the data variable holding the result
+              // Create a single data point for the player's result
               const playerName = "Finley"; // Since Finley is the active page
 
+              // Create consolidated array with both DFB values and player's result
+              const higherIsBetter = ['Balljonglieren'].includes(data.exercise);
+              
+              // Create arrays for values and categories
+              let allValues = [];
+              let allCategories = [];
+              
+              // Add player's result first, ensuring proper decimal precision
+              allValues.push(data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : parseFloat(data.finleyResult.toFixed(2)));
+              allCategories.push(playerName);
+              
+              // Then add all DFB percentile values with proper decimal precision
+              data.dfbValues.forEach((value, index) => {
+                allValues.push(data.exercise === 'Balljonglieren' ? Math.round(value) : parseFloat(value.toFixed(2)));
+                allCategories.push(data.dfbCategories[index]);
+              });
+              
+              // Sort the arrays based on the values
+              const combinedData = allValues.map((value, index) => {
+                return { value: value, category: allCategories[index] };
+              });
+              
+              // Sort by value (ascending or descending based on the exercise)
+              combinedData.sort((a, b) => {
+                if (higherIsBetter) {
+                  // For higher is better exercises, sort descending (highest first)
+                  return b.value - a.value;
+                } else {
+                  // For lower is better exercises, sort ascending (lowest first)
+                  return a.value - b.value;
+                }
+              });
+              
+              // Find the index of the player in the sorted array
+              const playerIndex = combinedData.findIndex(item => item.category === playerName);
+              
+              // Extract sorted arrays
+              allValues = combinedData.map(item => item.value);
+              allCategories = combinedData.map(item => item.category);
+              
               const options = {
                 chart: {
-                  type: 'line',
+                  type: 'bar',
                   height: 350,
                   toolbar: { show: true },
-                   zoom: { enabled: false }
+                  zoom: { enabled: false }
+                },
+                plotOptions: {
+                  bar: {
+                    horizontal: true, // Using horizontal bars
+                    dataLabels: {
+                      position: 'top',
+                    },
+                  }
                 },
                 series: [
-                  { name: 'DFB Percentile', data: data.dfbValues },
-                  { name: playerName, data: playerLineData } // Use correct player name and data
+                  {
+                    name: 'Results',
+                    data: allValues,
+                    // Color function to highlight the player's bar
+                    color: function(opts) {
+                      return opts.dataPointIndex === playerIndex ? '#2196F3' : '#A0A0A0';
+                    }
+                  }
                 ],
                 xaxis: {
-                  categories: data.dfbCategories,
-                  title: { text: 'DFB Percentile' }
+                  categories: allCategories,
+                  title: { text: 'Performance Results' },
+                  min: 0, // Start x-axis at 0
+                  max: Math.max(...allValues) * 1.1, // Set max to slightly higher than the highest value
                 },
                 yaxis: {
-                  title: { text: 'Ergebnis' + (data.exercise === 'Balljonglieren' ? ' (Higher is better)' : ' (Lower is better)') },
-                  reversed: data.exercise !== 'Balljonglieren' // Reverse only if lower is better
+                  title: { 
+                    text: higherIsBetter ? 'Count (Higher is better)' : 'Time (s) (Lower is better)'
+                  },
+                  reversed: false, // Always false to keep best performance at the top
+                  opposite: false, // This places the y-axis on the left side
+                  labels: {
+                    align: 'left'
+                  }
                 },
                 title: { text: data.exercise, align: 'center' },
-                stroke: { curve: 'smooth', width: [4, 2] },
-                markers: { size: 5 },
-                 tooltip: { y: { formatter: val => val.toFixed(2) } },
+                dataLabels: {
+                  enabled: true,
+                  formatter: function (val) {
+                    return data.exercise === 'Balljonglieren' ? Math.round(val) : val.toFixed(2);
+                  },
+                  textAnchor: 'middle', // Center-align text
+                  offsetX: -30, // Move labels closer to the center of the bar
+                  style: {
+                    colors: ['#FFFFFF'], // Use white text for all bars
+                    fontSize: '13px',
+                    fontWeight: 700
+                  },
+                  background: {
+                    enabled: false // No background
+                  },
+                  position: 'center', // Position in center of bar
+                  distributed: true, // Enable per-datapoint formatting
+                  align: 'center' // Align centered within the bar
+                },
+                tooltip: { x: { formatter: val => data.exercise === 'Balljonglieren' ? Math.round(val) : val.toFixed(2) } },
                 legend: { position: 'top', horizontalAlign: 'right', floating: true, offsetY: -25, offsetX: -5 }
               };
 
@@ -811,7 +891,58 @@
             const bounceRateChart = document.getElementById(`sparkline-bounce-rate-${i}`);
              if (bounceRateChart) bounceRateChart.closest('tr')?.remove();
          }
-
+         
+        // Theme toggling functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const lightModeToggle = document.getElementById('lightModeToggle');
+        
+        // Function to set theme
+        function setTheme(themeName) {
+          document.body.setAttribute('data-bs-theme', themeName);
+          localStorage.setItem('tabler-theme', themeName);
+        }
+        
+        // Function to toggle between light and dark themes
+        function toggleTheme() {
+          if (document.body.getAttribute('data-bs-theme') === 'dark') {
+            setTheme('light');
+          } else {
+            setTheme('dark');
+          }
+        }
+        
+        // Initialize theme based on local storage or system preference
+        function initTheme() {
+          const savedTheme = localStorage.getItem('tabler-theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            // Check system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              setTheme('dark');
+            } else {
+              setTheme('light');
+            }
+          }
+        }
+        
+        // Set up event listeners
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            setTheme('dark');
+          });
+        }
+        
+        if (lightModeToggle) {
+          lightModeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            setTheme('light');
+          });
+        }
+        
+        // Initialize theme
+        initTheme();
       });
       // @formatter:on
     </script>
