@@ -134,22 +134,18 @@
 
       #kpi-container .text-secondary {
         color: rgba(224, 231, 255, 0.7) !important;
-      }
-
-      /* Badges */
+      }      /* Badges */
       .badge.bg-orange-lt {
         background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
         color: #fff !important;
-        font-weight: 700;
+        font-weight: normal;
         padding: 0.5em 1em;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-      }
-
-      .badge.bg-danger-lt {
+      }      .badge.bg-danger-lt {
         background: linear-gradient(45deg, #dc3545, #ef5350) !important;
         color: #fff !important;
-        font-weight: 700;
+        font-weight: normal;
       }
 
       .badge.bg-info-lt {
@@ -455,7 +451,7 @@
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
                             <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
-                            <span class="badge bg-orange-lt" style="font-size: 1.2em; padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
+                            <span class="badge bg-orange-lt" style="padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
                           </div>
                         </div>
                       </div>
@@ -781,11 +777,10 @@
             rankInfo = { rankString: 'Ranking data not available', label: 'Ausgezeichnet', numericPercentile: 97 };
             labelHtml = `<span class="badge bg-success-lt ms-2">${rankInfo.label}</span>`;
           } else {
-            rankInfo = calculatePercentileRank(data.alexResult, data.dfbValues, data.dfbCategories, data.exercise);
-            if (rankInfo.label && data.exercise === '10m Sprint' && rankInfo.label === 'Durchschnittlich') {
-              labelHtml = `<span class="badge bg-orange-lt ms-2" style="font-size: 0.8em !important;">${rankInfo.label}</span>`;
+            rankInfo = calculatePercentileRank(data.alexResult, data.dfbValues, data.dfbCategories, data.exercise);            if (rankInfo.label && data.exercise === '10m Sprint' && rankInfo.label === 'Durchschnittlich') {
+              labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
             } else if (rankInfo.label && data.exercise === '20m Sprint' && rankInfo.label === 'Durchschnittlich') {
-              labelHtml = `<span class="badge bg-orange-lt ms-2" style="font-size: 0.8em !important;">${rankInfo.label}</span>`;
+              labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
             }
             else if (rankInfo.label) {
               let badgeColor = 'secondary';

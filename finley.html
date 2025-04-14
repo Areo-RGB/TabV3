@@ -140,7 +140,7 @@
       .badge.bg-orange-lt {
         background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
         color: #fff !important;
-        font-weight: 700;
+        font-weight: normal;
         padding: 0.5em 1em;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
@@ -149,7 +149,7 @@
       .badge.bg-danger-lt {
         background: linear-gradient(45deg, #dc3545, #ef5350) !important;
         color: #fff !important;
-        font-weight: 700;
+        font-weight: normal;
       }
 
       .badge.bg-info-lt {
@@ -756,7 +756,7 @@
             exercise: "Ballkontrolle",
             finleyResult: 10.82,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
-            dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
+            dfbValues: [15.29, 13.81, 12.86, 12.28, 11.78, 11.36, 10.99, 10.59, 10.18, 9.66, 9.00]
           },
           {
             exercise: "YoYo IR1",
@@ -802,15 +802,14 @@
             rankInfo = { rankString: 'Below the 30% percentile', label: 'Unterdurchschnittlich' };
             labelHtml = `<span class="badge bg-danger-lt ms-2">${rankInfo.label}</span>`;
           } else {
-            rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
-            if (rankInfo.label) {
+            rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);              if (rankInfo.label) {
               let badgeColor = 'secondary';
               if (rankInfo.label === 'Gut') badgeColor = 'info';
               if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
               if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2" style="${rankInfo.label === 'Durchschnittlich' ? 'font-size: 1.2em;' : ''}">${rankInfo.label}</span>`;
+              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
             }
           }
 

@@ -134,22 +134,18 @@
 
       #kpi-container .text-secondary {
         color: rgba(224, 231, 255, 0.7) !important;
-      }
-
-      /* Badges */
+      }      /* Badges */
       .badge.bg-orange-lt {
         background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
         color: #fff !important;
-        font-weight: 700;
+        font-weight: normal;
         padding: 0.5em 1em;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-      }
-
-      .badge.bg-danger-lt {
+      }      .badge.bg-danger-lt {
         background: linear-gradient(45deg, #dc3545, #ef5350) !important;
         color: #fff !important;
-        font-weight: 700;
+        font-weight: normal;
       }
 
       .badge.bg-info-lt {
@@ -459,7 +455,7 @@
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
                             <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
-<span class="badge bg-orange-lt" style="font-size: 1em; padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
+<span class="badge bg-orange-lt" style="padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
                           </div>
                         </div>
                       </div>
@@ -719,13 +715,11 @@
           }
 
           return { rankString, label, numericPercentile };
-        }
-
-        // Chart data
+        }        // Chart data
         const chartData = [
           {
             exercise: "10m Sprint",
-            bentResult: 2.32,
+            bentResult: 2.19,
             dfbCategories: ['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [2.33, 2.28, 2.24, 2.21, 2.18, 2.16, 2.13, 2.10, 2.05, 1.99]
           },
@@ -737,13 +731,13 @@
           },
           {
             exercise: "Gewandtheit",
-            bentResult: 9.17,
+            bentResult: 8.14,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [9.66, 9.33, 9.07, 8.90, 8.77, 8.66, 8.54, 8.42, 8.28, 8.11, 7.91]
           },
           {
             exercise: "Dribbling",
-            bentResult: null,
+            bentResult: 10.28,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [14.37, 13.42, 12.84, 12.50, 12.15, 11.90, 11.68, 11.44, 11.16, 10.84, 10.43]
           },
@@ -752,6 +746,11 @@
             bentResult: 3.00,
             dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00]
+          },          {
+            exercise: "Ballkontrolle",
+            bentResult: 8.95,
+            dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
+            dfbValues: [15.29, 13.81, 12.86, 12.28, 11.78, 11.36, 10.99, 10.59, 10.18, 9.66, 9.00]
           }
         ];
 
@@ -788,7 +787,7 @@
           const rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
           let labelHtml = '';
           if (rankInfo.label && data.exercise === '20m Sprint' && rankInfo.label === 'Durchschnittlich') {
-            labelHtml = `<span class="badge bg-orange-lt ms-2" style="font-size: 0.8em !important;">${rankInfo.label}</span>`;
+            labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
           } else if (rankInfo.label) {
              let badgeColor = 'secondary';
             if (rankInfo.label === 'Gut') badgeColor = 'info';
