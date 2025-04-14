@@ -545,15 +545,35 @@
                 </div>
                 <div class="table-responsive">
                   <table class="table table-vcenter card-table" id="data-table">
-                    <thead>
-                      <tr>
-                        <th data-sort="category">Kategorie</th>
-                        <th data-sort="exercise">Übung</th>
-                        <th data-sort="name">Name</th>
-                        <th data-sort="result">Ergebnis</th>
-                        <th class="w-1"></th>
-                      </tr>
-                    </thead>
+<thead>
+  <tr>
+    <th>
+      <select class="form-select filter-category" multiple>
+        <option value="">Alle</option>
+      </select>
+      Kategorie
+    </th>
+    <th>
+      <select class="form-select filter-exercise" multiple>
+        <option value="">Alle</option>
+      </select>
+      Übung
+    </th>
+    <th>
+      <select class="form-select filter-name" multiple>
+        <option value="">Alle</option>
+      </select>
+      Name
+    </th>
+    <th>
+      <select class="form-select filter-result" multiple>
+        <option value="">Alle</option>
+      </select>
+      Ergebnis
+    </th>
+    <th class="w-1"></th>
+  </tr>
+</thead>
                     <tbody>
                       <!-- Table data populated by JavaScript -->
                     </tbody>
@@ -737,6 +757,28 @@
           const end = start + ITEMS_PER_PAGE;
           const paginatedRows = allRows.slice(start, end);
 
+          // Populate filters
+          const categories = [...new Set(allRows.map(row => row[0]))];
+          const exercises = [...new Set(allRows.map(row => row[1]))];
+          const names = [...new Set(allRows.map(row => row[2]))];
+          const results = [...new Set(allRows.map(row => row[3]))];
+
+          populateFilter(".filter-category", categories);
+          populateFilter(".filter-exercise", exercises);
+          populateFilter(".filter-name", names);
+          populateFilter(".filter-result", results);
+
+          function populateFilter(selector, values) {
+            const select = document.querySelector(selector);
+            select.innerHTML = '<option value="">Alle</option>';
+            values.forEach(value => {
+              const option = document.createElement('option');
+              option.value = value;
+              option.textContent = value;
+              select.appendChild(option);
+            });
+          }
+
           paginatedRows.forEach((row, index) => {
             if (row.length < 4) return;
             const category = row[0] || '';
@@ -853,6 +895,84 @@
           });
         }
 
+        function initializeSearch() {
+          const searchInput = document.getElementById('search-input');
+          const newSearchInput = searchInput.cloneNode(true);
+          searchInput.parentNode.replaceChild(newSearchInput, searchInput);
+
+          newSearchInput.addEventListener('keyup', function() {
+            const searchTerm = newSearchInput.value.toLowerCase();
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = '';
+
+            const selectedCategories = Array.from(filterCategory.selectedOptions).map(option => option.value);
+            const selectedExercises = Array.from(filterExercise.selectedOptions).map(option => option.value);
+            const selectedNames = Array.from(filterName.selectedOptions).map(option => option.value);
+            const selectedResults = Array.from(filterResult.selectedOptions).map(option => option.value);
+
+            const filteredRows = allRows.filter(row => {
+              const category = row[0] || '';
+              const exercise = row[1] || '';
+              const name = row[2] || '';
+              const result = row[3] || '';
+
+              const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category) || selectedCategories.includes("");
+              const exerciseMatch = selectedExercises.length === 0 || selectedExercises.includes(exercise) || selectedExercises.includes("");
+              const nameMatch = selectedNames.length === 0 || selectedNames.includes(name) || selectedNames.includes("");
+              const resultMatch = selectedResults.length === 0 || selectedResults.includes(result) || selectedResults.includes("");
+
+              return categoryMatch && exerciseMatch && nameMatch && resultMatch && row.join(' ').toLowerCase().includes(searchTerm);
+            });
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const paginatedRows = filteredRows.slice(start, end);
+
+            paginatedRows.forEach((row, index) => {
+              if (row.length < 4) return;
+              const category = row[0] || '';
+              const exercise = row[1] || '';
+              const name = row[2] || '';
+              const result = row[3] || '';
+              tableBody.innerHTML += `
+                <tr>
+                  <td>${category}</td>
+                  <td>${exercise}</td>
+                  <td>${name}</td>
+                  <td>${result}</td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn-action" data-bs-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                          <circle cx="12" cy="12" r="1"/>
+                          <circle cx="12" cy="19" r="1"/>
+                          <circle cx="12" cy="5" r="1"/>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="#" data-row-index="${start + index}" data-action="edit">Bearbeiten</a>
+                        <a class="dropdown-item" href="#" data-row-index="${start + index}" data-action="delete">Löschen</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            });
+
+            document.getElementById('pagination-start').textContent = paginatedRows.length ? start + 1 : 0;
+            document.getElementById('pagination-end').textContent = Math.min(end, filteredRows.length);
+            document.getElementById('pagination-total').textContent = filteredRows.length;
+            document.getElementById('current-page').textContent = currentPage;
+
+            const prevPage = document.getElementById('prev-page');
+            const nextPage = document.getElementById('next-page');
+            prevPage.classList.toggle('disabled', currentPage === 1);
+            nextPage.classList.toggle('disabled', end >= filteredRows.length);
+
+            initializeActions();
+          });
+        }
+
         function initializeTableSorting() {
           const tableHeaders = document.querySelectorAll('th[data-sort]');
           tableHeaders.forEach(header => {
@@ -902,6 +1022,97 @@
               }
             });
           });
+        }
+
+        // Filter table
+        const filterCategory = document.querySelector(".filter-category");
+        const filterExercise = document.querySelector(".filter-exercise");
+        const filterName = document.querySelector(".filter-name");
+        const filterResult = document.querySelector(".filter-result");
+
+        filterCategory.addEventListener("change", filterTable);
+        filterExercise.addEventListener("change", filterTable);
+        filterName.addEventListener("change", filterTable);
+        filterResult.addEventListener("change", filterTable);
+
+        function filterTable() {
+          const selectedCategories = Array.from(filterCategory.selectedOptions).map(option => option.value);
+          const selectedExercises = Array.from(filterExercise.selectedOptions).map(option => option.value);
+          const selectedNames = Array.from(filterName.selectedOptions).map(option => option.value);
+          const selectedResults = Array.from(filterResult.selectedOptions).map(option => option.value);
+
+          const tableBody = document.querySelector('#data-table tbody');
+          tableBody.innerHTML = '';
+
+          const filteredRows = allRows.filter(row => {
+            const category = row[0] || '';
+            const exercise = row[1] || '';
+            const name = row[2] || '';
+            const result = row[3] || '';
+
+            const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category) || selectedCategories.includes("");
+            const exerciseMatch = selectedExercises.length === 0 || selectedExercises.includes(exercise) || selectedExercises.includes("");
+            const nameMatch = selectedNames.length === 0 || selectedNames.includes(name) || selectedNames.includes("");
+            const resultMatch = selectedResults.length === 0 || selectedResults.includes(result) || selectedResults.includes("");
+
+            return categoryMatch && exerciseMatch && nameMatch && resultMatch;
+          });
+
+          currentPage = 1; // Reset current page to 1 after filtering
+          const start = (currentPage - 1) * ITEMS_PER_PAGE;
+          const end = start + ITEMS_PER_PAGE;
+          const paginatedRows = filteredRows.slice(start, end);
+
+          paginatedRows.forEach((row, index) => {
+            if (row.length < 4) return;
+            const category = row[0] || '';
+            const exercise = row[1] || '';
+            const name = row[2] || '';
+            const result = row[3] || '';
+            const rowHtml = `
+              <tr>
+                <td>${category}</td>
+                <td>${exercise}</td>
+                <td>${name}</td>
+                <td>${result}</td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn-action" data-bs-toggle="dropdown">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <circle cx="12" cy="12" r="1"/>
+                        <circle cx="12" cy="19" r="1"/>
+                        <circle cx="12" cy="5" r="1"/>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="#" data-row-index="${start + index}" data-action="edit">Bearbeiten</a>
+                      <a class="dropdown-item" href="#" data-row-index="${start + index}" data-action="delete">Löschen</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            `;
+            tableBody.innerHTML += rowHtml;
+          });
+
+          updatePagination(filteredRows.length);
+          initializeActions();
+        }
+
+        function updatePagination(totalEntries) {
+          const start = totalEntries ? (currentPage - 1) * ITEMS_PER_PAGE + 1 : 0;
+          const end = Math.min(currentPage * ITEMS_PER_PAGE, totalEntries);
+
+          document.getElementById('pagination-start').textContent = start;
+          document.getElementById('pagination-end').textContent = end;
+          document.getElementById('pagination-total').textContent = totalEntries;
+          document.getElementById('current-page').textContent = currentPage;
+
+          const prevPage = document.getElementById('prev-page');
+          const nextPage = document.getElementById('next-page');
+          prevPage.classList.toggle('disabled', currentPage === 1);
+          nextPage.classList.toggle('disabled', end >= totalEntries);
         }
 
         function showError(message) {
