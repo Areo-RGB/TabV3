@@ -112,22 +112,23 @@
         color: rgba(224, 231, 255, 0.8);
       }
 
-      /* KPI Cards */
-      #kpi-container .card {
+      /* KPI Cards */      /* Apply the default styling (used by Motorik) to both containers */
+      #kpi-container .card, #other-kpi-container .card {
         background: rgba(27, 38, 59, 0.9);
         border: 1px solid rgba(132, 99, 255, 0.3);
       }
 
-      #kpi-container .card-title {
+      /* Remove specific styling for KPI container that was making font sizes different */
+      .card-title {
         color: #e0e7ff;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
 
-      #kpi-container .text-secondary {
+      .text-secondary {
         color: rgba(224, 231, 255, 0.7) !important;
-      }      /* Badges */
+      }/* Badges */
       .badge.bg-orange-lt {
         background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
         color: #fff !important;
@@ -770,14 +771,20 @@
             dfbCategories: [],
             dfbValues: [],
             fixedLabel: "unterdurchschnittlich"
-          },
-          {
+          },          {
             exercise: "Standweitsprung",
             bentResult: 179,
             dfbCategories: [],
             dfbValues: [],
             fixedLabel: "sehr gut",
             unit: "cm"
+          },
+          {
+            exercise: "Seitliches Hin- und Herspringen",
+            bentResult: 42,
+            dfbCategories: [],
+            dfbValues: [],
+            fixedLabel: "sehr gut"
           },
           {
             exercise: "Ballkontrolle",
@@ -823,7 +830,10 @@
             rankInfo = {
               rankString: '',
               label: data.fixedLabel,
-              numericPercentile: data.fixedLabel === 'unterdurchschnittlich' ? 20 : 50
+              numericPercentile: data.fixedLabel === 'unterdurchschnittlich' ? 20 : 
+                              (data.fixedLabel === 'Durchschnittlich' ? 50 :
+                              (data.fixedLabel === 'Gut' ? 85 :
+                              (data.fixedLabel === 'Sehr gut' || data.fixedLabel === 'sehr gut' ? 95 : 97)))
             };
           } else {
             rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
@@ -833,11 +843,13 @@
             labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
           } else if (rankInfo.label) {
              let badgeColor = 'secondary';
-            if (rankInfo.label === 'Gut') badgeColor = 'info';
-            if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-            if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
-            if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
-            if (rankInfo.label === 'Unterdurchschnittlich' || rankInfo.label === 'unterdurchschnittlich') badgeColor = 'danger';
+            // Normalize labels to lowercase for comparison to handle case inconsistencies
+            const normalizedLabel = rankInfo.label.toLowerCase();
+            if (normalizedLabel === 'gut') badgeColor = 'info';
+            if (normalizedLabel === 'sehr gut') badgeColor = 'success';
+            if (normalizedLabel === 'ausgezeichnet') badgeColor = 'success'; /* Same color as 'sehr gut' */
+            if (normalizedLabel === 'durchschnittlich') badgeColor = 'orange';
+            if (normalizedLabel === 'unterdurchschnittlich') badgeColor = 'danger';
             labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
           }          // Create KPI Card
           const kpiColDiv = document.createElement('div');
@@ -857,16 +869,16 @@
           }          kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
-                <h3 class="card-title mb-1">${data.exercise}${labelHtml}</h3>
-                <p class="text-secondary mb-1">Result: ${resultDisplay}</p>
-                ${data.exercise === "Einbeinstand" ? '<p class="text-secondary mb-1">Kategorie: Gleichgewicht</p>' : ''}
+                <h3 class="card-title mb-1">${data.exercise}</h3>
+                <p class="text-secondary mb-1">Result: ${resultDisplay}</p>                ${data.exercise === "Einbeinstand" ? '<p class="text-secondary mb-1">Kategorie: Gleichgewicht</p>' : ''}
                 ${data.exercise === "Standweitsprung" ? '<p class="text-secondary mb-1">Kategorie: Kraft</p>' : ''}
+                ${data.exercise === "Seitliches Hin- und Herspringen" ? '<p class="text-secondary mb-1">Kategorie: Koordination</p>' : ''}
                 <p class="text-secondary mb-0">${rankInfo.rankString}</p>
+                <div class="mt-2 text-start">${labelHtml.replace('ms-2', '')}</div>
               </div>
             </div>
-          `;
-            // Place Motorik exercises in the other-kpi-container, all other KPIs in the regular kpi-container
-          const motorikExercises = ["Einbeinstand", "Standweitsprung"];
+          `;// Place Motorik exercises in the other-kpi-container, all other KPIs in the regular kpi-container
+          const motorikExercises = ["Einbeinstand", "Standweitsprung", "Seitliches Hin- und Herspringen"];
           if (motorikExercises.includes(data.exercise)) {
             const otherKpiContainer = document.getElementById('other-kpi-container');
             otherKpiContainer.appendChild(kpiColDiv);
