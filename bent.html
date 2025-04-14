@@ -457,10 +457,35 @@
                 </div>
               </div>
             </div>
-            <!-- END HERO SECTION -->
-            <div class="row row-cards mb-4" id="kpi-container">
-              <!-- KPIs injected here -->
+            <!-- END HERO SECTION -->            <!-- DFB Benchmark KPIs Section Header -->
+            <div class="row mb-3">
+              <div class="col">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Technomotorische Leistungsdiagnostik</h3>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="row row-cards mb-4" id="kpi-container">
+              <!-- DFB KPIs injected here -->
+            </div>
+            
+            <!-- Motorik Metrics -->
+            <div class="row mb-3">
+              <div class="col">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Motorik</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row row-cards mb-4" id="other-kpi-container">
+              <!-- Other KPIs injected here -->
+            </div>
+            
+            <!-- Charts Section -->
             <div class="row row-cards" id="charts-container">
               <!-- Charts injected here -->
             </div>
@@ -740,6 +765,21 @@
             dfbCategories: ['40%', '50%', '60%', '70%', '80%', '90%', '97%'],
             dfbValues: [1.00, 1.00, 1.00, 1.00, 2.00, 3.00, 6.00]
           },          {
+            exercise: "Einbeinstand",
+            bentResult: 10,
+            dfbCategories: [],
+            dfbValues: [],
+            fixedLabel: "unterdurchschnittlich"
+          },
+          {
+            exercise: "Standweitsprung",
+            bentResult: 179,
+            dfbCategories: [],
+            dfbValues: [],
+            fixedLabel: "sehr gut",
+            unit: "cm"
+          },
+          {
             exercise: "Ballkontrolle",
             bentResult: 8.95,
             dfbCategories: ['3%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '97%'],
@@ -774,11 +814,21 @@
 
           chartData.forEach((data, index) => {
           const chartId = `chart-exercise-${index}`;
-          const kpiId = `kpi-exercise-${index}`;
-
-          // Calculate rank and label
-          const rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
+          const kpiId = `kpi-exercise-${index}`;          // Calculate rank and label
+          let rankInfo;
           let labelHtml = '';
+          
+          // Check if this exercise has a fixed label
+          if (data.fixedLabel) {
+            rankInfo = {
+              rankString: '',
+              label: data.fixedLabel,
+              numericPercentile: data.fixedLabel === 'unterdurchschnittlich' ? 20 : 50
+            };
+          } else {
+            rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
+          }
+          
           if (rankInfo.label && data.exercise === '20m Sprint' && rankInfo.label === 'Durchschnittlich') {
             labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
           } else if (rankInfo.label) {
@@ -787,26 +837,42 @@
             if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
             if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
             if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
-            if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+            if (rankInfo.label === 'Unterdurchschnittlich' || rankInfo.label === 'unterdurchschnittlich') badgeColor = 'danger';
             labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
-          }
-
-          // Create KPI Card
+          }          // Create KPI Card
           const kpiColDiv = document.createElement('div');
-          kpiColDiv.className = 'col-md-4 mb-3';
-          const resultDisplay = (data.bentResult !== null && data.bentResult !== undefined)
-            ? (data.exercise === 'Balljonglieren' ? Math.round(data.bentResult) : data.bentResult.toFixed(2))
-            : 'N/A';
-          kpiColDiv.innerHTML = `
+          kpiColDiv.className = 'col-md-4 mb-3';          let resultDisplay;
+          if (data.bentResult !== null && data.bentResult !== undefined) {
+            if (data.exercise === 'Einbeinstand') {
+              resultDisplay = `${data.bentResult} Fehler`;
+            } else if (data.exercise === 'Standweitsprung') {
+              resultDisplay = `${data.bentResult} ${data.unit || ''}`;
+            } else if (data.exercise === 'Balljonglieren') {
+              resultDisplay = Math.round(data.bentResult);
+            } else {
+              resultDisplay = data.bentResult.toFixed(2);
+            }
+          } else {
+            resultDisplay = 'N/A';
+          }          kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
                 <h3 class="card-title mb-1">${data.exercise}${labelHtml}</h3>
                 <p class="text-secondary mb-1">Result: ${resultDisplay}</p>
+                ${data.exercise === "Einbeinstand" ? '<p class="text-secondary mb-1">Kategorie: Gleichgewicht</p>' : ''}
+                ${data.exercise === "Standweitsprung" ? '<p class="text-secondary mb-1">Kategorie: Kraft</p>' : ''}
                 <p class="text-secondary mb-0">${rankInfo.rankString}</p>
               </div>
             </div>
           `;
-          kpiContainer.appendChild(kpiColDiv);
+            // Place Motorik exercises in the other-kpi-container, all other KPIs in the regular kpi-container
+          const motorikExercises = ["Einbeinstand", "Standweitsprung"];
+          if (motorikExercises.includes(data.exercise)) {
+            const otherKpiContainer = document.getElementById('other-kpi-container');
+            otherKpiContainer.appendChild(kpiColDiv);
+          } else {
+            kpiContainer.appendChild(kpiColDiv);
+          }
 
           // Create Chart
           if (data.bentResult !== null && data.bentResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
