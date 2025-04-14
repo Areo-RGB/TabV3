@@ -219,7 +219,7 @@
 		/** 3.3 HERO CONFIG [ KENBURNS BACKGROUND ]
 		*******************************************************************/
 						// IMAGES PATH / URL
-				var option_hero_background_kenburns_path = [{src:"assets/images/1_attr2_subject.png"},{src:"assets/images/1.jpg"},{src: "assets/images/Finley_portrait.png"},{src: "assets/images/2.jpg"},{src: "assets/images/3.jpg"}];
+				var option_hero_background_kenburns_path = [{src: "assets/images/Finley_portrait.png"},{src:"assets/images/1_attr2_subject.png"},{src:"assets/images/1.jpg"},{src: "assets/images/lion2.png"},{src: "assets/images/2.jpg"},{src: "assets/images/3.jpg"},{src: "assets/images/s.png"},{src: "assets/images/Bent3.jpg"}];
 				
 				
 				
