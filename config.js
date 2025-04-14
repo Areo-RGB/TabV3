@@ -167,10 +167,8 @@
 		
 		/** 3.2 HERO CONFIG [ SLIDER BACKGROUND ]
 		*******************************************************************/
-		
-
-							// IMAGES PATH / URL
-				var option_hero_background_slider_path = [{src:"assets/images/work/5.jpeg"},{src: "assets/images/2.jpg"},{src: "assets/images/3.jpg"}];
+				// IMAGES PATH / URL
+				var option_hero_background_slider_path = [{src:"assets/images/1.jpg"},{src: "assets/images/2.jpg"},{src: "assets/images/3.jpg"}];
 				
 				
 				
@@ -223,10 +221,8 @@
 
 		/** 3.3 HERO CONFIG [ KENBURNS BACKGROUND ]
 		*******************************************************************/
-				
-				
 						// IMAGES PATH / URL
-				var option_hero_background_kenburns_path = [{src:"assets/images/work/5.jpeg"},{src: "assets/images/2.jpg"},{src: "assets/images/3.jpg"}];
+				var option_hero_background_kenburns_path = [{src:"assets/images/1.jpg"},{src: "assets/images/2.jpg"},{src: "assets/images/3.jpg"}];
 				
 				
 				
