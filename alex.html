@@ -770,7 +770,7 @@
           averageLabelElement.className = `badge bg-${badgeColor}-lt`;
         }
 
-        chartData.forEach((data, index) => {
+          chartData.forEach((data, index) => {
           const chartId = `chart-exercise-${index}`;
           const kpiId = `kpi-exercise-${index}`;
 
@@ -782,14 +782,19 @@
             labelHtml = `<span class="badge bg-success-lt ms-2">${rankInfo.label}</span>`;
           } else {
             rankInfo = calculatePercentileRank(data.alexResult, data.dfbValues, data.dfbCategories, data.exercise);
-            if (rankInfo.label) {
+            if (rankInfo.label && data.exercise === '10m Sprint' && rankInfo.label === 'Durchschnittlich') {
+              labelHtml = `<span class="badge bg-orange-lt ms-2" style="font-size: 0.8em !important;">${rankInfo.label}</span>`;
+            } else if (rankInfo.label && data.exercise === '20m Sprint' && rankInfo.label === 'Durchschnittlich') {
+              labelHtml = `<span class="badge bg-orange-lt ms-2" style="font-size: 0.8em !important;">${rankInfo.label}</span>`;
+            }
+            else if (rankInfo.label) {
               let badgeColor = 'secondary';
               if (rankInfo.label === 'Gut') badgeColor = 'info';
               if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
               if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2" style="${rankInfo.label === 'Durchschnittlich' ? 'font-size: 1.2em;' : ''}">${rankInfo.label}</span>`;
+              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
             }
           }
 
@@ -957,11 +962,6 @@
         const revenueChart = document.getElementById("chart-revenue-bg");
         if (revenueChart) revenueChart.closest('.col-sm-6')?.remove();
         const clientsChart = document.getElementById("chart-new-clients");
-        if (clientsChart) clientsChart.closest('.col-sm-6')?.remove();
-        const usersChart = document.getElementById("chart-active-users");
-        if (usersChart) usersChart.closest('.col-sm-6')?.remove();
-        const mentionsChart = document.getElementById("chart-mentions");
-        if (mentionsChart) mentionsChart.closest('.col-lg-12')?.remove();
         const mapWorld = document.getElementById("map-world");
         if (mapWorld) mapWorld.closest('.col-lg-8')?.remove();
         const sparklineActivity = document.getElementById("sparkline-activity");

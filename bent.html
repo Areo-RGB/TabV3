@@ -459,7 +459,7 @@
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
                             <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
-                            <span class="badge bg-orange-lt" style="font-size: 1.2em; padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
+<span class="badge bg-orange-lt" style="font-size: 1em; padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
                           </div>
                         </div>
                       </div>
@@ -780,21 +780,23 @@
           averageLabelElement.className = `badge bg-${badgeColor}-lt`;
         }
 
-        chartData.forEach((data, index) => {
+          chartData.forEach((data, index) => {
           const chartId = `chart-exercise-${index}`;
           const kpiId = `kpi-exercise-${index}`;
 
           // Calculate rank and label
           const rankInfo = calculatePercentileRank(data.bentResult, data.dfbValues, data.dfbCategories, data.exercise);
           let labelHtml = '';
-          if (rankInfo.label) {
-            let badgeColor = 'secondary';
+          if (rankInfo.label && data.exercise === '20m Sprint' && rankInfo.label === 'Durchschnittlich') {
+            labelHtml = `<span class="badge bg-orange-lt ms-2" style="font-size: 0.8em !important;">${rankInfo.label}</span>`;
+          } else if (rankInfo.label) {
+             let badgeColor = 'secondary';
             if (rankInfo.label === 'Gut') badgeColor = 'info';
             if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
             if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
             if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
             if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-            labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2" style="${rankInfo.label === 'Durchschnittlich' ? 'font-size: 1.2em;' : ''}">${rankInfo.label}</span>`;
+            labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
           }
 
           // Create KPI Card
