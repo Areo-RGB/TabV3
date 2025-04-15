@@ -632,18 +632,67 @@
             <div class="row mb-4">
               <div class="col">
                 <div class="card">
-                  <div class="card-header">
-                    <div class="d-flex align-items-center">
-                      <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/DFB-Logo.svg" alt="DFB Logo" style="height: 30px; margin-right: 15px;">
-                      <h3 class="card-title">Technomotorische Leistungsdiagnostik</h3>
+                  <div class="card-header" id="leistungsdiagnostik-header" style="cursor: pointer; position: relative; z-index: 100;">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/DFB-Logo.svg" alt="DFB Logo" style="height: 30px; margin-right: 15px;">
+                        <h3 class="card-title m-0">Technomotorische Leistungsdiagnostik</h3>
+                      </div>
+                      <div id="toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                  <div class="card-body p-0" id="combined-kpi-container">
-                    <!-- Combined KPIs will be injected here as a table -->
+                  <div id="leistungsdiagnostik-content" style="display: none;">
+                    <div class="card-body p-0" id="combined-kpi-container">
+                      <!-- Combined KPIs will be injected here as a table -->
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            
+            <script>
+              // Direct DOM manipulation toggle implementation
+              document.addEventListener('DOMContentLoaded', function() {
+                // Get the elements by their specific IDs to avoid conflicts
+                const header = document.getElementById('leistungsdiagnostik-header');
+                const content = document.getElementById('leistungsdiagnostik-content');
+                const icon = document.getElementById('toggle-icon').querySelector('svg');
+                
+                // Make absolutely sure content is hidden initially
+                content.style.display = 'none';
+                
+                // Ensure the header is clickable by checking and removing any Bootstrap data attributes
+                if (header.hasAttribute('data-bs-toggle')) {
+                  header.removeAttribute('data-bs-toggle');
+                }
+                
+                // Click handler for the header with direct DOM manipulation
+                header.addEventListener('click', function(event) {
+                  // Prevent any default or bubbling behavior
+                  event.preventDefault();
+                  event.stopPropagation();
+                  
+                  // Simple toggle with direct style manipulation
+                  if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                    icon.style.transform = 'rotate(180deg)';
+                    icon.style.transition = 'transform 0.3s ease';
+                  } else {
+                    content.style.display = 'none';
+                    icon.style.transform = 'rotate(0deg)';
+                    icon.style.transition = 'transform 0.3s ease';
+                  }
+                });
+                
+                // Ensure this section runs by logging to console
+                console.log('Collapsible section initialized');
+              });
+            </script>
             <div id="kpi-container" style="display: none;">
               <!-- Original KPI container hidden but kept for script compatibility -->
             </div>            <!-- Motorik Metrics - Hidden -->
