@@ -25,8 +25,7 @@
         margin: 0;
         position: relative;
       }
-      
-      /* Add a semi-transparent overlay to make text more readable */
+        /* Add a semi-transparent overlay to make text more readable */
       body::before {
         content: '';
         position: fixed;
@@ -35,7 +34,8 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(180deg, rgba(13, 27, 42, 0.85) 0%, rgba(27, 38, 59, 0.9) 100%);
-        z-index: -1;
+        z-index: -10; /* Lower z-index to ensure it's below everything */
+        pointer-events: none; /* Ensure it doesn't block interaction */
       }
 
       /* HUD Overlay */
@@ -291,8 +291,7 @@
         font-weight: 700;
         position: relative;
       }
-      
-      .nav-item.active .nav-link::after {
+        .nav-item.active .nav-link::after {
         content: '';
         position: absolute;
         bottom: -2px;
@@ -301,6 +300,50 @@
         height: 2px;
         background: #45a2ff;
         box-shadow: 0 0 5px #45a2ff;
+      }
+      
+      /* Dropdown Menu - Fix for overlap issue */
+      .dropdown-menu {
+        z-index: 9999 !important;
+        position: absolute !important;
+        background: rgba(27, 38, 59, 0.95);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transform: none !important;
+        top: 100% !important;
+        left: 0 !important;
+        will-change: auto !important;
+        margin-top: 0.5rem !important;
+      }
+      
+      .dropdown-item {
+        color: #e0e7ff;
+        position: relative;
+        z-index: 10000;
+      }
+        .dropdown-item:hover, .dropdown-item:focus {
+        background: rgba(69, 162, 255, 0.2);
+        color: #45a2ff;
+      }
+      
+      /* Fix for dropdown being covered by other elements */
+      .navbar-nav .nav-item.dropdown {
+        position: relative !important;
+        z-index: 9999 !important;
+      }
+      
+      /* Fix for hero section potentially overlapping */
+      .page-body {
+        position: relative;
+        z-index: 1;
+      }
+      
+      /* Ensure navbar has higher z-index than page content */
+      .navbar, 
+      .navbar-collapse,
+      .navbar-expand-md {
+        position: relative;
+        z-index: 9999 !important;
       }
     </style>
   </head>
