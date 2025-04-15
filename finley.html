@@ -50,6 +50,48 @@
         background: rgba(13, 27, 42, 0.5);
       }
 
+      /* Clickable table rows */
+      #kpi-table-body tr {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      #kpi-table-body tr:hover {
+        background-color: rgba(69, 162, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      #kpi-table-body tr.active {
+        background-color: rgba(69, 162, 255, 0.2);
+        border-left: 3px solid #45a2ff;
+      }
+      
+      /* Chart animations */
+      .chart-card {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+      }
+      
+      .chart-card.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Highlight effect */
+      @keyframes highlight-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(69, 162, 255, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(69, 162, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(69, 162, 255, 0); }
+      }
+      
+      .pulse-highlight {
+        animation: highlight-pulse 1.5s ease-out;
+      }
+
       .scan-lines {
         position: absolute;
         top: 0;
@@ -133,12 +175,26 @@
 
       /* Badges */
       .badge[class*="-lt"] {
-        background-color: grey !important;
-        color: black !important;
         font-weight: normal;
         font-size: 0.81em; /* Increased font size again by 25% */
         padding: 0.45em 0.81em; /* Increased padding again by 25% */
         border-radius: 4px; /* Kept border-radius */
+      }
+      
+      /* Custom badge colors */
+      .badge.bg-success-lt {
+        background-color: #198754 !important;
+        color: white !important;
+      }
+      
+      .badge.bg-orange-lt {
+        background-color: #fd7e14 !important;
+        color: black !important;
+      }
+      
+      .badge.bg-danger-lt {
+        background-color: #dc3545 !important;
+        color: white !important;
       }
 
       /* Navbar */
@@ -573,7 +629,7 @@
             </div>
             <!-- END HERO SECTION -->
             <!-- DFB Benchmark KPIs Section Header -->
-            <div class="row mb-3">
+            <div class="row mb-4">
               <div class="col">
                 <div class="card">
                   <div class="card-header">
@@ -582,11 +638,14 @@
                       <h3 class="card-title">Technomotorische Leistungsdiagnostik</h3>
                     </div>
                   </div>
+                  <div class="card-body p-0" id="combined-kpi-container">
+                    <!-- Combined KPIs will be injected here as a table -->
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="row row-cards mb-4" id="kpi-container">
-              <!-- KPIs injected here -->
+            <div id="kpi-container" style="display: none;">
+              <!-- Original KPI container hidden but kept for script compatibility -->
             </div>            <!-- Motorik Metrics - Hidden -->
             <div class="row mb-3" style="display: none;">
               <div class="col">
@@ -817,6 +876,38 @@
     <script>
       // @formatter:off
       document.addEventListener("DOMContentLoaded", function () {
+        // Player data for comparisons
+        const playerComparisonData = [
+          { player: "Finley", exercise: "10m Sprint", result: 2.00 },
+          { player: "Finley", exercise: "20m Sprint", result: 3.59 },
+          { player: "Finley", exercise: "Gewandtheit", result: 7.81 },
+          { player: "Finley", exercise: "Dribbling", result: 10.27 },
+          { player: "Finley", exercise: "Balljonglieren", result: 0.00 },
+          { player: "Finley", exercise: "Ballkontrolle", result: 10.82 },
+          { player: "Finley", exercise: "YoYo IR1", result: 640 },
+          
+          { player: "Alex", exercise: "10m Sprint", result: 2.16 },
+          { player: "Alex", exercise: "20m Sprint", result: 3.78 },
+          { player: "Alex", exercise: "Gewandtheit", result: 7.39 },
+          { player: "Alex", exercise: "Dribbling", result: 10.00 },
+          { player: "Alex", exercise: "Ballkontrolle", result: 8.92 },
+          { player: "Alex", exercise: "YoYo IR1", result: 1720 },
+          
+          { player: "Bent", exercise: "10m Sprint", result: 2.19 },
+          { player: "Bent", exercise: "20m Sprint", result: 3.82 },
+          { player: "Bent", exercise: "Gewandtheit", result: 8.14 },
+          { player: "Bent", exercise: "Dribbling", result: 10.28 },
+          { player: "Bent", exercise: "Ballkontrolle", result: 8.95 },
+          { player: "Bent", exercise: "Balljonglieren", result: 3 }
+        ];
+
+        // Helper function to get player result for specific exercise
+        function getPlayerResult(playerName, exerciseName) {
+          const playerData = playerComparisonData.find(item => 
+            item.player === playerName && item.exercise === exerciseName);
+          return playerData ? playerData.result : null;
+        }
+
         // Helper function to calculate numeric percentile value
         function getNumericPercentile(percentileStr) {
           if (!percentileStr) return 0;
@@ -1053,43 +1144,110 @@
           averageLabelElement.style.transition = 'all 0.3s ease';
         }
 
-        chartData.forEach((data, index) => {
+        // Create the combined KPI table
+        const combinedKpiContainer = document.getElementById('combined-kpi-container');
+        // Create a table element
+        const kpiTable = document.createElement('table');
+        kpiTable.className = 'table table-vcenter table-hover card-table';
+        kpiTable.innerHTML = `
+          <thead>
+            <tr>
+              <th>Übung</th>
+              <th>Ergebnis</th>
+              <th>Bewertung</th>
+              <th>Benchmark</th>
+              <th>Ranking</th>
+            </tr>
+          </thead>
+          <tbody id="kpi-table-body">
+          </tbody>
+        `;
+        combinedKpiContainer.appendChild(kpiTable);
+        const kpiTableBody = document.getElementById('kpi-table-body');
+        
+        // Loop through each data point and create a table row
+        chartData.filter(data => data.exercise !== "YoYo IR1").forEach((data, index) => {
           const chartId = `chart-exercise-${index}`;
           const kpiId = `kpi-exercise-${index}`;
 
           // Calculate rank and label
           let rankInfo;
           let labelHtml = '';
-          if (data.exercise === "YoYo IR1") {
-            rankInfo = { rankString: 'Below the 30% percentile', label: 'Unterdurchschnittlich' };
-            labelHtml = `<span class="badge bg-danger-lt">${rankInfo.label}</span>`; // Removed ms-2
-          } else {
-            rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);              if (rankInfo.label) {
-              let badgeColor = 'secondary';
-              if (rankInfo.label === 'Gut') badgeColor = 'info';
-              if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-              if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
-              if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
-              if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-              labelHtml = `<span class="badge bg-${badgeColor}-lt">${rankInfo.label}</span>`; // Removed ms-2
-            }
+          rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);
+          if (rankInfo.label) {
+            let badgeColor = 'secondary';
+            if (rankInfo.label === 'Gut') badgeColor = 'success';
+            if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
+            if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'success';
+            if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
+            if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+            labelHtml = `<span class="badge bg-${badgeColor}-lt">${rankInfo.label}</span>`;
           }
 
-          // Create KPI Card
-          const kpiColDiv = document.createElement('div');
-          kpiColDiv.className = 'col-md-4 mb-3';
+          // Format the result display
           const resultDisplay = data.exercise === 'YoYo IR1'
             ? (data.finleyResult !== null && data.finleyResult !== undefined ? data.finleyResult + 'm' : 'N/A')
             : (data.finleyResult !== null && data.finleyResult !== undefined 
-              ? (data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : data.finleyResult.toFixed(2))
+              ? (data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : data.finleyResult.toFixed(2) + 's')
               : 'N/A');
+              
+          // Create table row
+          const row = document.createElement('tr');
+          row.id = kpiId;
+          
+          // Create benchmark display
+          let benchmarkDisplay = '';
+          if (data.dfbValues && data.dfbValues.length > 0) {
+            const topValue = data.dfbValues[data.dfbValues.length-1];
+            const finleyValue = data.finleyResult;
+            const higherIsBetter = ['Balljonglieren'].includes(data.exercise);
+            
+            if (finleyValue !== null && finleyValue !== undefined) {
+              let percentDifference = 0;
+              if (higherIsBetter) {
+                percentDifference = finleyValue > 0 ? ((finleyValue - topValue) / topValue * 100) : -100;
+              } else {
+                percentDifference = ((topValue - finleyValue) / topValue * 100);
+              }
+              
+              const percentText = percentDifference >= 0 ? 
+                `<span class="text-success" title="Abstand Topwert">+${percentDifference.toFixed(1)}%</span>` : 
+                `<span class="text-danger" title="Abstand Topwert">${percentDifference.toFixed(1)}%</span>`;
+              
+              benchmarkDisplay = percentText;
+            } else {
+              benchmarkDisplay = '<span class="text-muted">N/A</span>';
+            }
+          }
+          
+          // Get ranking text for the additional column
+          let rankingText = '';
+          if (rankInfo.numericPercentile > 0) {
+            rankingText = `<span class="text-muted">Better than ${rankInfo.numericPercentile}% of players</span>`;
+          } else {
+            rankingText = '<span class="text-muted">Ranking data not available</span>';
+          }
+          
+          row.innerHTML = `
+            <td class="fw-bold">${data.exercise}</td>
+            <td>${resultDisplay}</td>
+            <td>${labelHtml}</td>
+            <td>${benchmarkDisplay}</td>
+            <td>${rankingText}</td>
+          `;
+          kpiTableBody.appendChild(row);
+          
+          // Also create hidden KPI Card for chart compatibility
+          const kpiColDiv = document.createElement('div');
+          kpiColDiv.className = 'col-md-4 mb-3';
+          kpiColDiv.style.display = 'none';
           kpiColDiv.innerHTML = `
-            <div class="card" id="${kpiId}">
+            <div class="card" id="${kpiId}-hidden">
               <div class="card-body">
-                <h3 class="card-title mb-1">${data.exercise}</h3> <!-- Removed labelHtml from here -->
+                <h3 class="card-title mb-1">${data.exercise}</h3>
                 <p class="text-secondary mb-1">Result: ${resultDisplay}</p>
                 <p class="text-secondary mb-0">${rankInfo.rankString}</p>
-                <div class="mt-2">${labelHtml}</div> <!-- Added badge here -->
+                <div class="mt-2">${labelHtml}</div>
               </div>
             </div>
           `;
@@ -1099,9 +1257,11 @@
           if (data.exercise !== "YoYo IR1") {
             if (data.finleyResult !== null && data.finleyResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
               const chartColDiv = document.createElement('div');
-              chartColDiv.className = 'col-lg-6 mb-4';
+              chartColDiv.className = 'col-lg-6 mb-4 chart-container';
+              chartColDiv.dataset.exercise = data.exercise;
+              chartColDiv.style.display = 'none'; // Hide initially
               chartColDiv.innerHTML = `
-                <div class="card">
+                <div class="card chart-card">
                   <div class="card-body">
                     <div id="${chartId}"></div>
                     <div class="chart-loader">
@@ -1114,11 +1274,28 @@
               const playerName = "Finley";
               let allValues = [];
               let allCategories = [];
+              
+              // Add Finley's result
               allValues.push(data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : parseFloat(data.finleyResult.toFixed(2)));
               allCategories.push(playerName);
+              
+              // Add other players' results if available
+              const alexResult = getPlayerResult("Alex", data.exercise);
+              if (alexResult !== null) {
+                allValues.push(data.exercise === 'Balljonglieren' ? Math.round(alexResult) : parseFloat(alexResult.toFixed(2)));
+                allCategories.push("Alex");
+              }
+              
+              const bentResult = getPlayerResult("Bent", data.exercise);
+              if (bentResult !== null) {
+                allValues.push(data.exercise === 'Balljonglieren' ? Math.round(bentResult) : parseFloat(bentResult.toFixed(2)));
+                allCategories.push("Bent");
+              }
+              
+              // Add DFB benchmarks
               data.dfbValues.forEach((value, index) => {
                 allValues.push(data.exercise === 'Balljonglieren' ? Math.round(value) : parseFloat(value.toFixed(2)));
-                allCategories.push(data.dfbCategories[index]);
+                allCategories.push("DFB " + data.dfbCategories[index]);
               });
 
               const higherIsBetter = ['Balljonglieren'].includes(data.exercise);
@@ -1155,7 +1332,12 @@
                     name: 'Results',
                     data: allValues,
                     color: function(opts) {
-                      return opts.dataPointIndex === playerIndex ? '#45a2ff' : '#6c757d';
+                      const category = allCategories[opts.dataPointIndex];
+                      if (category === "Finley") return '#45a2ff'; // Finley - Blue
+                      if (category === "Alex") return '#20c997';   // Alex - Teal
+                      if (category === "Bent") return '#fd7e14';   // Bent - Orange
+                      if (category.startsWith("DFB")) return '#6c757d'; // DFB - Gray
+                      return '#6c757d'; // Default
                     }
                   }
                 ],
@@ -1227,9 +1409,11 @@
               }, 500);
             } else {
               const chartColDiv = document.createElement('div');
-              chartColDiv.className = 'col-lg-6 mb-4';
+              chartColDiv.className = 'col-lg-6 mb-4 chart-container';
+              chartColDiv.dataset.exercise = data.exercise;
+              chartColDiv.style.display = 'none'; // Hide initially
               chartColDiv.innerHTML = `
-                <div class="card">
+                <div class="card chart-card">
                   <div class="card-body">
                     <h5 class="card-title text-center" style="color: #e0e7ff;">${data.exercise}</h5>
                     <p class="text-center mt-3" style="color: rgba(224, 231, 255, 0.8);">Chart not available due to missing data.</p>
@@ -1293,6 +1477,59 @@
         }
 
         initTheme();
+
+        // Add click event listeners to table rows to show corresponding charts
+        document.querySelectorAll('#kpi-table-body tr').forEach(row => {
+          row.addEventListener('click', function() {
+            // Get the exercise name from the first cell
+            const exerciseName = this.querySelector('td:first-child').textContent;
+            
+            // Remove active class from all rows
+            document.querySelectorAll('#kpi-table-body tr').forEach(r => 
+              r.classList.remove('active'));
+            
+            // Add active class to clicked row
+            this.classList.add('active');
+            
+            // Hide all charts
+            document.querySelectorAll('.chart-container').forEach(chartCard => {
+              chartCard.style.display = 'none';
+              chartCard.querySelector('.chart-card').classList.remove('active');
+            });
+            
+            // Find and show corresponding chart
+            const chartContainer = document.querySelector(`.chart-container[data-exercise="${exerciseName}"]`);
+            if (chartContainer) {
+              // Add pulse highlight effect
+              chartContainer.classList.add('pulse-highlight');
+              setTimeout(() => {
+                chartContainer.classList.remove('pulse-highlight');
+              }, 1500);
+              
+              // Show the chart
+              chartContainer.style.display = 'block';
+              const chartCard = chartContainer.querySelector('.chart-card');
+              if (chartCard) {
+                setTimeout(() => chartCard.classList.add('active'), 50);
+                
+                // Scroll to the chart if it's not in view
+                const chartRect = chartContainer.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                const isInView = (chartRect.top >= 0 && chartRect.bottom <= viewportHeight);
+                
+                if (!isInView) {
+                  chartContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+              }
+            }
+          });
+        });
+        
+        // Show first chart by default
+        const firstRow = document.querySelector('#kpi-table-body tr');
+        if (firstRow) {
+          setTimeout(() => firstRow.click(), 500);
+        }
 
         // Ripple effect for cards
         document.querySelectorAll('.card').forEach(card => {
