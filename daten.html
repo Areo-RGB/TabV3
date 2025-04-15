@@ -222,9 +222,7 @@
 
       .input-icon-addon {
         color: #45a2ff;
-      }
-
-      /* Navbar */
+      }      /* Navbar */
       .navbar {
         background: rgba(13, 27, 42, 0.9);
         border-bottom: 1px solid rgba(69, 162, 255, 0.2);
@@ -256,6 +254,26 @@
         height: 2px;
         background: #45a2ff;
         box-shadow: 0 0 5px #45a2ff;
+      }
+      
+      /* Fix for dropdown being covered by other elements */
+      .navbar-nav .nav-item.dropdown {
+        position: relative !important;
+        z-index: 9999 !important;
+      }
+      
+      /* Fix for hero section potentially overlapping */
+      .page-body {
+        position: relative;
+        z-index: 1;
+      }
+      
+      /* Ensure navbar has higher z-index than page content */
+      .navbar, 
+      .navbar-collapse,
+      .navbar-expand-md {
+        position: relative;
+        z-index: 9999 !important;
       }
 
       /* Pagination */
@@ -405,8 +423,7 @@
             </div>
           </div>
         </div>
-      </header>
-      <header class="navbar-expand-md">
+      </header>      <header class="navbar-expand-md">
         <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar">
             <div class="container-xl">
@@ -424,48 +441,33 @@
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./finley.html">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                           </svg>
                         </span>
-                        <span class="nav-link-title"> Finley </span>
+                        <span class="nav-link-title"> Spieler </span>
                       </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./bent.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Bent </span>
-                      </a>
-                    </li>                    <li class="nav-item">
-                      <a class="nav-link" href="./alex.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Alex </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./lion.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Lion </span>
-                      </a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="./finley.html">
+                          Finley
+                        </a>
+                        <a class="dropdown-item" href="./bent.html">
+                          Bent
+                        </a>
+                        <a class="dropdown-item" href="./ben.html">
+                          Ben
+                        </a>
+                        <a class="dropdown-item" href="./alex.html">
+                          Alex
+                        </a>
+                        <a class="dropdown-item" href="./lion.html">
+                          Lion
+                        </a>
+                      </div>
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="./daten.html">
