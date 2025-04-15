@@ -97,10 +97,7 @@ jQuery(document).ready(function() {
 		});
 	
 	}
-	
-	
-	
-	// KENBURNS SLIDER BACKGROUND FUNCTION
+		// KENBURNS SLIDER BACKGROUND FUNCTION
 	function kenburnsBackground() {
 		
 		// INIT VEGAS SLIDESHOW PLUGIN
@@ -113,12 +110,20 @@ jQuery(document).ready(function() {
 			firstTransitionDuration: 1,
 			timer: false,
 			animation: "kenburns",
+			animationDuration: 15000,
+			scale: 1.05,
+			cover: false,    // Don't force cover to allow more control
+			align: 'center',
+			valign: 'center',
 			walk: function (index, slideSettings) {$("#cycle").cycle("next");}
 			
 		});
-	
+				// Apply additional CSS to have the image start zoomed out
+		$(".vegas-slide-inner").css({
+			"transform": "scale(0.85)",  // Start at 85% size (zoomed out)
+			"transform-origin": "center center"
+		});
 	}
-	
 	
 	
 	// YOUTUBE BACKGROUND FUNCTION

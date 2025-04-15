@@ -44,11 +44,14 @@ jQuery( window ).load(function() {
 		
 		setTimeout(function() {
 			
-			sliderRevolution();
+			// Only call sliderRevolution if it exists
+			if (typeof sliderRevolution === 'function') {
+				sliderRevolution();
+			}
 			
 		}, 200);
 		
-		setTimeout(function() {	
+		setTimeout(function() {
 		
 			$(".hero .front-content.page-enter-animated").addClass("show");
 			
