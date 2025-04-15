@@ -32,7 +32,7 @@
       /* Reset and Base Styles */
       body {
         background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
-        font-family: 'Exo 2', sans-serif;
+        font-family: 'Inter', sans-serif;
         color: #e0e7ff;
         overflow-x: hidden;
         margin: 0;
@@ -132,39 +132,13 @@
       }
 
       /* Badges */
-      .badge.bg-orange-lt {
-        background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
-        color: #fff !important;
+      .badge[class*="-lt"] {
+        background-color: grey !important;
+        color: black !important;
         font-weight: normal;
-        padding: 0.5em 1em;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-      }
-
-      .badge.bg-danger-lt {
-        background: linear-gradient(45deg, #dc3545, #ef5350) !important;
-        color: #fff !important;
-        font-weight: normal;
-      }
-
-      .badge.bg-info-lt {
-        background: linear-gradient(45deg, #17a2b8, #4dd0e1) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-success-lt {
-        background: linear-gradient(45deg, #28a745, #4caf50) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-purple-lt {
-        background: linear-gradient(45deg, #9c27b0, #ba68c8) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-secondary-lt {
-        background: linear-gradient(45deg, #6c757d, #adb5bd) !important;
-        color: #fff !important;
+        font-size: 0.81em; /* Increased font size again by 25% */
+        padding: 0.45em 0.81em; /* Increased padding again by 25% */
+        border-radius: 4px; /* Kept border-radius */
       }
 
       /* Navbar */
@@ -201,6 +175,57 @@
         box-shadow: 0 0 5px #45a2ff;
       }
 
+      /* Dropdown Menu - Comprehensive Fix */
+      .dropdown-menu {
+        z-index: 9999 !important;
+        position: absolute !important;
+        background: rgba(27, 38, 59, 0.95);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transform: none !important;
+        top: 100% !important;
+        left: 0 !important;
+        will-change: auto !important;
+        margin-top: 0.5rem !important;
+      }
+      
+      .dropdown-item {
+        color: #e0e7ff;
+        position: relative;
+        z-index: 10000;
+      }
+      
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: rgba(69, 162, 255, 0.2);
+        color: #45a2ff;
+      }
+      
+      .dropdown-item.active {
+        background: rgba(69, 162, 255, 0.3);
+        color: #45a2ff;
+        font-weight: 600;
+      }
+      
+      /* Fix for dropdown being covered by other elements */
+      .navbar-nav .nav-item.dropdown {
+        position: relative !important;
+        z-index: 9999 !important;
+      }
+      
+      /* Fix for hero section potentially overlapping */
+      .page-body {
+        position: relative;
+        z-index: 1;
+      }
+      
+      /* Ensure navbar has higher z-index than page content */
+      .navbar, 
+      .navbar-collapse,
+      .navbar-expand-md {
+        position: relative;
+        z-index: 9999 !important;
+      }
+
       /* Charts */
       #charts-container .card {
         background: rgba(27, 38, 59, 0.9);
@@ -213,7 +238,7 @@
       .apexcharts-xaxis-label,
       .apexcharts-yaxis-label {
         fill: #e0e7ff !important;
-        font-family: 'Exo 2', sans-serif !important;
+        font-family: 'Inter', sans-serif !important;
       }
 
       .apexcharts-gridline,
@@ -313,7 +338,7 @@
       }
 
       /* Font Import */
-      @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     </style>
     <!-- END CUSTOM STYLES -->
   </head>
@@ -370,60 +395,33 @@
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="./finley.html">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                           </svg>
                         </span>
-                        <span class="nav-link-title"> Finley </span>
+                        <span class="nav-link-title"> Spieler </span>
                       </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./bent.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Bent </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./ben.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Ben </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./alex.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Alex </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./lion.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Lion </span>
-                      </a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item active" href="./finley.html">
+                          Finley
+                        </a>
+                        <a class="dropdown-item" href="./bent.html">
+                          Bent
+                        </a>
+                        <a class="dropdown-item" href="./ben.html">
+                          Ben
+                        </a>
+                        <a class="dropdown-item" href="./alex.html">
+                          Alex
+                        </a>
+                        <a class="dropdown-item" href="./lion.html">
+                          Lion
+                        </a>
+                      </div>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="./daten.html">
@@ -476,7 +474,7 @@
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
                             <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
-                            <span class="badge bg-orange-lt" style="padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
+                            <span class="badge bg-orange-lt" id="average-label">Durchschnittlich</span>
                           </div>
                         </div>
                       </div>
@@ -900,25 +898,71 @@
         const chartsContainer = document.getElementById('charts-container');
 
         // Calculate average percentile
-        const averagePercentileInfo = calculateAveragePercentile(chartData);
-
-        // Update Gesamtbewertung
+        const averagePercentileInfo = calculateAveragePercentile(chartData);          // Update Gesamtbewertung
         const averagePercentileElement = document.getElementById('average-percentile');
         const averageLabelElement = document.getElementById('average-label');
 
         if (averagePercentileElement) {
           averagePercentileElement.textContent = Math.ceil(parseFloat(averagePercentileInfo.average));
+          
+          // Color the percentile number based on performance tier
+          if (averagePercentileInfo.label === 'Ausgezeichnet') {
+            averagePercentileElement.style.color = '#6610f2'; // Purple
+            averagePercentileElement.style.textShadow = '0 0 10px rgba(102, 16, 242, 0.4)';
+          } else if (averagePercentileInfo.label === 'Sehr gut') {
+            averagePercentileElement.style.color = '#20c997'; // Teal
+            averagePercentileElement.style.textShadow = '0 0 10px rgba(32, 201, 151, 0.4)';
+          } else if (averagePercentileInfo.label === 'Gut') {
+            averagePercentileElement.style.color = '#0dcaf0'; // Cyan
+            averagePercentileElement.style.textShadow = '0 0 10px rgba(13, 202, 240, 0.4)';
+          } else if (averagePercentileInfo.label === 'Durchschnittlich') {
+            averagePercentileElement.style.color = '#fd7e14'; // Orange
+            averagePercentileElement.style.textShadow = '0 0 10px rgba(253, 126, 20, 0.4)';
+          } else if (averagePercentileInfo.label === 'Unterdurchschnittlich') {
+            averagePercentileElement.style.color = '#dc3545'; // Red
+            averagePercentileElement.style.textShadow = '0 0 10px rgba(220, 53, 69, 0.4)';
+          }
         }
 
         if (averageLabelElement) {
-          let badgeColor = 'secondary';
-          if (averagePercentileInfo.label === 'Gut') badgeColor = 'info';
-          if (averagePercentileInfo.label === 'Sehr gut') badgeColor = 'success';
-          if (averagePercentileInfo.label === 'Ausgezeichnet') badgeColor = 'success';
-          if (averagePercentileInfo.label === 'Durchschnittlich') badgeColor = 'orange';
-          if (averagePercentileInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
+          // Custom badge styling based on performance tier
           averageLabelElement.textContent = averagePercentileInfo.label;
-          averageLabelElement.className = `badge bg-${badgeColor}-lt`;
+          
+          if (averagePercentileInfo.label === 'Ausgezeichnet') {
+            averageLabelElement.className = 'badge';
+            averageLabelElement.style.background = 'linear-gradient(90deg, #6f42c1 0%, #6610f2 100%)';
+            averageLabelElement.style.color = '#fff';
+            averageLabelElement.style.boxShadow = '0 0 15px rgba(102, 16, 242, 0.5)';
+          } else if (averagePercentileInfo.label === 'Sehr gut') {
+            averageLabelElement.className = 'badge';
+            averageLabelElement.style.background = 'linear-gradient(90deg, #20c997 0%, #198754 100%)';
+            averageLabelElement.style.color = '#fff';
+            averageLabelElement.style.boxShadow = '0 0 15px rgba(32, 201, 151, 0.5)';
+          } else if (averagePercentileInfo.label === 'Gut') {
+            averageLabelElement.className = 'badge';
+            averageLabelElement.style.background = 'linear-gradient(90deg, #0dcaf0 0%, #0d6efd 100%)';
+            averageLabelElement.style.color = '#fff';
+            averageLabelElement.style.boxShadow = '0 0 15px rgba(13, 202, 240, 0.5)';
+          } else if (averagePercentileInfo.label === 'Durchschnittlich') {
+            averageLabelElement.className = 'badge';
+            averageLabelElement.style.background = 'linear-gradient(90deg, #fd7e14 0%, #ffc107 100%)';
+            averageLabelElement.style.color = '#343a40';
+            averageLabelElement.style.boxShadow = '0 0 15px rgba(253, 126, 20, 0.5)';
+          } else if (averagePercentileInfo.label === 'Unterdurchschnittlich') {
+            averageLabelElement.className = 'badge';
+            averageLabelElement.style.background = 'linear-gradient(90deg, #dc3545 0%, #f56565 100%)';
+            averageLabelElement.style.color = '#fff';
+            averageLabelElement.style.boxShadow = '0 0 15px rgba(220, 53, 69, 0.5)';
+          }
+          
+          // Add more visual appeal to the badge
+          averageLabelElement.style.fontWeight = '600';
+          averageLabelElement.style.padding = '0.5em 1.2em';
+          averageLabelElement.style.borderRadius = '10px';
+          averageLabelElement.style.letterSpacing = '0.5px';
+          averageLabelElement.style.fontSize = '1rem';
+          averageLabelElement.style.transform = 'translateY(0)';
+          averageLabelElement.style.transition = 'all 0.3s ease';
         }
 
         chartData.forEach((data, index) => {
@@ -930,7 +974,7 @@
           let labelHtml = '';
           if (data.exercise === "YoYo IR1") {
             rankInfo = { rankString: 'Below the 30% percentile', label: 'Unterdurchschnittlich' };
-            labelHtml = `<span class="badge bg-danger-lt ms-2">${rankInfo.label}</span>`;
+            labelHtml = `<span class="badge bg-danger-lt">${rankInfo.label}</span>`; // Removed ms-2
           } else {
             rankInfo = calculatePercentileRank(data.finleyResult, data.dfbValues, data.dfbCategories, data.exercise);              if (rankInfo.label) {
               let badgeColor = 'secondary';
@@ -939,7 +983,7 @@
               if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
+              labelHtml = `<span class="badge bg-${badgeColor}-lt">${rankInfo.label}</span>`; // Removed ms-2
             }
           }
 
@@ -949,14 +993,15 @@
           const resultDisplay = data.exercise === 'YoYo IR1'
             ? (data.finleyResult !== null && data.finleyResult !== undefined ? data.finleyResult + 'm' : 'N/A')
             : (data.finleyResult !== null && data.finleyResult !== undefined 
-              ? (data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : data.finleyResult.toFixed(2)) 
+              ? (data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : data.finleyResult.toFixed(2))
               : 'N/A');
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
-                <h3 class="card-title mb-1">${data.exercise}${labelHtml}</h3>
+                <h3 class="card-title mb-1">${data.exercise}</h3> <!-- Removed labelHtml from here -->
                 <p class="text-secondary mb-1">Result: ${resultDisplay}</p>
                 <p class="text-secondary mb-0">${rankInfo.rankString}</p>
+                <div class="mt-2">${labelHtml}</div> <!-- Added badge here -->
               </div>
             </div>
           `;

@@ -127,38 +127,15 @@
 
       #kpi-container .text-secondary {
         color: rgba(224, 231, 255, 0.7) !important;
-      }      /* Badges */
-      .badge.bg-orange-lt {
-        background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
-        color: #fff !important;
+      }
+      /* Badges */
+      .badge[class*="-lt"] {
+        background-color: grey !important;
+        color: black !important;
         font-weight: normal;
-        padding: 0.5em 1em;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-      }      .badge.bg-danger-lt {
-        background: linear-gradient(45deg, #dc3545, #ef5350) !important;
-        color: #fff !important;
-        font-weight: normal;
-      }
-
-      .badge.bg-info-lt {
-        background: linear-gradient(45deg, #17a2b8, #4dd0e1) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-success-lt {
-        background: linear-gradient(45deg, #28a745, #4caf50) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-purple-lt {
-        background: linear-gradient(45deg, #9c27b0, #ba68c8) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-secondary-lt {
-        background: linear-gradient(45deg, #6c757d, #adb5bd) !important;
-        color: #fff !important;
+        font-size: 0.81em; /* Increased font size */
+        padding: 0.45em 0.81em; /* Increased padding */
+        border-radius: 4px; /* Adjusted border-radius */
       }
 
       /* Navbar */
@@ -178,6 +155,10 @@
         transform: scale(1.1);
       }
 
+      /* --- ORIGINAL ACTIVE STYLE --- */
+      /* This style applies the underline ONLY when the LI itself is active */
+      /* We removed the active class from the LI for 'Spieler', so this rule */
+      /* won't apply to it anymore, preventing the diagonal line conflict. */
       .nav-item.active .nav-link {
         color: #45a2ff !important;
         font-weight: 700;
@@ -193,6 +174,60 @@
         height: 2px;
         background: #45a2ff;
         box-shadow: 0 0 5px #45a2ff;
+      }
+      /* --- END ORIGINAL ACTIVE STYLE --- */
+
+
+      /* Dropdown Menu - Comprehensive Fix */
+      .dropdown-menu {
+        z-index: 9999 !important;
+        position: absolute !important;
+        background: rgba(27, 38, 59, 0.95);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transform: none !important;
+        top: 100% !important;
+        left: 0 !important;
+        will-change: auto !important;
+        margin-top: 0.5rem !important;
+      }
+
+      .dropdown-item {
+        color: #e0e7ff;
+        position: relative;
+        z-index: 10000;
+      }
+
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: rgba(69, 162, 255, 0.2);
+        color: #45a2ff;
+      }
+
+      /* This highlights the specific active player link inside the dropdown */
+      .dropdown-item.active {
+        background: rgba(69, 162, 255, 0.3);
+        color: #45a2ff;
+        font-weight: 600;
+      }
+
+      /* Fix for dropdown being covered by other elements */
+      .navbar-nav .nav-item.dropdown {
+        position: relative !important;
+        z-index: 9999 !important;
+      }
+
+      /* Fix for hero section potentially overlapping */
+      .page-body {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Ensure navbar has higher z-index than page content */
+      .navbar,
+      .navbar-collapse,
+      .navbar-expand-md {
+        position: relative;
+        z-index: 9999 !important;
       }
 
       /* Charts */
@@ -362,59 +397,35 @@
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./finley.html">
+                    <!-- !!!!! CHANGE MADE HERE: Removed 'active' class from this li !!!!! -->
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                           </svg>
                         </span>
-                        <span class="nav-link-title"> Finley </span>                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./bent.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Bent </span>
+                        <span class="nav-link-title"> Spieler </span>
                       </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./ben.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Ben </span>
-                      </a>
-                    </li>                    
-                    <li class="nav-item active">
-                      <a class="nav-link" href="./alex.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Alex </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./lion.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Lion </span>
-                      </a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="./finley.html">
+                          Finley
+                        </a>
+                        <a class="dropdown-item" href="./bent.html">
+                          Bent
+                        </a>
+                        <a class="dropdown-item" href="./ben.html">
+                          Ben
+                        </a>
+                        <!-- Keep 'active' class here for the current page link -->
+                        <a class="dropdown-item active" href="./alex.html">
+                          Alex
+                        </a>
+                        <a class="dropdown-item" href="./lion.html">
+                          Lion
+                        </a>
+                      </div>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="./daten.html">
@@ -463,9 +474,8 @@
                         <div class="text-center">
                           <h2 class="mb-1">Alex</h2>
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
-                          <div class="d-flex flex-column align-items-center justify-content-center">
-                            <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
-                            <span class="badge bg-orange-lt" style="padding: 0.5em 0.8em;" id="average-label">Durchschnittlich</span>
+                          <div class="d-flex flex-column align-items-center justify-content-center">                            <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">82</div>
+                            <span class="badge bg-info-lt" id="average-label">Gut</span>
                           </div>
                         </div>
                       </div>
@@ -521,7 +531,7 @@
             <div class="row row-cards mb-4" id="sportabzeichen-kpi-container" style="display: none;">
               <!-- Sportabzeichen KPIs will be injected here -->
             </div>
-            
+
             <!-- Charts Section -->
             <div class="row row-cards" id="charts-container">
               <!-- Charts injected here -->
@@ -529,7 +539,7 @@
           </div>
         </div>
         <!-- BEGIN FOOTER -->
-   
+
         <!-- END FOOTER -->
       </div>
     </div>
@@ -634,14 +644,16 @@
         </div>
       </div>
     </div>
-    <!-- END PAGE MODALS -->
-    <!-- BEGIN SCRIPTS -->
+    <!-- END PAGE MODALS -->    <!-- BEGIN SCRIPTS -->
     <script src="./libs/apexcharts/dist/apexcharts.min.js?1740918423" defer></script>
     <script src="./libs/jsvectormap/dist/jsvectormap.min.js?1740918423" defer></script>
     <script src="./libs/jsvectormap/dist/maps/world.js?1740918423" defer></script>
     <script src="./libs/jsvectormap/dist/maps/world-merc.js?1740918423" defer></script>
     <script src="./dist/js/tabler.min.js?1740918423" defer></script>
     <script src="./preview/js/demo.min.js?1740918423" defer></script>
+    <!-- BEGIN BADGE STYLING SCRIPT -->
+    <script src="./badge-styling.js"></script>
+    <!-- END BADGE STYLING SCRIPT -->
     <script>
       // @formatter:off
       document.addEventListener("DOMContentLoaded", function () {
@@ -667,7 +679,7 @@
             const playerResult = data.alexResult;
             if (exercisesToInclude.includes(data.exercise)) {
               if (data.exercise === "YoYo IR1") {
-                totalPercentile += 97;
+                totalPercentile += 97; // Assign fixed percentile for YoYo IR1
                 countedExercises++;
               } else if (playerResult !== null && playerResult !== undefined &&
                   data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
@@ -706,6 +718,13 @@
             const resultDisplay = alexResult !== undefined && alexResult !== null ? alexResult : 'N/A';
             return { rankString: 'Ranking data not available', label: '', resultDisplay: resultDisplay, numericPercentile: 0 };
           }
+
+          // Ensure dfbValues and dfbCategories have the same length for valid mapping
+          if (dfbValues.length !== dfbCategories.length) {
+              console.error(`Mismatch in DFB data lengths for exercise: ${exerciseName}`);
+              return { rankString: 'Ranking data error', label: '', resultDisplay: alexResult, numericPercentile: 0 };
+          }
+
 
           const higherIsBetter = ['YoYo IR1', 'Balljonglieren'].includes(exerciseName);
           let percentile = '<' + dfbCategories[0];
@@ -796,7 +815,7 @@
           {
             exercise: "YoYo IR1",
             alexResult: 1720,
-            dfbCategories: [],
+            dfbCategories: [], // No DFB benchmark for this
             dfbValues: []
           }
         ];
@@ -819,7 +838,7 @@
           let badgeColor = 'secondary';
           if (averagePercentileInfo.label === 'Gut') badgeColor = 'info';
           if (averagePercentileInfo.label === 'Sehr gut') badgeColor = 'success';
-          if (averagePercentileInfo.label === 'Ausgezeichnet') badgeColor = 'success';
+          if (averagePercentileInfo.label === 'Ausgezeichnet') badgeColor = 'success'; // Keep success for Ausgezeichnet
           if (averagePercentileInfo.label === 'Durchschnittlich') badgeColor = 'orange';
           if (averagePercentileInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
           averageLabelElement.textContent = averagePercentileInfo.label;
@@ -834,43 +853,41 @@
           let rankInfo;
           let labelHtml = '';
           if (data.exercise === "YoYo IR1") {
-            rankInfo = { rankString: 'Ranking data not available', label: 'Ausgezeichnet', numericPercentile: 97 };
-            labelHtml = `<span class="badge bg-success-lt ms-2">${rankInfo.label}</span>`;
+            // Assign fixed label and percentile for YoYo IR1 as DFB data is missing
+            rankInfo = { rankString: 'DFB Benchmark N/A', label: 'Ausgezeichnet', numericPercentile: 97 };
+            labelHtml = `<span class="badge bg-purple-lt">${rankInfo.label}</span>`; // Using purple for Ausgezeichnet
           } else {
-            rankInfo = calculatePercentileRank(data.alexResult, data.dfbValues, data.dfbCategories, data.exercise);            if (rankInfo.label && data.exercise === '10m Sprint' && rankInfo.label === 'Durchschnittlich') {
-              labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
-            } else if (rankInfo.label && data.exercise === '20m Sprint' && rankInfo.label === 'Durchschnittlich') {
-              labelHtml = `<span class="badge bg-orange-lt ms-2">${rankInfo.label}</span>`;
-            }
-            else if (rankInfo.label) {
+            rankInfo = calculatePercentileRank(data.alexResult, data.dfbValues, data.dfbCategories, data.exercise);
+             if (rankInfo.label) {
               let badgeColor = 'secondary';
               if (rankInfo.label === 'Gut') badgeColor = 'info';
               if (rankInfo.label === 'Sehr gut') badgeColor = 'success';
-              if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple';
+              if (rankInfo.label === 'Ausgezeichnet') badgeColor = 'purple'; // Consistent badge color
               if (rankInfo.label === 'Durchschnittlich') badgeColor = 'orange';
               if (rankInfo.label === 'Unterdurchschnittlich') badgeColor = 'danger';
-              labelHtml = `<span class="badge bg-${badgeColor}-lt ms-2">${rankInfo.label}</span>`;
+              labelHtml = `<span class="badge bg-${badgeColor}-lt">${rankInfo.label}</span>`;
             }
           }
 
           // Create KPI Card
           const kpiColDiv = document.createElement('div');
           kpiColDiv.className = 'col-md-4 mb-3';
-          const resultDisplay = data.exercise === 'YoYo IR1' ? 
+          const resultDisplay = data.exercise === 'YoYo IR1' ?
             (data.alexResult !== null && data.alexResult !== undefined ? `${data.alexResult}m` : 'N/A') :
             (data.alexResult !== null && data.alexResult !== undefined ? data.alexResult.toFixed(2) : 'N/A');
           kpiColDiv.innerHTML = `
             <div class="card" id="${kpiId}">
               <div class="card-body">
-                <h3 class="card-title mb-1">${data.exercise}${labelHtml}</h3>
+                <h3 class="card-title mb-1">${data.exercise}</h3>
                 <p class="text-secondary mb-1">Result: ${resultDisplay}</p>
                 <p class="text-secondary mb-0">${rankInfo.rankString}</p>
+                <div class="mt-2">${labelHtml}</div>
               </div>
             </div>
           `;
           kpiContainer.appendChild(kpiColDiv);
 
-          // Create Chart (skip for YoYo IR1)
+          // Create Chart (skip for YoYo IR1 as no DFB comparison data)
           if (data.exercise !== "YoYo IR1" && data.alexResult !== null && data.alexResult !== undefined && data.dfbValues && data.dfbValues.length > 0 && data.dfbCategories && data.dfbCategories.length > 0) {
             const chartColDiv = document.createElement('div');
             chartColDiv.className = 'col-lg-6 mb-4';
@@ -895,7 +912,7 @@
               allCategories.push(data.dfbCategories[index]);
             });
 
-            const higherIsBetter = ['Balljonglieren'].includes(data.exercise);
+            const higherIsBetter = ['Balljonglieren'].includes(data.exercise); // Only Balljonglieren is higher=better in this set
             const combinedData = allValues.map((value, index) => {
               return { value: value, category: allCategories[index] };
             });
@@ -941,8 +958,8 @@
                 labels: { style: { colors: '#e0e7ff', fontFamily: 'Exo 2' } }
               },
               yaxis: {
-                title: { 
-                  text: 'Time (s)',
+                title: {
+                  text: 'Time (s)', // Assuming time for all DFB benchmarks here
                   style: { color: '#e0e7ff', fontFamily: 'Exo 2' }
                 },
                 reversed: false,
@@ -952,9 +969,9 @@
                   style: { colors: '#e0e7ff', fontFamily: 'Exo 2' }
                 }
               },
-              title: { 
-                text: data.exercise, 
-                align: 'center', 
+              title: {
+                text: data.exercise,
+                align: 'center',
                 style: { color: '#e0e7ff', fontFamily: 'Exo 2', fontWeight: 600 }
               },
               dataLabels: {
@@ -970,15 +987,15 @@
                   fontFamily: 'Exo 2'
                 }
               },
-              tooltip: { 
+              tooltip: {
                 theme: 'dark',
-                y: { formatter: val => val.toFixed(2) }
+                y: { formatter: val => val.toFixed(2) } // Corrected tooltip formatter
               },
-              legend: { 
-                position: 'top', 
-                horizontalAlign: 'right', 
-                floating: true, 
-                offsetY: -25, 
+              legend: {
+                position: 'top',
+                horizontalAlign: 'right',
+                floating: true,
+                offsetY: -25,
                 offsetX: -5,
                 labels: { colors: '#e0e7ff', fontFamily: 'Exo 2' }
               },
@@ -999,14 +1016,14 @@
                 document.querySelector(`#${chartId}`).innerHTML = '<p class="text-center text-danger">Error: Chart library not loaded.</p>';
               }
             }, 500);
-          } else {
-            const chartColDiv = document.createElement('div');
+          } else if (data.exercise !== "YoYo IR1") { // Also show message if data exists but DFB values don't
+             const chartColDiv = document.createElement('div');
             chartColDiv.className = 'col-lg-6 mb-4';
             chartColDiv.innerHTML = `
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title text-center" style="color: #e0e7ff;">${data.exercise}</h5>
-                  <p class="text-center mt-3" style="color: rgba(224, 231, 255, 0.8);">Chart not available due to missing data.</p>
+                  <p class="text-center mt-3" style="color: rgba(224, 231, 255, 0.8);">Chart not available due to missing DFB comparison data.</p>
                 </div>
               </div>`;
             chartsContainer.appendChild(chartColDiv);

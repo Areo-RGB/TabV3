@@ -130,41 +130,14 @@
       #kpi-container .text-secondary {
         color: rgba(224, 231, 255, 0.7) !important;
       }
-
       /* Badges */
-      .badge.bg-orange-lt {
-        background: linear-gradient(45deg, #ff9800, #ffb74d) !important;
-        color: #fff !important;
+      .badge[class*="-lt"] {
+        background-color: grey !important;
+        color: black !important;
         font-weight: normal;
-        padding: 0.5em 1em;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-      }
-
-      .badge.bg-danger-lt {
-        background: linear-gradient(45deg, #dc3545, #ef5350) !important;
-        color: #fff !important;
-        font-weight: normal;
-      }
-
-      .badge.bg-info-lt {
-        background: linear-gradient(45deg, #17a2b8, #4dd0e1) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-success-lt {
-        background: linear-gradient(45deg, #28a745, #4caf50) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-purple-lt {
-        background: linear-gradient(45deg, #9c27b0, #ba68c8) !important;
-        color: #fff !important;
-      }
-
-      .badge.bg-secondary-lt {
-        background: linear-gradient(45deg, #6c757d, #adb5bd) !important;
-        color: #fff !important;
+        font-size: 0.81em; /* Increased font size */
+        padding: 0.45em 0.81em; /* Increased padding */
+        border-radius: 4px; /* Adjusted border-radius */
       }
 
       /* Navbar */
@@ -184,6 +157,10 @@
         transform: scale(1.1);
       }
 
+      /* --- ORIGINAL ACTIVE STYLE --- */
+      /* This style applies the underline ONLY when the LI itself is active */
+      /* We removed the active class from the LI for 'Spieler', so this rule */
+      /* won't apply to it anymore, preventing the diagonal line conflict. */
       .nav-item.active .nav-link {
         color: #45a2ff !important;
         font-weight: 700;
@@ -199,6 +176,60 @@
         height: 2px;
         background: #45a2ff;
         box-shadow: 0 0 5px #45a2ff;
+      }
+      /* --- END ORIGINAL ACTIVE STYLE --- */
+
+
+      /* Dropdown Menu - Comprehensive Fix */
+      .dropdown-menu {
+        z-index: 9999 !important;
+        position: absolute !important;
+        background: rgba(27, 38, 59, 0.95);
+        border: 1px solid rgba(69, 162, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transform: none !important;
+        top: 100% !important;
+        left: 0 !important;
+        will-change: auto !important;
+        margin-top: 0.5rem !important;
+      }
+
+      .dropdown-item {
+        color: #e0e7ff;
+        position: relative;
+        z-index: 10000;
+      }
+
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: rgba(69, 162, 255, 0.2);
+        color: #45a2ff;
+      }
+
+      /* This highlights the specific active player link inside the dropdown */
+      .dropdown-item.active {
+        background: rgba(69, 162, 255, 0.3);
+        color: #45a2ff;
+        font-weight: 600;
+      }
+
+      /* Fix for dropdown being covered by other elements */
+      .navbar-nav .nav-item.dropdown {
+        position: relative !important;
+        z-index: 9999 !important;
+      }
+
+      /* Fix for hero section potentially overlapping */
+      .page-body {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Ensure navbar has higher z-index than page content */
+      .navbar,
+      .navbar-collapse,
+      .navbar-expand-md {
+        position: relative;
+        z-index: 9999 !important;
       }
 
       /* Charts */
@@ -370,59 +401,35 @@
                         <span class="nav-link-title"> Übersicht </span>
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./finley.html">
+                    <!-- !!!!! CHANGE MADE HERE: Removed 'active' class from this li !!!!! -->
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                           </svg>
                         </span>
-                        <span class="nav-link-title"> Finley </span>
+                        <span class="nav-link-title"> Spieler </span>
                       </a>
-                    </li>                    <li class="nav-item">
-                      <a class="nav-link" href="./bent.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Bent </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./ben.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Ben </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="./alex.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Alex </span>
-                      </a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="./lion.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                          </svg>
-                        </span>
-                        <span class="nav-link-title"> Lion </span>
-                      </a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="./finley.html">
+                          Finley
+                        </a>
+                        <a class="dropdown-item" href="./bent.html">
+                          Bent
+                        </a>
+                        <a class="dropdown-item" href="./ben.html">
+                          Ben
+                        </a>
+                        <a class="dropdown-item" href="./alex.html">
+                          Alex
+                        </a>
+                        <!-- Keep 'active' class here for the current page link -->
+                        <a class="dropdown-item active" href="./lion.html">
+                          Lion
+                        </a>
+                      </div>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="./daten.html">
@@ -474,8 +481,8 @@
                           <h2 class="mb-1">Lion</h2>
                           <h3 class="subheader mb-2">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
-                            <div class="mb-3 text-secondary">Keine Daten verfügbar</div>
-                            <span class="badge bg-info-lt" style="padding: 0.5em 0.8em;">Daten werden in Kürze hinzugefügt</span>
+                            <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
+                            <span class="badge bg-orange-lt" id="average-label">Durchschnittlich</span>
                           </div>
                         </div>
                       </div>
@@ -514,7 +521,7 @@
                 </div>
               </div>
             </div>
-           
+
             <!-- Motorik Metrics - Hidden -->
             <div class="row mb-3" style="display: none;">
               <div class="col">
@@ -531,7 +538,7 @@
             <div class="row row-cards mb-4" id="other-kpi-container" style="display: none;">
               <!-- Other KPIs hidden as there's no data for Lion -->
             </div>
-            
+
             <!-- Deutsches Sportabzeichen Section Header - Hidden -->
             <div class="row mb-3" style="display: none;">
               <div class="col">
@@ -548,7 +555,7 @@
             <div class="row row-cards mb-4" id="sportabzeichen-kpi-container" style="display: none;">
               <!-- Sportabzeichen KPIs hidden as there's no data for Lion -->
             </div>
-            
+
             <!-- Charts Section -->
             <div class="row row-cards" id="charts-container">
               <!-- No charts as there's no data for Lion -->
@@ -557,7 +564,7 @@
         </div>
         <!-- END PAGE BODY -->
         <!-- BEGIN FOOTER -->
-        
+
         <!-- END FOOTER -->
       </div>
     </div>
@@ -667,14 +674,16 @@
     <script src="./libs/apexcharts/dist/apexcharts.min.js?1740918423" defer></script>
     <script src="./libs/jsvectormap/dist/jsvectormap.min.js?1740918423" defer></script>
     <script src="./libs/jsvectormap/dist/maps/world.js?1740918423" defer></script>
-    <script src="./libs/jsvectormap/dist/maps/world-merc.js?1740918423" defer></script>
-    <!-- END PAGE LIBRARIES -->
+    <script src="./libs/jsvectormap/dist/maps/world-merc.js?1740918423" defer></script>    <!-- END PAGE LIBRARIES -->
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="./dist/js/tabler.min.js?1740918423" defer></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     <!-- BEGIN DEMO SCRIPTS -->
     <script src="./preview/js/demo.min.js?1740918423" defer></script>
     <!-- END DEMO SCRIPTS -->
+    <!-- BEGIN BADGE STYLING SCRIPT -->
+    <script src="./badge-styling.js"></script>
+    <!-- END BADGE STYLING SCRIPT -->
     <!-- BEGIN PAGE SCRIPTS -->
     <script>
       // @formatter:off
@@ -727,6 +736,22 @@
             setTimeout(() => ripple.remove(), 600);
           });
         });
+
+        // Since there's no chart data for Lion, we don't need the chart generation script part here.
+        // We just need the theme and ripple effects.
+
+        // Optionally, update the Gesamtbewertung if there's a default/placeholder value needed
+        const averagePercentileElement = document.getElementById('average-percentile');
+        const averageLabelElement = document.getElementById('average-label');
+
+        if (averagePercentileElement) {
+          averagePercentileElement.textContent = '--'; // Placeholder for no data
+        }
+        if (averageLabelElement) {
+          averageLabelElement.textContent = 'Keine Daten';
+          averageLabelElement.className = `badge bg-secondary-lt`; // Neutral badge
+        }
+
       });
       // @formatter:on
     </script>
