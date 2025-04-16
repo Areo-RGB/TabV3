@@ -1,11 +1,6 @@
 $activeFiles = @(
-    "alex.html",
-    "ben.html",
-    "bent.html",
     "finley.html",
-    "lion.html", 
     "daten.html",
-    "Übersicht.html",
     "uebersicht.html",
     "index.html"
 )
