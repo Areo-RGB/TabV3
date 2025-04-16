@@ -68,24 +68,21 @@
             100% {
                 transform: scale(1) translate(0, 0);
             }
-        }
-        body {
-            background: url('assets/images/Image_49-enhanced(1).png') no-repeat center center fixed;
-            background-size: cover;
+        }        body {
             position: relative;
             overflow: hidden;
         }
-        body::before {
-            content: "";
+        #video-background {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('assets/images/Image_49-enhanced(1).png') no-repeat center center;
-            background-size: cover;
-            animation: kenburns 20s ease-in-out infinite;
-            z-index: -1;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            overflow: hidden;
+            object-fit: cover;
         }
         .main-container {
             padding-top: 50px;
@@ -104,6 +101,13 @@
 </head>
 
 <body>
+    <!-- Video Background -->
+    <video id="video-background" autoplay muted loop playsinline>
+        <source src="static/photos/Main.mp4" type="video/mp4">
+        <!-- Fallback message if video doesn't load -->
+        Your browser does not support the video tag.
+    </video>
+    
     <div class="main-container qv-container">
         <div class="container qv-container-glass">
             <div class="title-section">
