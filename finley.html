@@ -25,8 +25,10 @@
     <link href="./dist/css/tabler-marketing.min.css?1740918423" rel="stylesheet" />
     <!-- END PLUGINS STYLES -->
     <!-- BEGIN DEMO STYLES -->
-    <link href="./preview/css/demo.min.css?1740918423" rel="stylesheet" />
-    <!-- END DEMO STYLES -->
+    <link href="./preview/css/demo.min.css?1740918423" rel="stylesheet" />    <!-- END DEMO STYLES -->
+    <!-- BEGIN ISOLATED COMPONENT STYLES -->
+    <link href="./assets/css/isolated-components.css" rel="stylesheet" />
+    <!-- END ISOLATED COMPONENT STYLES -->
     <!-- BEGIN CUSTOM STYLES -->
     <style>
       /* Reset and Base Styles */
@@ -36,9 +38,7 @@
         color: #e0e7ff;
         overflow-x: hidden;
         margin: 0;
-      }
-
-      /* HUD Overlay */
+      }      /* HUD Overlay */
       .hud-overlay {
         position: fixed;
         top: 0;
@@ -88,36 +88,8 @@
         0% { box-shadow: 0 0 0 0 rgba(69, 162, 255, 0.7); }
         70% { box-shadow: 0 0 0 10px rgba(69, 162, 255, 0); }
         100% { box-shadow: 0 0 0 0 rgba(69, 162, 255, 0); }
-      }
-
-      .pulse-highlight {
+      }      .pulse-highlight {
         animation: highlight-pulse 1.5s ease-out;
-      }
-
-      .scan-lines {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 50%, transparent 50%);
-        background-size: 100% 4px;
-        animation: scan 10s linear infinite;
-      }
-
-      .noise {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.05;
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAAXNSR0IArs4c6QAAAEZQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBB4lAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAHGlET1QAAAACAAAAAAAAABMAAAAoAAAAEwAAABMAAADXa6TfAAAAVUlEQVQ4y+3SSQ4AIAwDwQ8C/f9vdkkZAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAMk/YB48oD5uAAAAAElFTkSuQmCC');
-      }
-
-      @keyframes scan {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-100%); }
       }
 
       /* Cards */
@@ -197,40 +169,66 @@
       .badge.bg-danger-lt {
         background-color: #dc3545 !important;
         color: white !important;
-      }
-
-      /* Navbar */
+      }      /* Navbar */
       .navbar {
-        background: rgba(13, 27, 42, 0.9);
-        border-bottom: 1px solid rgba(69, 162, 255, 0.2);
-        backdrop-filter: blur(10px);
+        background: rgba(13, 27, 42, 0.85);
+        border-bottom: 1px solid rgba(69, 162, 255, 0.25);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
       }
 
       .nav-link {
         color: #e0e7ff !important;
-        transition: color 0.3s ease, transform 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        margin: 0 3px;
+        padding: 8px 15px !important;
+        border-radius: 6px;
+        position: relative;
+        overflow: hidden;
       }
 
       .nav-link:hover {
         color: #45a2ff !important;
-        transform: scale(1.1);
+        background: rgba(69, 162, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(69, 162, 255, 0.2);
       }
 
       .nav-item.active .nav-link {
-        color: #45a2ff !important;
+        color: #ffffff !important;
         font-weight: 700;
         position: relative;
+        background: linear-gradient(135deg, rgba(69, 162, 255, 0.2) 0%, rgba(69, 162, 255, 0.4) 100%);
       }
 
       .nav-item.active .nav-link::after {
         content: '';
         position: absolute;
-        bottom: -2px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, rgba(69, 162, 255, 0), #45a2ff, rgba(69, 162, 255, 0));
+        box-shadow: 0 0 8px rgba(69, 162, 255, 0.8);
+        border-radius: 3px;
+      }
+      
+      /* Add animated underline effect on hover */
+      .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
         left: 0;
-        width: 100%;
+        width: 0;
         height: 2px;
         background: #45a2ff;
-        box-shadow: 0 0 5px #45a2ff;
+        transition: width 0.3s ease;
+      }
+      
+      .nav-link:hover::before {
+        width: 100%;
       }
 
       /* Dropdown Menu - Comprehensive Fix */
@@ -396,12 +394,9 @@
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     </style>
     <!-- END CUSTOM STYLES -->
-  </head>
-  <body>
+  </head>  <body>
     <!-- HUD Overlay -->
     <div class="hud-overlay">
-      <div class="scan-lines"></div>
-      <div class="noise"></div>
     </div>
     <!-- BEGIN DEMO THEME SCRIPT -->
     <script src="./preview/js/demo-theme.min.js?1740918423"></script>
@@ -477,15 +472,17 @@
                           Lion
                         </a>
                       </div>
-                    </li>
-                    <li class="nav-item">
+                    </li>                    <li class="nav-item">
                       <a class="nav-link" href="./daten.html">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M4 7v-1a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-1" />
-                            <path d="M7 9l4 -4l4 4" />
-                            <path d="M12 5l0 9" />
-                            <path d="M7 14l4 4l4 -4" />
+                            <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                            <path d="M8 8v.01" />
+                            <path d="M16 16v.01" />
+                            <path d="M16 8v.01" />
+                            <path d="M8 16v.01" />
                           </svg>
                         </span>
                         <span class="nav-link-title"> Daten </span>
@@ -498,8 +495,7 @@
           </div>
         </div>
       </header>
-      <!-- END NAVBAR -->
-      <div class="page-wrapper">
+      <!-- END NAVBAR -->      <div class="page-wrapper">
         <!-- BEGIN PAGE HEADER -->
         <div class="page-header d-print-none py-2">
           <div class="container-xl">
@@ -517,16 +513,15 @@
             <!-- BEGIN HERO SECTION WITH PORTRAIT AND GESAMTBEWERTUNG -->
             <div class="row mb-4">
               <div class="col-md-12">
-                <div class="card">
-                  <div class="card-body py-4">
-                    <div class="row align-items-center">
+                <div class="card qv-card">
+                  <div class="card-body py-4">                    <div class="row align-items-center">
                       <div class="col-auto d-flex justify-content-center">
                         <img src="./static/photos/Finley_portrait.png" alt="Finley Portrait" class="rounded-circle" width="120" height="120">
                       </div>
                       <div class="col">
                         <div class="text-center">
-                          <h2 class="mb-1">Finley</h2>
-                          <h3 class="subheader mb-2">Gesamtbewertung</h3>
+                          <h2 class="mb-1 qv-title">Finley</h2>
+                          <h3 class="subheader mb-2 qv-subtitle">Gesamtbewertung</h3>
                           <div class="d-flex flex-column align-items-center justify-content-center">
                             <div class="h1 mb-3" style="font-size: 3rem; font-weight: 600;" id="average-percentile">76</div>
                             <span class="badge bg-orange-lt" id="average-label">Durchschnittlich</span>
@@ -537,8 +532,8 @@
                     <div class="row mt-4">
                       <!-- KPI Card 1 - Badge Style -->
                       <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card" style="background: linear-gradient(135deg, #3b82f6 0%, #94a3b8 100%);">
-                          <div class="card-body p-3">
+                        <div class="card qv-card" style="background: linear-gradient(135deg, #3b82f6 0%, #94a3b8 100%);">
+                          <div class="card-body qv-card-body p-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                               <h4 class="m-0" style="color: white; font-weight: 600;">Technik</h4>
                               <span class="badge rounded-pill" style="background-color: rgba(255, 255, 255, 0.25); backdrop-filter: blur(4px); color: white; font-weight: 600; padding: 6px 12px;">
@@ -566,8 +561,8 @@
                         </div>
                       </div>                      <!-- KPI Card 2 - Badge Style -->
                       <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card" style="background: linear-gradient(135deg, #4b5563 0%, #1e3a8a 100%);">
-                          <div class="card-body p-3">
+                        <div class="card qv-card" style="background: linear-gradient(135deg, #4b5563 0%, #1e3a8a 100%);">
+                          <div class="card-body qv-card-body p-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                               <h4 class="m-0" style="color: white; font-weight: 600;">Athletik</h4>
                               <span class="badge rounded-pill" style="background-color: rgba(255, 255, 255, 0.25); backdrop-filter: blur(4px); color: white; font-weight: 600; padding: 6px 12px;">
@@ -604,8 +599,8 @@
                         </div>
                       </div>                      <!-- KPI Card 3 - Badge Style -->
                       <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card" style="background: linear-gradient(135deg, #64748b 0%, #0f172a 100%);">
-                          <div class="card-body p-3">
+                        <div class="card qv-card" style="background: linear-gradient(135deg, #64748b 0%, #0f172a 100%);">
+                          <div class="card-body qv-card-body p-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                               <h4 class="m-0" style="color: white; font-weight: 600;">Koordination</h4>
                               <span class="badge rounded-pill" style="background-color: rgba(255, 255, 255, 0.25); backdrop-filter: blur(4px); color: white; font-weight: 600; padding: 6px 12px;">
@@ -637,16 +632,14 @@
                 </div>
               </div>
             </div>
-            <!-- END HERO SECTION -->
-            <!-- DFB Benchmark KPIs Section Header -->
+            <!-- END HERO SECTION -->            <!-- DFB Benchmark KPIs Section Header -->
             <div class="row mb-4">
               <div class="col">
-                <div class="card">
-                  <div class="card-header" id="leistungsdiagnostik-header" style="cursor: pointer; position: relative; z-index: 100;">
+                <div class="card qv-card">
+                  <div class="card-header qv-card-header" id="leistungsdiagnostik-header" style="cursor: pointer; position: relative; z-index: 100;">
                     <div class="d-flex align-items-center justify-content-between w-100"> <!-- Added w-100 here -->
                       <div class="d-flex align-items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/DFB-Logo.svg" alt="DFB Logo" style="height: 30px; margin-right: 15px;">
-                        <h3 class="card-title m-0">Technomotorische Leistungsdiagnostik</h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/DFB-Logo.svg" alt="DFB Logo" style="height: 30px; margin-right: 15px;">                      <h3 class="card-title qv-title m-0">Technomotorische Leistungsdiagnostik</h3>
                       </div>
                       <div id="toggle-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -655,9 +648,8 @@
                         </svg>
                       </div>
                     </div>
-                  </div>
-                  <div id="leistungsdiagnostik-content" style="display: none;">
-                    <div class="card-body p-0" id="combined-kpi-container">
+                  </div>                  <div id="leistungsdiagnostik-content" style="display: none;">
+                    <div class="card-body qv-card-body p-0" id="combined-kpi-container">
                       <!-- Combined KPIs table will be injected here -->
                     </div>
                     <!-- ADDED: Container for charts inside the collapsible area -->

@@ -30,10 +30,14 @@
     <link rel="stylesheet" type="text/css" href="assets/css/hero.css">
     <link rel="stylesheet" type="text/css" href="assets/css/blocks.css">
     <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/isolated-components.css">
+    
+    <!-- TABLER CSS -->
+    <link rel="stylesheet" href="libs/tabler/tabler.min.css">
     
     <!-- STYLESHEET TEMPLATE COLOR -->
     <link rel="stylesheet" type="text/css" href="assets/css/color/default.css">
-      <style>
+    <style>
         /* Custom styles for the carousel */
         .carousel-container {
             max-width: 900px;
@@ -47,7 +51,8 @@
             background: rgba(0, 0, 0, 0.5);
             padding: 15px;
             border-radius: 5px;
-        }        .title-section {
+        }        
+        .title-section {
             text-align: center;
             margin-top: 30px;
             margin-bottom: 30px;
@@ -99,16 +104,18 @@
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="container">            <div class="title-section">
-                <h1 style="font-size: 60px; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Quo Vadis</h1>
-                <p style="font-size: 24px; letter-spacing: 1px; font-weight: 300; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">F.C. Hertha 03 Zehlendorf</p>
+    <div class="main-container qv-container">
+        <div class="container qv-container-glass">
+            <div class="title-section">
+                <h1 class="qv-title" style="font-size: 60px; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Quo Vadis</h1>
+                <p class="qv-subtitle" style="font-size: 24px; letter-spacing: 1px; font-weight: 300; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">F.C. Hertha 03 Zehlendorf</p>
             </div>
             
-            <div class="carousel-container">
+            <div class="carousel-container qv-carousel">
                 <!-- CAROUSEL -->
-                <div id="player-carousel" class="carousel slide" data-ride="carousel">                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
+                <div id="player-carousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators qv-carousel-indicators">
                         <li data-target="#player-carousel" data-slide-to="0" class="active"></li>
                         <li data-target="#player-carousel" data-slide-to="1"></li>
                         <li data-target="#player-carousel" data-slide-to="2"></li>
@@ -118,7 +125,10 @@
                         <li data-target="#player-carousel" data-slide-to="6"></li>
                         <li data-target="#player-carousel" data-slide-to="7"></li>
                     </ol>
-                      <!-- Wrapper for slides -->                    <div class="carousel-inner" role="listbox">                        <div class="item active">
+                    
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner qv-carousel-inner" role="listbox">
+                        <div class="item active">
                             <a href="finley.html">
                                 <img src="assets/images/Finley(2).png" alt="Finley" class="img-responsive">
                             </a>
@@ -142,8 +152,6 @@
                             </a>
                         </div>
                         
-                      
-                       
                         <div class="item">
                             <a href="finley.html">
                                 <img src="static/photos/WhatsApp Image 2024-07-04 at 14.58.11(1)(1)_attr1_subject.png" alt="Player" class="img-responsive">
@@ -162,12 +170,13 @@
                             </a>
                         </div>
                     </div>
-                      <!-- Controls -->
-                    <a class="left carousel-control" href="#player-carousel" role="button" data-slide="prev">
+                    
+                    <!-- Controls -->
+                    <a class="left carousel-control qv-carousel-control" href="#player-carousel" role="button" data-slide="prev">
                         <span class="fa fa-arrow-circle-left" aria-hidden="true" style="font-size: 36px; margin-top: -18px; position: absolute; top: 50%;"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="right carousel-control" href="#player-carousel" role="button" data-slide="next">
+                    <a class="right carousel-control qv-carousel-control" href="#player-carousel" role="button" data-slide="next">
                         <span class="fa fa-arrow-circle-right" aria-hidden="true" style="font-size: 36px; margin-top: -18px; position: absolute; top: 50%;"></span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -176,7 +185,7 @@
             </div>
             
             <div class="text-center" style="margin-top: 30px;">
-                <a href="uebersicht.html" class="btn btn-primary btn-lg">ENTER SITE</a>
+                <a href="uebersicht.html" class="qv-btn qv-btn-primary btn-lg">ENTER SITE</a>
             </div>
         </div>
     </div>
@@ -186,6 +195,9 @@
     
     <!-- JAVASCRIPTS TEMPLATE -->
     <script type="text/javascript" src="assets/js/scripts.js"></script>
+    
+    <!-- TABLER JS -->
+    <script type="text/javascript" src="libs/tabler/tabler.min.js" defer></script>
     
     <script>
         // Adjust carousel interval (in milliseconds)

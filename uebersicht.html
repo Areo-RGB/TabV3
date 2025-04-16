@@ -280,27 +280,12 @@
         color: #e0e7ff !important;
         transition: color 0.3s ease, transform 0.3s ease;
       }
-      
-      .nav-link:hover {
+        .nav-link:hover {
         color: #45a2ff !important;
         transform: scale(1.05);
       }
       
-      .nav-item.active .nav-link {
-        color: #45a2ff !important;
-        font-weight: 700;
-        position: relative;
-      }
-        .nav-item.active .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: #45a2ff;
-        box-shadow: 0 0 5px #45a2ff;
-      }
+      /* Active item highlight removed */
       
       /* Dropdown Menu - Fix for overlap issue */
       .dropdown-menu {
@@ -404,12 +389,14 @@
                     </li>
                     <li class="nav-item"> <!-- Daten -->
                       <a class="nav-link" href="./daten.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M4 7v-1a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-1" />
-                            <path d="M7 9l4 -4l4 4" />
-                            <path d="M12 5l0 9" />
-                            <path d="M7 14l4 4l4 -4" />
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                            <path d="M8 8v.01" />
+                            <path d="M16 16v.01" />
+                            <path d="M16 8v.01" />
+                            <path d="M8 16v.01" />
                           </svg>
                         </span>
                         <span class="nav-link-title"> Daten </span>

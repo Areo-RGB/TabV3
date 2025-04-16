@@ -21,18 +21,12 @@
     <link rel="shortcut icon" href="./static/Favicon/favicon.ico">
     <!-- BEGIN STYLES -->
     <link href="./dist/css/tabler.min.css?1740918423" rel="stylesheet" />
-    <link href="./dist/css/tabler-flags.min.css?1740918423" rel="stylesheet" />
-    <link href="./dist/css/tabler-socials.min.css?1740918423" rel="stylesheet" />
-    <link href="./dist/css/tabler-payments.min.css?1740918423" rel="stylesheet" />
-    <link href="./dist/css/tabler-vendors.min.css?1740918423" rel="stylesheet" />
-    <link href="./dist/css/tabler-marketing.min.css?1740918423" rel="stylesheet" />
-    <link href="./preview/css/demo.min.css?1740918423" rel="stylesheet" />
     <!-- BEGIN CUSTOM STYLES -->
     <style>
       /* Reset and Base Styles */
       body {
         background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
-        font-family: 'Exo 2', sans-serif;
+        font-family: 'Inter', sans-serif;
         color: #e0e7ff;
         overflow-x: hidden;
         margin: 0;
@@ -237,24 +231,14 @@
       .nav-link:hover {
         color: #45a2ff !important;
         transform: scale(1.1);
-      }
-
+      }      /* Active item highlight removed */
       .nav-item.active .nav-link {
-        color: #45a2ff !important;
-        font-weight: 700;
+        color: #e0e7ff !important;
+        font-weight: normal;
         position: relative;
       }
 
-      .nav-item.active .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: #45a2ff;
-        box-shadow: 0 0 5px #45a2ff;
-      }
+      /* Removed the active nav item underline */
       
       /* Fix for dropdown being covered by other elements */
       .navbar-nav .nav-item.dropdown {
@@ -471,12 +455,14 @@
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="./daten.html">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                            <path d="M4 7v-1a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-1" />
-                            <path d="M7 9l4 -4l4 4" />
-                            <path d="M12 5l0 9" />
-                            <path d="M7 14l4 4l4 -4" />
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                            <path d="M8 8v.01" />
+                            <path d="M16 16v.01" />
+                            <path d="M16 8v.01" />
+                            <path d="M8 16v.01" />
                           </svg>
                         </span>
                         <span class="nav-link-title"> Daten </span>
