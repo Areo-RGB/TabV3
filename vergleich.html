@@ -371,8 +371,57 @@
         }
       }
 
-      /* Font Import */
-      @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap');
+      #bar-points {
+  background: rgba(27, 38, 59, 0.9);
+  border-radius: 12px;
+  padding: 16px;
+}
+#bar-points,
+#bar-points .apexcharts-canvas,
+#bar-points .apexcharts-canvas svg {
+  background: rgba(27, 38, 59, 0.9) !important;
+  border-radius: 12px !important;
+}
+#bar-points .apexcharts-plot-area {
+  border-radius: 12px !important;
+}
+#bar-points .apexcharts-background {
+  fill: transparent !important;
+}
+#radar-chart {
+  background: rgba(27, 38, 59, 0.9);
+  border-radius: 12px;
+  padding: 16px;
+}
+#radar-chart,
+#radar-chart .apexcharts-canvas,
+#radar-chart .apexcharts-canvas svg {
+  background: rgba(27, 38, 59, 0.9) !important;
+  border-radius: 12px !important;
+}
+#radar-chart .apexcharts-plot-area {
+  border-radius: 12px !important;
+}
+#radar-chart .apexcharts-background {
+  fill: transparent !important;
+}
+#pie-chart {
+  background: rgba(27, 38, 59, 0.9);
+  border-radius: 12px;
+  padding: 16px;
+}
+#pie-chart,
+#pie-chart .apexcharts-canvas,
+#pie-chart .apexcharts-canvas svg {
+  background: rgba(27, 38, 59, 0.9) !important;
+  border-radius: 12px !important;
+}
+#pie-chart .apexcharts-plot-area {
+  border-radius: 12px !important;
+}
+#pie-chart .apexcharts-background {
+  fill: transparent !important;
+}
     </style>
     <!-- END CUSTOM STYLES -->
   </head>
@@ -582,28 +631,29 @@
                 </div>
                 
                 <div id="comparison-results" style="display: none;">                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="card">
-                        <div class="card-header">
-                          <h4 class="card-title" id="radar-title">Leistungsprofil</h4>
-                        </div>
-                        <div class="card-body">
-                          <div id="radar-chart" style="height: 300px;"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="card">
-                        <div class="card-header">
-                          <h4 class="card-title" id="bar-title">Direktvergleich</h4>
-                        </div>
-                        <div class="card-body">
-                          <div id="bar-chart" style="height: 300px;"></div>
+                      <div class="col-12 mb-4">
+                        <div class="card">
+                          <div class="card-header">
+                            <h4 class="card-title" id="pie-title">Punkteverteilung je Kategorie</h4>
+                          </div>
+                          <div class="card-body">
+                            <div id="pie-chart" style="height: 350px;"></div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  
+                    </div>  <!-- end of radar row -->
+                   <div class="row">
+                     <div class="col-12 mb-4">
+                       <div class="card">
+                         <div class="card-header">
+                           <h4 class="card-title">Punkte pro Kategorie</h4>
+                         </div>
+                         <div class="card-body">
+                           <div id="bar-points" style="height: 350px;"></div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
                   <!-- Winner display will be placed here -->
                   <div id="comparison-winner" class="card mb-4"></div>
                   
@@ -768,8 +818,8 @@
           }
           
           // Filter data for selected players
-          const player1Data = athleteData.filter(row => row[2] === player1);
-          const player2Data = athleteData.filter(row => row[2] === player2);
+          let player1Data = athleteData.filter(row => row[2] === player1);
+          let player2Data = athleteData.filter(row => row[2] === player2);
           
           if (category) {
             player1Data = player1Data.filter(row => row[0] === category);
@@ -804,8 +854,8 @@
           createComparisonTable(player1Data, player2Data, player1, player2);
           
           // Create comparison charts (would implement with ApexCharts)
-          createRadarChart(player1Data, player2Data, player1, player2);
-          createBarChart(player1Data, player2Data, player1, player2);
+          createPieChart(player1Data, player2Data, player1, player2);
+          createPointsBarChart(player1Data, player2Data, player1, player2);
         });        function createComparisonTable(player1Data, player2Data, player1Name, player2Name) {
           const tableBody = document.querySelector('#comparison-table tbody');
           tableBody.innerHTML = '';
@@ -855,6 +905,7 @@
             let player1Better = false; // Define player1Better outside the conditional block
             let adjective = 'besser'; // Default adjective if no specific one is determined
               
+            
             if (player1Value !== null && player2Value !== null) {              // Calculate absolute difference
               difference = player1Value - player2Value;
                 // Determine which player performed better based on the exercise type
@@ -862,6 +913,7 @@
                 // For exercises where lower is better (like sprint times), invert the comparison
               player1Better = lowerIsBetter ? player1Value < player2Value : player1Value > player2Value;
               
+
               // Award a point to the better player
               if (player1Better) {
                 player1Points++;
@@ -902,7 +954,9 @@
                 } else if (/schuss/i.test(item.exercise)) {
                   adjective = 'treffsicherer';
                 }
-              }            }              tableBody.innerHTML += `
+              }
+            }
+              tableBody.innerHTML += `
               <tr>
                 <td>${item.category}</td>
                 <td>${item.exercise}</td>
@@ -1014,28 +1068,138 @@
         }
         
         function createRadarChart(player1Data, player2Data, player1Name, player2Name) {
-          // Simplified implementation - in a real app would aggregate by category
-          const categories = [...new Set([...player1Data.map(row => row[0]), ...player2Data.map(row => row[0])])];
-          
-          const player1Scores = categories.map(category => {
-            const exercises = player1Data.filter(row => row[0] === category);
-            return exercises.length > 0 ? exercises.reduce((sum, row) => sum + parseFloat(row[3]), 0) / exercises.length : 0;
+  // 1 point per won exercise, aggregated by category
+  const categories = [...new Set([...player1Data.map(r=>r[0]), ...player2Data.map(r=>r[0])])];
+  const points1 = [];
+  const points2 = [];
+  categories.forEach(cat => {
+    const ex1 = player1Data.filter(r=>r[0]===cat);
+    const ex2 = player2Data.filter(r=>r[0]===cat);
+    const names = [...new Set([...ex1.map(r=>r[1]), ...ex2.map(r=>r[1])])];
+    let p1=0, p2=0;
+    names.forEach(name => {
+      const v1 = parseFloat((ex1.find(r=>r[1]===name)||[])[3]||NaN);
+      const v2 = parseFloat((ex2.find(r=>r[1]===name)||[])[3]||NaN);
+      if (!isNaN(v1) && !isNaN(v2)) {
+        const lowerIsBetter = /sprint|lauf|zeit|time|einbeinstand|agility|shuttle|ballkontrolle|dribbling|gewandtheit/i.test(name);
+        if ((lowerIsBetter && v1 < v2) || (!lowerIsBetter && v1 > v2)) p1++;
+        else if ((lowerIsBetter && v2 < v1) || (!lowerIsBetter && v2 > v1)) p2++;
+      }
+    });
+    points1.push(p1);
+    points2.push(p2);
+  });
+  const maxPts = Math.max(...points1, ...points2, 1);
+  // render Radar of points per category
+  const options = {
+    theme: { mode: 'dark' },
+    chart: { type: 'radar', toolbar: { show: false }, foreColor: '#e0e7ff' },
+    title: { text: 'Gewonnene Übungen je Kategorie', style: { color: '#e0e7ff' } },
+    series: [ { name: player1Name, data: points1 }, { name: player2Name, data: points2 } ],
+    xaxis: { categories, labels: { style: { colors: '#e0e7ff' } } },
+    yaxis: { show: true, max: maxPts, labels: { style: { colors: '#e0e7ff' } }, title: { text: 'Punkte' } },
+    markers: { size: 4 },
+    tooltip: { theme: 'dark', marker: { show: false }, y: { formatter: val => val + ' Pt.' } },
+    grid: { borderColor: 'rgba(69,162,255,0.3)' }
+  };
+  document.getElementById('radar-chart').innerHTML = '';
+  new ApexCharts(document.getElementById('radar-chart'), options).render();
+}
+        function createPointsBarChart(player1Data, player2Data, player1Name, player2Name) {
+          // collect unique categories
+          const categories = [...new Set([...player1Data.map(r=>r[0]), ...player2Data.map(r=>r[0])])];
+          const points1 = [];
+          const points2 = [];
+          const wins1 = [];
+          const wins2 = [];
+          categories.forEach(cat => {
+            // filter exercises in this category for both players
+            const ex1 = player1Data.filter(r=>r[0]===cat);
+            const ex2 = player2Data.filter(r=>r[0]===cat);
+            // build a set of unique exercise names
+            const names = [...new Set([...ex1.map(r=>r[1]), ...ex2.map(r=>r[1])])];
+            let p1 = 0, p2 = 0;
+            const w1 = [];
+            const w2 = [];
+            names.forEach(name => {
+              const v1 = parseFloat((ex1.find(r=>r[1]===name)||[])[3]||NaN);
+              const v2 = parseFloat((ex2.find(r=>r[1]===name)||[])[3]||NaN);
+              if (!isNaN(v1) && !isNaN(v2)) {
+                const lowerIsBetter = /sprint|lauf|zeit|time|einbeinstand|agility|shuttle|ballkontrolle|dribbling|gewandtheit/i.test(name);
+                if ((lowerIsBetter && v1 < v2) || (!lowerIsBetter && v1 > v2)) { p1++; w1.push(name); }
+                else if ((lowerIsBetter && v2 < v1) || (!lowerIsBetter && v2 > v1)) { p2++; w2.push(name); }
+              }
+            });
+            points1.push(p1);
+            points2.push(p2);
+            wins1.push(w1);
+            wins2.push(w2);
           });
-          
-          const player2Scores = categories.map(category => {
-            const exercises = player2Data.filter(row => row[0] === category);
-            return exercises.length > 0 ? exercises.reduce((sum, row) => sum + parseFloat(row[3]), 0) / exercises.length : 0;
+          // render bar chart of points per category
+          const options = {
+            theme: { mode: 'dark' },
+            chart: { type:'bar', height:350, foreColor: '#e0e7ff' },
+            plotOptions: { bar: { horizontal: false, columnWidth: '50%', endingShape: 'rounded' } },
+            series: [
+              { name: player1Name, data: points1 },
+              { name: player2Name, data: points2 }
+            ],
+            xaxis: { categories: categories, title: { text: 'Kategorie' }, labels: { style: { colors: '#e0e7ff' } } },
+            yaxis: { title: { text: 'Punkte' }, labels: { style: { colors: '#e0e7ff' } } },
+            tooltip: {
+              theme: 'dark',
+              style: { fontSize: '12px', color: '#e0e7ff' },
+              marker: { show: false },
+              shared: false,
+              y: {
+                formatter: (val, opts) => {
+                  const idx = opts.dataPointIndex;
+                  const winnerList = opts.seriesIndex === 0 ? wins1[idx] : wins2[idx];
+                  const player = opts.seriesIndex === 0 ? player1Name : player2Name;
+                  const list = winnerList.length ? winnerList.join(', ') : 'Keine';
+                  return `${val} Pt. (${player} gewann: ${list})`;
+                }
+              }
+            },
+            colors: ['#45a2ff','#ffa500'],
+            grid: { borderColor: 'rgba(69,162,255,0.3)' }
+          };
+          document.getElementById('bar-points').innerHTML='';
+          new ApexCharts(document.getElementById('bar-points'), options).render();
+        }
+        function createPieChart(player1Data, player2Data, player1Name, player2Name) {
+          // categories and points per category
+          const categories = [...new Set([...player1Data.map(r=>r[0]), ...player2Data.map(r=>r[0])])];
+          const totals = [];
+          categories.forEach(cat => {
+            const ex1 = player1Data.filter(r=>r[0]===cat);
+            const ex2 = player2Data.filter(r=>r[0]===cat);
+            const names = [...new Set([...ex1.map(r=>r[1]), ...ex2.map(r=>r[1])])];
+            let sum = 0;
+            names.forEach(name => {
+              const v1 = parseFloat((ex1.find(r=>r[1]===name)||[])[3]||NaN);
+              const v2 = parseFloat((ex2.find(r=>r[1]===name)||[])[3]||NaN);
+              if (!isNaN(v1) && !isNaN(v2)) {
+                const lowerIsBetter = /sprint|lauf|zeit|time|einbeinstand|agility|shuttle|ballkontrolle|dribbling|gewandtheit/i.test(name);
+                if ((lowerIsBetter && v1 < v2) || (!lowerIsBetter && v1 > v2)) sum++;
+                else if ((lowerIsBetter && v2 < v1) || (!lowerIsBetter && v2 > v1)) sum++;
+              }
+            });
+            totals.push(sum);
           });
-          
-          // This is a placeholder - in a real implementation, we would create an actual ApexCharts radar chart
-          document.getElementById('radar-chart').innerHTML = `<div class="text-center text-secondary pt-5">Radar chart would display here with ${categories.length} categories</div>`;
+          // render pie chart
+          const options = {
+            theme: { mode: 'dark' },
+            chart: { type: 'pie', foreColor: '#e0e7ff' },
+            labels: categories,
+            series: totals,
+            tooltip: { theme: 'dark', fillSeriesColor: false, y: { formatter: val => val + ' Pt.' } },
+            legend: { labels: { colors: '#e0e7ff' } },
+            colors: ['#45a2ff', '#ffa500', '#4bbf73', '#f48fb1', '#ce93d8', '#ffcc80']
+          };
+          document.getElementById('pie-chart').innerHTML = '';
+          new ApexCharts(document.getElementById('pie-chart'), options).render();
         }
-        
-        function createBarChart(player1Data, player2Data, player1Name, player2Name) {
-          // Simplified implementation - in a real app would use ApexCharts
-          document.getElementById('bar-chart').innerHTML = `<div class="text-center text-secondary pt-5">Bar chart would display here comparing ${player1Name} and ${player2Name}</div>`;
-        }
-        
         // Theme toggling
         const darkModeToggle = document.getElementById('darkModeToggle');
         const lightModeToggle = document.getElementById('lightModeToggle');

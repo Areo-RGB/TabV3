@@ -488,6 +488,24 @@
                         <span class="nav-link-title"> Daten </span>
                       </a>
                     </li>
+                    <!-- Add Vergleich nav-item -->
+                    <li class="nav-item">
+                      <a class="nav-link" href="./vergleich.html">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                            <path d="M5 9l4 0l0 -4" />
+                            <path d="M3 3l6 6" />
+                            <path d="M19 9l-4 0l0 -4" />
+                            <path d="M21 3l-6 6" />
+                            <path d="M5 15l4 0l0 4" />
+                            <path d="M3 21l6 -6" />
+                            <path d="M19 15l-4 0l0 4" />
+                            <path d="M21 21l-6 -6" />
+                          </svg>
+                        </span>
+                        <span class="nav-link-title"> Vergleich </span>
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -639,7 +657,12 @@
                   <div class="card-header qv-card-header" id="leistungsdiagnostik-header" style="cursor: pointer; position: relative; z-index: 100;">
                     <div class="d-flex align-items-center justify-content-between w-100"> <!-- Added w-100 here -->
                       <div class="d-flex align-items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/DFB-Logo.svg" alt="DFB Logo" style="height: 30px; margin-right: 15px;">                      <h3 class="card-title qv-title m-0">Technomotorische Leistungsdiagnostik</h3>
+                      <!-- Added chart icon -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon text-primary me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M13 3a9 9 0 1 0 8.485 11.364l-7.071 -7.071zm2.828 8.485l-7.071 -7.071" />
+                      </svg>
+                      <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/DFB-Logo.svg" alt="DFB Logo" style="height: 30px; margin-right: 15px;">                      <h3 class="card-title qv-title m-0">Technomotorische Leistungsdiagnostik</h3>
                       </div>
                       <div id="toggle-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -699,6 +722,7 @@
                 console.log('Collapsible section initialized');
               });
             </script>
+
             <div id="kpi-container" style="display: none;">
               <!-- Original KPI container hidden but kept for script compatibility -->
             </div>            <!-- Motorik Metrics - Hidden -->
@@ -809,6 +833,42 @@
             <!--
             </div>
             -->
+
+            <!-- BEGIN VIDEO LIBRARY SECTION -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="card qv-card">
+                  <div class="card-header qv-card-header">
+                    <h3 class="card-title m-0">Video Library</h3>
+                  </div>
+                  <div class="card-body d-flex">
+                    <div class="list-group me-4" id="video-list">
+                      <a href="#" class="list-group-item list-group-item-action active" data-video-id="4btYiWrHK8Y">DFB</a>
+                      <a href="#" class="list-group-item list-group-item-action" data-video-id="VIDEO_ID_2">Video Title 2</a>
+                      <a href="#" class="list-group-item list-group-item-action" data-video-id="VIDEO_ID_3">Video Title 3</a>
+                    </div>
+                    <div class="flex-fill">
+                      <div class="ratio ratio-16x9">
+                        <iframe id="video-player" src="https://www.youtube.com/embed/4btYiWrHK8Y" title="Video player" allowfullscreen></iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <script>
+              // Video list selection handling
+              document.querySelectorAll('#video-list .list-group-item-action').forEach(item => {
+                item.addEventListener('click', e => {
+                  e.preventDefault();
+                  document.querySelector('#video-list .active').classList.remove('active');
+                  item.classList.add('active');
+                  const vid = item.getAttribute('data-video-id');
+                  document.getElementById('video-player').src = 'https://www.youtube.com/embed/' + vid;
+                });
+              });
+            </script>
+
           </div>
         </div>
         <!-- END PAGE BODY -->
@@ -1345,6 +1405,7 @@
               let allCategories = [];
 
               // Add Finley's result
+              allValues.push(data.exercise === 'Balljonglieren' ?```html
               allValues.push(data.exercise === 'Balljonglieren' ? Math.round(data.finleyResult) : parseFloat(data.finleyResult.toFixed(2)));
               allCategories.push(playerName);
 
@@ -1360,7 +1421,6 @@
                 allValues.push(data.exercise === 'Balljonglieren' ? Math.round(bentResult) : parseFloat(bentResult.toFixed(2)));
                 allCategories.push("Bent");
               }
-
               // Add DFB benchmarks
               data.dfbValues.forEach((value, index) => {
                 allValues.push(data.exercise === 'Balljonglieren' ? Math.round(value) : parseFloat(value.toFixed(2)));
